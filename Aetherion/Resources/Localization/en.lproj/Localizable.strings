@@ -1,0 +1,41 @@
+// === File: Localizable.strings (EN)
+// Version: 1.0
+// Date: 2025-08-30 05:30:00 UTC
+// Description: English localization for Aetherion base UI.
+// Author: K-Cim
+
+"home" = "Home";
+"home_title" = "Welcome to Aetherion";
+"home_tagline" = "Your secure vault for digital memories";
+"home_enter" = "Enter";
+
+"dashboard_title" = "Dashboard";
+"documents_section" = "Documents";
+"no_files_title" = "No files yet";
+"no_files_subtitle" = "Start by adding your first document";
+
+"navigation_section" = "Navigation";
+"settings" = "Settings";
+"vault" = "Vault";
+"share" = "Share";
+"onboarding" = "Onboarding";
+"refresh" = "Refresh";
+"add" = "Add";
+
+"settings_appearance" = "Appearance";
+"settings_theme" = "Theme";
+"settings_theme_desc" = "Configure colors and card gradient";
+
+"settings_storage_section" = "Storage";
+"settings_storage" = "File Storage";
+"settings_storage_desc" = "Save locations and retention";
+"settings_backup" = "Backup";
+"settings_backup_desc" = "Automatic backups and restore";
+
+"settings_contacts_section" = "Contacts";
+"settings_contacts" = "Contacts";
+"settings_contacts_desc" = "Trusted contacts and sharing";
+
+"soon_title" = "Soon";
+"soon_message" = "\"%@\" will be available soon.";
+

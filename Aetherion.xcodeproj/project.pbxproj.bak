@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		770F11E92E62DEFC004D78C8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11E82E62DEFA004D78C8 /* Theme.swift */; };
-		770F11EB2E62DF80004D78C8 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11EA2E62DF6F004D78C8 /* ThemeManager.swift */; };
-		770F11ED2E62DFBA004D78C8 /* ThemedModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11EC2E62DFB4004D78C8 /* ThemedModifiers.swift */; };
-		770F11EF2E62E092004D78C8 /* ThemedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11EE2E62E083004D78C8 /* ThemedCard.swift */; };
-		770F11F12E62E314004D78C8 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11F02E62E300004D78C8 /* SettingsRow.swift */; };
 		77350EC32E624C0E00491B6D /* ThemeStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC22E624BFE00491B6D /* ThemeStyles.swift */; };
 		77350EC52E624DF500491B6D /* ThemeConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC42E624DDF00491B6D /* ThemeConfigView.swift */; };
+		77350EC72E6254BE00491B6D /* ThemedModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC62E6254B900491B6D /* ThemedModifiers.swift */; };
+		77350EC92E6264FD00491B6D /* ThemedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC82E6264EE00491B6D /* ThemedCard.swift */; };
 		77350ECB2E62674300491B6D /* SettingsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350ECA2E62673400491B6D /* SettingsMenuView.swift */; };
+		77350ECD2E62679800491B6D /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350ECC2E62677100491B6D /* SettingsRow.swift */; };
 		77350ECF2E626B3400491B6D /* ThemedBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350ECE2E626B2D00491B6D /* ThemedBottomBar.swift */; };
 		77855A272E620F7900B5B80F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A182E620F7900B5B80F /* SettingsView.swift */; };
 		77855A282E620F7900B5B80F /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A1C2E620F7900B5B80F /* ShareViewModel.swift */; };
@@ -36,18 +34,19 @@
 		77855A5B2E622F2F00B5B80F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A5A2E622F1F00B5B80F /* DashboardView.swift */; };
 		77A36CCF2E60F04B005C2D20 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 77A36CCE2E60F04B005C2D20 /* ZIPFoundation */; };
 		77A36CD22E60F057005C2D20 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 77A36CD12E60F057005C2D20 /* Algorithms */; };
+		77C28FBF2E62861500DF8467 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C28FBE2E62860F00DF8467 /* ColorPickerView.swift */; };
+		77F2F0BD2E628E8E00B7D5FF /* ThemeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F2F0BC2E628E7C00B7D5FF /* ThemeStyle.swift */; };
 		77F2F0C12E6290BC00B7D5FF /* AeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F2F0C02E6290A700B7D5FF /* AeTheme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		770F11E82E62DEFA004D78C8 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		770F11EA2E62DF6F004D78C8 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
-		770F11EC2E62DFB4004D78C8 /* ThemedModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedModifiers.swift; sourceTree = "<group>"; };
-		770F11EE2E62E083004D78C8 /* ThemedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedCard.swift; sourceTree = "<group>"; };
-		770F11F02E62E300004D78C8 /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
+		77350EBE2E62492F00491B6D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		77350EC22E624BFE00491B6D /* ThemeStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStyles.swift; sourceTree = "<group>"; };
 		77350EC42E624DDF00491B6D /* ThemeConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeConfigView.swift; sourceTree = "<group>"; };
+		77350EC62E6254B900491B6D /* ThemedModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedModifiers.swift; sourceTree = "<group>"; };
+		77350EC82E6264EE00491B6D /* ThemedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedCard.swift; sourceTree = "<group>"; };
 		77350ECA2E62673400491B6D /* SettingsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuView.swift; sourceTree = "<group>"; };
+		77350ECC2E62677100491B6D /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
 		77350ECE2E626B2D00491B6D /* ThemedBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedBottomBar.swift; sourceTree = "<group>"; };
 		77855A092E620F3000B5B80F /* Aetherion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aetherion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77855A0A2E620F7900B5B80F /* AetherionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherionApp.swift; sourceTree = "<group>"; };
@@ -69,6 +68,9 @@
 		77855A542E6228AF00B5B80F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77855A582E622ED500B5B80F /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		77855A5A2E622F1F00B5B80F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		77C28FBE2E62860F00DF8467 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
+		77C28FC02E62876F00DF8467 /* UIColor+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Components.swift"; sourceTree = "<group>"; };
+		77F2F0BC2E628E7C00B7D5FF /* ThemeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStyle.swift; sourceTree = "<group>"; };
 		77F2F0C02E6290A700B7D5FF /* AeTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeTheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				77F2F0C02E6290A700B7D5FF /* AeTheme.swift */,
+				77F2F0BC2E628E7C00B7D5FF /* ThemeStyle.swift */,
 				77855A0E2E620F7900B5B80F /* StorageService.swift */,
 			);
 			path = Services;
@@ -199,10 +202,12 @@
 		77855A242E620F7900B5B80F /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				770F11F02E62E300004D78C8 /* SettingsRow.swift */,
-				770F11EE2E62E083004D78C8 /* ThemedCard.swift */,
+				77C28FC02E62876F00DF8467 /* UIColor+Components.swift */,
+				77C28FBE2E62860F00DF8467 /* ColorPickerView.swift */,
 				77350ECE2E626B2D00491B6D /* ThemedBottomBar.swift */,
+				77350EC82E6264EE00491B6D /* ThemedCard.swift */,
 				77855A232E620F7900B5B80F /* PrimaryButton.swift */,
+				77350ECC2E62677100491B6D /* SettingsRow.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -231,10 +236,9 @@
 		77855A442E6222C800B5B80F /* Theme */ = {
 			isa = PBXGroup;
 			children = (
-				770F11EC2E62DFB4004D78C8 /* ThemedModifiers.swift */,
-				770F11EA2E62DF6F004D78C8 /* ThemeManager.swift */,
-				770F11E82E62DEFA004D78C8 /* Theme.swift */,
+				77350EC62E6254B900491B6D /* ThemedModifiers.swift */,
 				77350EC22E624BFE00491B6D /* ThemeStyles.swift */,
+				77350EBE2E62492F00491B6D /* Theme.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -336,27 +340,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				770F11EF2E62E092004D78C8 /* ThemedCard.swift in Sources */,
 				77350ECB2E62674300491B6D /* SettingsMenuView.swift in Sources */,
-				770F11ED2E62DFBA004D78C8 /* ThemedModifiers.swift in Sources */,
 				77855A272E620F7900B5B80F /* SettingsView.swift in Sources */,
 				77855A5B2E622F2F00B5B80F /* DashboardView.swift in Sources */,
-				770F11E92E62DEFC004D78C8 /* Theme.swift in Sources */,
+				77F2F0BD2E628E8E00B7D5FF /* ThemeStyle.swift in Sources */,
 				77855A282E620F7900B5B80F /* ShareViewModel.swift in Sources */,
 				77855A292E620F7900B5B80F /* VaultViewModel.swift in Sources */,
+				77350ECD2E62679800491B6D /* SettingsRow.swift in Sources */,
 				77350ECF2E626B3400491B6D /* ThemedBottomBar.swift in Sources */,
 				77350EC52E624DF500491B6D /* ThemeConfigView.swift in Sources */,
 				77855A2A2E620F7900B5B80F /* SettingsViewModel.swift in Sources */,
 				77855A2B2E620F7900B5B80F /* StorageService.swift in Sources */,
+				77C28FBF2E62861500DF8467 /* ColorPickerView.swift in Sources */,
+				77350EC72E6254BE00491B6D /* ThemedModifiers.swift in Sources */,
 				77855A2C2E620F7900B5B80F /* OnboardingViewModel.swift in Sources */,
-				770F11EB2E62DF80004D78C8 /* ThemeManager.swift in Sources */,
 				77855A592E622F0800B5B80F /* DashboardViewModel.swift in Sources */,
 				77855A2D2E620F7900B5B80F /* PrimaryButton.swift in Sources */,
-				770F11F12E62E314004D78C8 /* SettingsRow.swift in Sources */,
 				77855A2E2E620F7900B5B80F /* HomeViewModel.swift in Sources */,
 				77855A2F2E620F7900B5B80F /* OnboardingView.swift in Sources */,
 				77F2F0C12E6290BC00B7D5FF /* AeTheme.swift in Sources */,
 				77350EC32E624C0E00491B6D /* ThemeStyles.swift in Sources */,
+				77350EC92E6264FD00491B6D /* ThemedCard.swift in Sources */,
 				77855A302E620F7900B5B80F /* Asset.swift in Sources */,
 				77855A312E620F7900B5B80F /* HomeView.swift in Sources */,
 				77855A322E620F7900B5B80F /* AetherionApp.swift in Sources */,

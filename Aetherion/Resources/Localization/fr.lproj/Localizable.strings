@@ -1,0 +1,40 @@
+// === File: Localizable.strings (FR)
+// Version: 1.0
+// Date: 2025-08-30 05:30:00 UTC
+// Description: French localization for Aetherion base UI.
+// Author: K-Cim
+
+"home" = "Accueil";
+"home_title" = "Bienvenue dans Aetherion";
+"home_tagline" = "Votre coffre-fort numérique pour les souvenirs";
+"home_enter" = "Entrer";
+
+"dashboard_title" = "Tableau de bord";
+"documents_section" = "Documents";
+"no_files_title" = "Aucun fichier";
+"no_files_subtitle" = "Commencez par ajouter votre premier document";
+
+"navigation_section" = "Navigation";
+"settings" = "Paramètres";
+"vault" = "Coffre";
+"share" = "Partager";
+"onboarding" = "Démarrage";
+"refresh" = "Rafraîchir";
+"add" = "Ajouter";
+
+"settings_appearance" = "Apparence";
+"settings_theme" = "Thème";
+"settings_theme_desc" = "Configurer les couleurs et le dégradé des encadrés";
+
+"settings_storage_section" = "Stockage";
+"settings_storage" = "Sauvegarde de fichiers";
+"settings_storage_desc" = "Emplacements et rétention";
+"settings_backup" = "Sauvegarde";
+"settings_backup_desc" = "Sauvegardes automatiques et restauration";
+
+"settings_contacts_section" = "Contacts";
+"settings_contacts" = "Contacts";
+"settings_contacts_desc" = "Contacts de confiance et partage";
+
+"soon_title" = "Bientôt";
+"soon_message" = "\"%@\" sera disponible prochainement.";
