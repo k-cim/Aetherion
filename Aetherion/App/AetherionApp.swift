@@ -8,7 +8,7 @@ import SwiftUI
 
 @main
 struct AetherionApp: App {
-    @StateObject private var .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+    @StateObject private var themeManager = ThemeManager(default: ThemeID.aetherionDark)
 
     var body: some Scene {
         WindowGroup {

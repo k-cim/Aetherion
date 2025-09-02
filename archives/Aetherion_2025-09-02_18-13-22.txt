@@ -1,0 +1,71 @@
+# Aetherion Archive Report
+# Date: 2025-09-02_18-13-22 UTC
+
+## Archive created:
+/Users/mickaelpuaud/Dev/Aetherion/archives/Aetherion_2025-09-02_18-13-22.tar.gz
+
+## Git status:
+ M Aetherion.xcodeproj/project.pbxproj
+ D Aetherion.xcodeproj/xcuserdata/mickaelpuaud.xcuserdatad/xcschemes/xcschememanagement.plist
+ M Aetherion/App/AetherionApp.swift
+ M Aetherion/Core/Models/Asset.swift
+AM Aetherion/Core/Models/Contact.swift
+AM Aetherion/Core/Services/ContactsService.swift
+ M Aetherion/Core/Services/StorageService.swift
+AM Aetherion/Features/Contacts/ContactsView.swift
+AM Aetherion/Features/Contacts/ContactsViewModel.swift
+ M Aetherion/Features/Home/DashboardViewModel.swift
+ M Aetherion/Features/Settings/SettingsMenuView.swift
+ M Aetherion/Features/Vault/VaultView.swift
+ M Aetherion/Features/Vault/VaultViewModel.swift
+ M Aetherion/Resources/Localization/en.lproj/Localizable.strings
+ M Aetherion/Resources/Localization/fr.lproj/Localizable.strings
+ M Aetherion/UI/Components/ThemedBottomBar.swift
+?? archive_aetherion.sh
+?? archives/
+
+## Project structure (depth 3):
+/Users/mickaelpuaud/Dev/Aetherion
+├── Aetherion
+│   ├── App
+│   │   └── AetherionApp.swift
+│   ├── Core
+│   │   ├── Models
+│   │   ├── Services
+│   │   └── Utils
+│   ├── Features
+│   │   ├── Contacts
+│   │   ├── Home
+│   │   ├── Onboarding
+│   │   ├── Settings
+│   │   ├── Share
+│   │   └── Vault
+│   ├── Resources
+│   │   ├── Assets.xcassets
+│   │   ├── en.lproj
+│   │   └── Localization
+│   └── UI
+│       ├── Components
+│       └── Theme
+├── Aetherion.xcodeproj
+│   ├── project.pbxproj
+│   ├── project.pbxproj.bak
+│   └── project.xcworkspace
+│       ├── contents.xcworkspacedata
+│       ├── xcshareddata
+│       └── xcuserdata
+├── archive_aetherion.sh
+├── archives
+│   ├── Aetherion_2025-09-02_18-12-42.tar.gz
+│   ├── Aetherion_2025-09-02_18-12-42.txt
+│   └── Aetherion_2025-09-02_18-13-22.tar.gz
+├── Z_backup_20250830_090450
+├── Z_backup_conflicts
+│   ├── Theme.swift
+│   └── ThemeManager.swift
+└── Z_backup_conflicts_20250830_041522
+
+29 directories, 10 files
+
+## Confirmation:
+✅ Build OK, Project functional.

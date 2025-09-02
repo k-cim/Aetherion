@@ -39,3 +39,11 @@
 "soon_title" = "Soon";
 "soon_message" = "\"%@\" will be available soon.";
 
+"contacts" = "Contacts";
+"contacts_title" = "Contacts";
+"contacts_filter" = "Filter";
+"contacts_group_all" = "All";
+"contacts_group_family" = "Family";
+"contacts_group_friends" = "Friends";
+"contacts_group_others" = "Others";
+"contacts_empty" = "No contacts yet";

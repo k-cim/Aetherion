@@ -1,49 +1,74 @@
 // === File: StorageService.swift
-// Version: 1.0
-// Date: 2025-08-29 20:55:00 UTC
-// Description: Service to manage file storage in app's Documents directory.
+// Version: 1.1
+// Date: 2025-08-30 06:10:00 UTC
+// Description: Basic file storage service returning Asset models with optional URL.
 // Author: K-Cim
 
 import Foundation
 
+@MainActor
 final class StorageService {
-    private let fm = FileManager.default
+    static let shared = StorageService()
 
-    /// Returns URL to Documents directory
-    var documentsURL: URL {
-        fm.urls(for: .documentDirectory, in: .userDomainMask).first!
+    private let fileManager = FileManager.default
+    private let baseDir: URL
+
+    private init() {
+        // Store inside Application Support/Aetherion
+        let support = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let dir = support.appendingPathComponent("Aetherion", isDirectory: true)
+
+        // Ensure directory exists
+        try? fileManager.createDirectory(at: dir, withIntermediateDirectories: true)
+
+        baseDir = dir
     }
 
-    /// List all files in Documents and return as [Asset]
-    func listDocuments() throws -> [Asset] {
-        let urls = try fm.contentsOfDirectory(
-            at: documentsURL,
-            includingPropertiesForKeys: nil,
-            options: [.skipsHiddenFiles]
-        )
+    // MARK: - Public API
+
+    /// List all assets currently stored.
+    func listAssets() -> [Asset] {
+        guard let urls = try? fileManager.contentsOfDirectory(at: baseDir, includingPropertiesForKeys: [.fileSizeKey]) else {
+            return []
+        }
 
         return urls.compactMap { url in
-            guard !url.hasDirectoryPath else { return nil }
-            let attrs = (try? fm.attributesOfItem(atPath: url.path)) ?? [:]
-            return Asset(
-                name: url.lastPathComponent,
-                url: url,
-                size: (attrs[.size] as? NSNumber)?.int64Value ?? 0,
-                createdAt: attrs[.creationDate] as? Date
-            )
+            do {
+                let values = try url.resourceValues(forKeys: [.fileSizeKey])
+                let size = values.fileSize ?? 0
+                return Asset(name: url.lastPathComponent, size: size, url: url)
+            } catch {
+                return nil
+            }
         }
-        .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
     }
 
-    /// Create a sample file in Documents for testing
-    func createSampleFile(named name: String = "sample.txt") throws -> URL {
-        let fileURL = documentsURL.appendingPathComponent(name)
-        try "Hello Aetherion\n".write(to: fileURL, atomically: true, encoding: .utf8)
-        return fileURL
+    /// Save raw data as a new file, returns an Asset.
+    func save(data: Data, name: String) throws -> Asset {
+        let url = baseDir.appendingPathComponent(name)
+        try data.write(to: url, options: .atomic)
+
+        let size = (try? fileManager.attributesOfItem(atPath: url.path)[.size] as? Int) ?? data.count
+        return Asset(name: name, size: size, url: url)
     }
 
-    /// Delete a given file (asset)
-    func delete(_ asset: Asset) throws {
-        try fm.removeItem(at: asset.url)
+    /// Delete an asset (by file URL).
+    func delete(_ asset: Asset) {
+        guard let url = asset.url else { return }
+        try? fileManager.removeItem(at: url)
+    }
+
+    /// Load raw data for an asset.
+    func load(_ asset: Asset) -> Data? {
+        guard let url = asset.url else { return nil }
+        return try? Data(contentsOf: url)
+    }
+
+    /// Clear all stored assets.
+    func clearAll() {
+        let assets = listAssets()
+        for asset in assets {
+            delete(asset)
+        }
     }
 }

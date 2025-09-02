@@ -38,3 +38,11 @@
 
 "soon_title" = "Bientôt";
 "soon_message" = "\"%@\" sera disponible prochainement.";
+"contacts" = "Contacts";
+"contacts_title" = "Contacts";
+"contacts_filter" = "Filtre";
+"contacts_group_all" = "Tous";
+"contacts_group_family" = "Famille";
+"contacts_group_friends" = "Amis";
+"contacts_group_others" = "Autres";
+"contacts_empty" = "Aucun contact";

@@ -1,16 +1,17 @@
 // === File: VaultViewModel.swift
 // Version: 1.0
-// Date: 2025-08-29 20:45:00 UTC
-// Description: ViewModel for VaultView. Manages secured items in vault.
+// Date: 2025-08-30 06:30:00 UTC
+// Description: Minimal ViewModel for Vault, placeholder logic.
 // Author: K-Cim
 
-import Foundation
+import SwiftUI
 
 @MainActor
 final class VaultViewModel: ObservableObject {
-    @Published var items: [String] = []   // Placeholder list of vault items
+    @Published var assets: [Asset] = []
 
-    func addSample() {
-        items.append("Item #\(items.count + 1)")
+    /// Placeholder load (no real logic yet)
+    func load() {
+        assets = []
     }
 }

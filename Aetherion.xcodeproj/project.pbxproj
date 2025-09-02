@@ -12,6 +12,8 @@
 		770F11ED2E62DFBA004D78C8 /* ThemedModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11EC2E62DFB4004D78C8 /* ThemedModifiers.swift */; };
 		770F11EF2E62E092004D78C8 /* ThemedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11EE2E62E083004D78C8 /* ThemedCard.swift */; };
 		770F11F12E62E314004D78C8 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11F02E62E300004D78C8 /* SettingsRow.swift */; };
+		770F11F62E676213004D78C8 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11F52E6761FA004D78C8 /* Contact.swift */; };
+		770F11FF2E67648B004D78C8 /* ContactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11FE2E67647D004D78C8 /* ContactsService.swift */; };
 		77350EC32E624C0E00491B6D /* ThemeStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC22E624BFE00491B6D /* ThemeStyles.swift */; };
 		77350EC52E624DF500491B6D /* ThemeConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC42E624DDF00491B6D /* ThemeConfigView.swift */; };
 		77350ECB2E62674300491B6D /* SettingsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350ECA2E62673400491B6D /* SettingsMenuView.swift */; };
@@ -45,6 +47,8 @@
 		770F11EC2E62DFB4004D78C8 /* ThemedModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedModifiers.swift; sourceTree = "<group>"; };
 		770F11EE2E62E083004D78C8 /* ThemedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedCard.swift; sourceTree = "<group>"; };
 		770F11F02E62E300004D78C8 /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
+		770F11F52E6761FA004D78C8 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		770F11FE2E67647D004D78C8 /* ContactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsService.swift; sourceTree = "<group>"; };
 		77350EC22E624BFE00491B6D /* ThemeStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStyles.swift; sourceTree = "<group>"; };
 		77350EC42E624DDF00491B6D /* ThemeConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeConfigView.swift; sourceTree = "<group>"; };
 		77350ECA2E62673400491B6D /* SettingsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuView.swift; sourceTree = "<group>"; };
@@ -71,6 +75,14 @@
 		77855A5A2E622F1F00B5B80F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		77F2F0C02E6290A700B7D5FF /* AeTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeTheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		770F11F72E67625F004D78C8 /* Contacts */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Contacts;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		7741F0512E60E2F2001B7800 /* Frameworks */ = {
@@ -104,6 +116,7 @@
 		77855A0D2E620F7900B5B80F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				770F11F52E6761FA004D78C8 /* Contact.swift */,
 				77855A0C2E620F7900B5B80F /* Asset.swift */,
 			);
 			path = Models;
@@ -112,6 +125,7 @@
 		77855A0F2E620F7900B5B80F /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				770F11FE2E67647D004D78C8 /* ContactsService.swift */,
 				77F2F0C02E6290A700B7D5FF /* AeTheme.swift */,
 				77855A0E2E620F7900B5B80F /* StorageService.swift */,
 			);
@@ -187,6 +201,7 @@
 		77855A212E620F7900B5B80F /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				770F11F72E67625F004D78C8 /* Contacts */,
 				77855A142E620F7900B5B80F /* Home */,
 				77855A172E620F7900B5B80F /* Onboarding */,
 				77855A1A2E620F7900B5B80F /* Settings */,
@@ -271,6 +286,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				770F11F72E67625F004D78C8 /* Contacts */,
+			);
 			name = Aetherion;
 			packageProductDependencies = (
 				77A36CCE2E60F04B005C2D20 /* ZIPFoundation */,
@@ -336,6 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				770F11F62E676213004D78C8 /* Contact.swift in Sources */,
 				770F11EF2E62E092004D78C8 /* ThemedCard.swift in Sources */,
 				77350ECB2E62674300491B6D /* SettingsMenuView.swift in Sources */,
 				770F11ED2E62DFBA004D78C8 /* ThemedModifiers.swift in Sources */,
@@ -353,6 +372,7 @@
 				77855A592E622F0800B5B80F /* DashboardViewModel.swift in Sources */,
 				77855A2D2E620F7900B5B80F /* PrimaryButton.swift in Sources */,
 				770F11F12E62E314004D78C8 /* SettingsRow.swift in Sources */,
+				770F11FF2E67648B004D78C8 /* ContactsService.swift in Sources */,
 				77855A2E2E620F7900B5B80F /* HomeViewModel.swift in Sources */,
 				77855A2F2E620F7900B5B80F /* OnboardingView.swift in Sources */,
 				77F2F0C12E6290BC00B7D5FF /* AeTheme.swift in Sources */,

@@ -1,41 +1,53 @@
 // === File: VaultView.swift
-// Version: 1.0
-// Date: 2025-08-29 20:45:00 UTC
-// Description: SwiftUI view for Vault feature. Displays secured items.
+// Version: 1.1
+// Date: 2025-08-30 06:30:00 UTC
+// Description: Vault screen (placeholder) with persistent themed bottom bar.
 // Author: K-Cim
 
 import SwiftUI
 
 struct VaultView: View {
+    @EnvironmentObject private var themeManager: ThemeManager
     @StateObject private var vm = VaultViewModel()
 
     var body: some View {
-        List {
-            if vm.items.isEmpty {
-                ContentUnavailableView(
-                    "Vault is empty",
-                    systemImage: "lock",
-                    description: Text("Add items to the vault for testing.")
-                )
-            } else {
-                ForEach(vm.items, id: \.self) { it in
-                    HStack {
-                        Image(systemName: "doc.text")
-                        Text(it)
-                        Spacer()
+        ThemedScreen {
+            VStack(spacing: 12) {
+                // Contenu principal (placeholder pour l’instant)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text(NSLocalizedString("vault", comment: "Vault"))
+                            .font(.system(size: 28, weight: .bold, design: .rounded))
+                            .themedForeground(themeManager.theme)
+                            .padding(.horizontal, 16)
+                            .padding(.top, 8)
+
+                        ThemedCard {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Coffre en préparation")
+                                    .font(.headline.weight(.bold))
+                                    .themedForeground(themeManager.theme)
+                                Text("Ici s’afficheront vos fichiers sécurisés et actions (import, suppression, partage…).")
+                                    .font(.subheadline)
+                                    .themedSecondary(themeManager.theme)
+                            }
+                        }
+                        .padding(.horizontal, 16)
                     }
                 }
+
+                // 🔻 BARRE DU BAS — TOUJOURS EN DEHORS DU SCROLL
+                ThemedBottomBar(current: .vault)
             }
         }
-        .navigationTitle("Vault")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button { vm.addSample() } label: {
-                    Label("Add", systemImage: "plus")
-                }
-            }
-        }
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear { vm.load() }
     }
 }
 
-#Preview { VaultView() }
+#Preview {
+    NavigationStack {
+        VaultView()
+            .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+    }
+}

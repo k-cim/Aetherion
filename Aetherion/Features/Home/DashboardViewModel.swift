@@ -1,31 +1,24 @@
 // === File: DashboardViewModel.swift
-// Version: 1.0
-// Date: 2025-08-30 05:20:00 UTC
-// Description: ViewModel for Dashboard, manages asset list (sample/demo data).
+// Version: 1.1
+// Date: 2025-08-30 05:45:00 UTC
+// Description: ViewModel for Dashboard, uses Core/Models/Asset.
 // Author: K-Cim
 
 import SwiftUI
 
-/// A minimal model for demo purposes
-struct Asset: Identifiable {
-    let id = UUID()
-    let name: String
-    let size: Int
-}
-
 @MainActor
 final class DashboardViewModel: ObservableObject {
-    @Published var assets: [Asset] = []
+    @Published var assets: [Asset] = []   // ← Asset vient de Core/Models/Asset.swift
 
-    /// Load existing assets (for now: clear or mock data)
+    /// Load existing assets (placeholder for real storage)
     func load() {
-        // In a real app: load from StorageService
         assets = []
     }
 
     /// Add a demo asset
     func addSample() {
-        let sample = Asset(name: "Document-\(Int.random(in: 1...999))", size: Int.random(in: 1000...9999))
+        let sample = Asset(name: "Document-\(Int.random(in: 1...999))",
+                           size: Int.random(in: 1000...9999))
         assets.append(sample)
     }
 
