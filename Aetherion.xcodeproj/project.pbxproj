@@ -14,6 +14,9 @@
 		770F11F12E62E314004D78C8 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11F02E62E300004D78C8 /* SettingsRow.swift */; };
 		770F11F62E676213004D78C8 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11F52E6761FA004D78C8 /* Contact.swift */; };
 		770F11FF2E67648B004D78C8 /* ContactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11FE2E67647D004D78C8 /* ContactsService.swift */; };
+		770F12012E677021004D78C8 /* BackgroundColorConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12002E676FF2004D78C8 /* BackgroundColorConfigView.swift */; };
+		770F12032E677113004D78C8 /* ThemePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12022E677104004D78C8 /* ThemePersistence.swift */; };
+		770F12162E677411004D78C8 /* Untitled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12152E67740F004D78C8 /* Untitled.swift */; };
 		77350EC32E624C0E00491B6D /* ThemeStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC22E624BFE00491B6D /* ThemeStyles.swift */; };
 		77350EC52E624DF500491B6D /* ThemeConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC42E624DDF00491B6D /* ThemeConfigView.swift */; };
 		77350ECB2E62674300491B6D /* SettingsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350ECA2E62673400491B6D /* SettingsMenuView.swift */; };
@@ -49,6 +52,9 @@
 		770F11F02E62E300004D78C8 /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
 		770F11F52E6761FA004D78C8 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		770F11FE2E67647D004D78C8 /* ContactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsService.swift; sourceTree = "<group>"; };
+		770F12002E676FF2004D78C8 /* BackgroundColorConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorConfigView.swift; sourceTree = "<group>"; };
+		770F12022E677104004D78C8 /* ThemePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePersistence.swift; sourceTree = "<group>"; };
+		770F12152E67740F004D78C8 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 		77350EC22E624BFE00491B6D /* ThemeStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStyles.swift; sourceTree = "<group>"; };
 		77350EC42E624DDF00491B6D /* ThemeConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeConfigView.swift; sourceTree = "<group>"; };
 		77350ECA2E62673400491B6D /* SettingsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuView.swift; sourceTree = "<group>"; };
@@ -125,6 +131,7 @@
 		77855A0F2E620F7900B5B80F /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				770F12022E677104004D78C8 /* ThemePersistence.swift */,
 				770F11FE2E67647D004D78C8 /* ContactsService.swift */,
 				77F2F0C02E6290A700B7D5FF /* AeTheme.swift */,
 				77855A0E2E620F7900B5B80F /* StorageService.swift */,
@@ -172,6 +179,8 @@
 		77855A1A2E620F7900B5B80F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				770F12152E67740F004D78C8 /* Untitled.swift */,
+				770F12002E676FF2004D78C8 /* BackgroundColorConfigView.swift */,
 				77350ECA2E62673400491B6D /* SettingsMenuView.swift */,
 				77350EC42E624DDF00491B6D /* ThemeConfigView.swift */,
 				77855A182E620F7900B5B80F /* SettingsView.swift */,
@@ -357,11 +366,13 @@
 				770F11F62E676213004D78C8 /* Contact.swift in Sources */,
 				770F11EF2E62E092004D78C8 /* ThemedCard.swift in Sources */,
 				77350ECB2E62674300491B6D /* SettingsMenuView.swift in Sources */,
+				770F12012E677021004D78C8 /* BackgroundColorConfigView.swift in Sources */,
 				770F11ED2E62DFBA004D78C8 /* ThemedModifiers.swift in Sources */,
 				77855A272E620F7900B5B80F /* SettingsView.swift in Sources */,
 				77855A5B2E622F2F00B5B80F /* DashboardView.swift in Sources */,
 				770F11E92E62DEFC004D78C8 /* Theme.swift in Sources */,
 				77855A282E620F7900B5B80F /* ShareViewModel.swift in Sources */,
+				770F12032E677113004D78C8 /* ThemePersistence.swift in Sources */,
 				77855A292E620F7900B5B80F /* VaultViewModel.swift in Sources */,
 				77350ECF2E626B3400491B6D /* ThemedBottomBar.swift in Sources */,
 				77350EC52E624DF500491B6D /* ThemeConfigView.swift in Sources */,
@@ -369,6 +380,7 @@
 				77855A2B2E620F7900B5B80F /* StorageService.swift in Sources */,
 				77855A2C2E620F7900B5B80F /* OnboardingViewModel.swift in Sources */,
 				770F11EB2E62DF80004D78C8 /* ThemeManager.swift in Sources */,
+				770F12162E677411004D78C8 /* Untitled.swift in Sources */,
 				77855A592E622F0800B5B80F /* DashboardViewModel.swift in Sources */,
 				77855A2D2E620F7900B5B80F /* PrimaryButton.swift in Sources */,
 				770F11F12E62E314004D78C8 /* SettingsRow.swift in Sources */,

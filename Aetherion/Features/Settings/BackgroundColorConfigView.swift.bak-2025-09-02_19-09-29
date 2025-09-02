@@ -1,0 +1,72 @@
+// === File: BackgroundColorConfigView.swift
+// Version: 1.0
+// Date: 2025-08-30
+// Description: Config screen for background color with live preview and Apply/Reset.
+// Author: K-Cim
+
+import SwiftUI
+
+struct BackgroundColorConfigView: View {
+    @EnvironmentObject private var themeManager: ThemeManager
+
+    @State private var tempColor: Color = ThemePersistence.shared.loadBackgroundColor(default: .black)
+    @State private var savedColor: Color = ThemePersistence.shared.loadBackgroundColor(default: .black)
+
+    var body: some View {
+        ThemedScreen {
+            VStack(spacing: 20) {
+                Text("Couleur du fond")
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .themedForeground(themeManager.theme)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 8)
+
+                ThemedCard {
+                    ColorPicker("Choisir une couleur",
+                                selection: $tempColor,
+                                supportsOpacity: true)
+                        .onChange(of: tempColor) { newValue in
+                            themeManager.updateBackgroundColor(newValue) // live preview
+                        }
+                }
+                .padding(.horizontal, 16)
+
+                ThemedCard {
+                    RoundedRectangle(cornerRadius: themeManager.theme.cornerRadius)
+                        .fill(tempColor)
+                        .frame(height: 120)
+                        .overlay(
+                            Text("Aperçu")
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(Color.white)
+                        )
+                }
+                .padding(.horizontal, 16)
+
+                HStack(spacing: 12) {
+                    Button("Reset") {
+                        tempColor = savedColor
+                        themeManager.updateBackgroundColor(savedColor)
+                    }
+                    .buttonStyle(.bordered)
+
+                    Button("Apply") {
+                        savedColor = tempColor
+                        themeManager.applyBackgroundColor(tempColor)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                .padding(.horizontal, 16)
+
+                Spacer(minLength: 12)
+                ThemedBottomBar(current: .settings)
+            }
+        }
+    }
+}
+
+#Preview {
+    BackgroundColorConfigView()
+        .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+}

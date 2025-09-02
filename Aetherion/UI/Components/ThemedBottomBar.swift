@@ -1,6 +1,6 @@
 // === File: ThemedBottomBar.swift
-// Version: 1.2
-// Date: 2025-08-30 06:55:00 UTC
+// Version: 1.3
+// Date: 2025-08-30
 // Description: Bottom bar with Home, Vault, Contacts, Settings; disables current tab and dims its color.
 // Author: K-Cim
 
@@ -12,7 +12,6 @@ enum BottomTab: Hashable {
 
 struct ThemedBottomBar: View {
     @EnvironmentObject private var themeManager: ThemeManager
-
     let current: BottomTab
 
     var body: some View {
@@ -31,7 +30,13 @@ struct ThemedBottomBar: View {
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: themeManager.theme.cornerRadius, style: .continuous)
-                .fill(ThemeStyle.cardBackground(themeManager.theme))
+                .fill(LinearGradient(
+                    colors: [
+                        Color.white.opacity(themeManager.theme.cardStartOpacity),
+                        Color.white.opacity(themeManager.theme.cardEndOpacity)
+                    ],
+                    startPoint: .leading, endPoint: .trailing
+                ))
                 .padding(.horizontal, 16)
         )
         .padding(.bottom, 16)
@@ -46,34 +51,24 @@ struct ThemedBottomBar: View {
         @ViewBuilder destination: @escaping () -> Destination
     ) -> some View {
         let isCurrent = (tab == current)
+        let fg = themeManager.theme.foreground
+        let dim = themeManager.theme.secondary.opacity(0.85)
 
         if isCurrent {
-            VStack {
-                Image(systemName: system)
-                    .font(.title2)
-                    .foregroundStyle(dimmedColor())
-                Text(NSLocalizedString(titleKey, comment: ""))
-                    .font(.caption.bold())
-                    .foregroundStyle(dimmedColor())
+            VStack(spacing: 4) {
+                Image(systemName: system).font(.title2).foregroundStyle(dim)
+                Text(NSLocalizedString(titleKey, comment: "")).font(.caption.bold()).foregroundStyle(dim)
             }
             .contentShape(Rectangle())
         } else {
             NavigationLink {
                 destination()
             } label: {
-                VStack {
-                    Image(systemName: system)
-                        .font(.title2)
-                        .foregroundStyle(ThemeStyle.foreground(themeManager.theme))
-                    Text(NSLocalizedString(titleKey, comment: ""))
-                        .font(.caption.bold())
-                        .foregroundStyle(ThemeStyle.foreground(themeManager.theme))
+                VStack(spacing: 4) {
+                    Image(systemName: system).font(.title2).foregroundStyle(fg)
+                    Text(NSLocalizedString(titleKey, comment: "")).font(.caption.bold()).foregroundStyle(fg)
                 }
             }
         }
-    }
-
-    private func dimmedColor() -> Color {
-        ThemeStyle.secondary(themeManager.theme).opacity(0.85)
     }
 }

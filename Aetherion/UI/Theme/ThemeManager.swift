@@ -1,116 +1,78 @@
 // === File: ThemeManager.swift
-// Version: 1.3
-// Date: 2025-08-30 04:15:00 UTC
-// Description: Observable theme manager with live updates, persistence (UserDefaults) and rollback.
+// Version: 1.4
+// Date: 2025-08-30
+// Description: Central theme store: manages selected Theme, background color live/persistent, card gradient.
 // Author: K-Cim
 
 import SwiftUI
 
 @MainActor
 final class ThemeManager: ObservableObject {
-    @Published private(set) var themeID: ThemeID
-    @Published private(set) var theme: Theme
+    // Selected base theme
+    @Published var theme: Theme
 
-    // Keeps previous theme to allow rollback/reset to "before changes"
-    private var rollbackTheme: Theme?
+    // Live background color (affects ThemedScreen)
+    @Published var backgroundColor: Color
 
-    init(default id: ThemeID = .aetherionDark) {
-        self.themeID = id
-        if let saved = ThemeManager.loadTheme(for: id) {
-            self.theme = saved
-        } else {
-            self.theme = ThemeManager.theme(for: id)
-        }
+    // Keep defaults for reset
+    private let defaultTheme: Theme
+    private let defaultBackground: Color
+
+    // Init
+    init(default id: ThemeID) {
+        // Base theme from presets
+        var t = Theme.preset(id)
+
+        // Load persisted card gradient (if any)
+        let (start, end) = ThemePersistence.shared.loadCardGradient(
+            defaultStart: t.cardStartOpacity,
+            defaultEnd: t.cardEndOpacity
+        )
+        t.cardStartOpacity = start
+        t.cardEndOpacity   = end
+
+        self.theme = t
+        self.defaultTheme = t
+
+        // Background color: persisted or preset background
+        let persistedBG = ThemePersistence.shared.loadBackgroundColor(default: t.background)
+        self.backgroundColor = persistedBG
+        self.defaultBackground = t.background
     }
 
-    func setTheme(_ id: ThemeID) {
-        self.themeID = id
-        if let saved = ThemeManager.loadTheme(for: id) {
-            self.theme = saved
-        } else {
-            self.theme = ThemeManager.theme(for: id)
-        }
-        // New theme selected → reset rollback
-        rollbackTheme = nil
+    // MARK: - Background color controls
+
+    func updateBackgroundColor(_ color: Color) {
+        // Live update only (no persistence yet)
+        self.backgroundColor = color
     }
 
-    func toggle() {
-        setTheme(themeID == .aetherionDark ? .aetherionLight : .aetherionDark)
+    func applyBackgroundColor(_ color: Color) {
+        self.backgroundColor = color
+        ThemePersistence.shared.saveBackgroundColor(color)
     }
 
-    // Base preset per themeID
-    private static func theme(for id: ThemeID) -> Theme {
-        switch id {
-        case .aetherionDark: return .aetherionDark
-        case .aetherionLight: return .aetherionLight
-        }
+    func resetBackgroundColor() {
+        self.backgroundColor = defaultBackground
+        ThemePersistence.shared.saveBackgroundColor(defaultBackground)
     }
 
-    // MARK: - Live update (not persisted)
-    /// Update card gradient in real time without persisting. Saves the "before" state once for rollback.
+    // MARK: - Card gradient controls (ThemeConfigView)
+
     func liveUpdateCardGradient(startOpacity: Double, endOpacity: Double) {
-        if rollbackTheme == nil { rollbackTheme = theme } // store "before" state once
-        self.theme = Theme(
-            background: theme.background,
-            foreground: theme.foreground,
-            secondary: theme.secondary,
-            cardStartOpacity: startOpacity,
-            cardEndOpacity: endOpacity,
-            cornerRadius: theme.cornerRadius
-        )
+        theme.cardStartOpacity = startOpacity
+        theme.cardEndOpacity   = endOpacity
     }
 
-    // MARK: - Apply (persist to cache)
-    /// Apply and persist current gradient overrides to UserDefaults for the active themeID.
     func applyCardGradient(startOpacity: Double, endOpacity: Double) {
-        self.theme = Theme(
-            background: theme.background,
-            foreground: theme.foreground,
-            secondary: theme.secondary,
-            cardStartOpacity: startOpacity,
-            cardEndOpacity: endOpacity,
-            cornerRadius: theme.cornerRadius
-        )
-        rollbackTheme = nil
-        ThemeManager.saveTheme(theme, for: themeID)
+        theme.cardStartOpacity = startOpacity
+        theme.cardEndOpacity   = endOpacity
+        ThemePersistence.shared.saveCardGradient(start: startOpacity, end: endOpacity)
     }
 
-    // MARK: - Reset (rollback to previous, or preset if none)
-    /// Reset to the previous "before changes" theme if available, otherwise reset to preset and persist.
     func resetCardGradient() {
-        if let rollback = rollbackTheme {
-            self.theme = rollback
-            rollbackTheme = nil
-        } else {
-            let preset = ThemeManager.theme(for: themeID)
-            self.theme = preset
-            ThemeManager.saveTheme(preset, for: themeID)
-        }
-    }
-
-    // MARK: - Persistence
-    private static func saveTheme(_ theme: Theme, for id: ThemeID) {
-        let dict: [String: Any] = [
-            "cardStartOpacity": theme.cardStartOpacity,
-            "cardEndOpacity": theme.cardEndOpacity
-        ]
-        UserDefaults.standard.set(dict, forKey: "theme_\(id.rawValue)")
-    }
-
-    private static func loadTheme(for id: ThemeID) -> Theme? {
-        guard let dict = UserDefaults.standard.dictionary(forKey: "theme_\(id.rawValue)") else {
-            return nil
-        }
-        let base = theme(for: id)
-        let start = dict["cardStartOpacity"] as? Double ?? base.cardStartOpacity
-        let end   = dict["cardEndOpacity"] as? Double ?? base.cardEndOpacity
-        return Theme(
-            background: base.background,
-            foreground: base.foreground,
-            secondary: base.secondary,
-            cardStartOpacity: start,
-            cardEndOpacity: end,
-            cornerRadius: base.cornerRadius
-        )
+        theme.cardStartOpacity = defaultTheme.cardStartOpacity
+        theme.cardEndOpacity   = defaultTheme.cardEndOpacity
+        ThemePersistence.shared.saveCardGradient(start: theme.cardStartOpacity, end: theme.cardEndOpacity)
     }
 }

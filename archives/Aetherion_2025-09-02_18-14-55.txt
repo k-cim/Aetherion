@@ -1,0 +1,66 @@
+# Aetherion Git Snapshot Report
+# Date (UTC): 2025-09-02_18-14-55
+
+## Tag
+snapshot-2025-09-02_18-14-55
+
+## Branch
+main
+
+## Last commit
+ef464f9 2025-09-02 20:14:56 +0200 K-Cim — chore(archive): snapshot 2025-09-02_18-14-55 — project functional
+
+## Archive
+/Users/mickaelpuaud/Dev/Aetherion/archives/Aetherion_2025-09-02_18-14-55.tar.gz
+
+## Confirmation
+✅ Build OK, Project functional.
+
+## Project structure (depth 3)
+/Users/mickaelpuaud/Dev/Aetherion
+├── Aetherion
+│   ├── App
+│   │   └── AetherionApp.swift
+│   ├── Core
+│   │   ├── Models
+│   │   ├── Services
+│   │   └── Utils
+│   ├── Features
+│   │   ├── Contacts
+│   │   ├── Home
+│   │   ├── Onboarding
+│   │   ├── Settings
+│   │   ├── Share
+│   │   └── Vault
+│   ├── Resources
+│   │   ├── Assets.xcassets
+│   │   ├── en.lproj
+│   │   └── Localization
+│   └── UI
+│       ├── Components
+│       └── Theme
+├── Aetherion.xcodeproj
+│   ├── project.pbxproj
+│   ├── project.pbxproj.bak
+│   └── project.xcworkspace
+│       ├── contents.xcworkspacedata
+│       ├── xcshareddata
+│       └── xcuserdata
+├── archive_aetherion.sh
+├── archives
+│   ├── Aetherion_2025-09-02_18-12-42.tar.gz
+│   ├── Aetherion_2025-09-02_18-12-42.txt
+│   ├── Aetherion_2025-09-02_18-13-22.tar.gz
+│   ├── Aetherion_2025-09-02_18-13-22.txt
+│   └── Aetherion_2025-09-02_18-14-55.tar.gz
+├── Z_backup_20250830_090450
+├── Z_backup_conflicts
+│   ├── Theme.swift
+│   └── ThemeManager.swift
+└── Z_backup_conflicts_20250830_041522
+
+29 directories, 12 files
+
+## Git status (post-commit)
+?? archives/Aetherion_2025-09-02_18-14-55.tar.gz
+?? archives/Aetherion_2025-09-02_18-14-55.txt
