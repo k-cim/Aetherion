@@ -1,53 +1,68 @@
 // === File: VaultView.swift
-// Version: 1.1
-// Date: 2025-08-30 06:30:00 UTC
-// Description: Vault screen (placeholder) with persistent themed bottom bar.
-// Author: K-Cim
+// Date: 2025-09-04
+// Description: Vault — header title from theme (no card), consistent card heights.
 
 import SwiftUI
 
 struct VaultView: View {
     @EnvironmentObject private var themeManager: ThemeManager
-    @StateObject private var vm = VaultViewModel()
+    @StateObject private var viewModel = VaultViewModel()
 
     var body: some View {
         ThemedScreen {
-            VStack(spacing: 12) {
-                // Contenu principal (placeholder pour l’instant)
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text(NSLocalizedString("vault", comment: "Vault"))
-                            .font(.system(size: 28, weight: .bold, design: .rounded))
-                            .themedForeground(themeManager.theme)
-                            .padding(.horizontal, 16)
-                            .padding(.top, 8)
+            VStack(spacing: 0) {
 
-                        ThemedCard {
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("Coffre en préparation")
-                                    .font(.headline.weight(.bold))
+                ThemedHeaderTitle(text: "Coffre")   // ← Titre cohérent, sans encadré
+
+                ScrollView {
+                    if viewModel.assets.isEmpty {
+                        ThemedCard(fixedHeight: 80) {
+                            HStack {
+                                Spacer()
+                                Text("Aucun fichier")
+                                    .font(.title2.bold())
                                     .themedForeground(themeManager.theme)
-                                Text("Ici s’afficheront vos fichiers sécurisés et actions (import, suppression, partage…).")
-                                    .font(.subheadline)
-                                    .themedSecondary(themeManager.theme)
+                                Spacer()
                             }
                         }
                         .padding(.horizontal, 16)
+                        .padding(.top, 12)
+                    } else {
+                        VStack(spacing: 12) {
+                            ForEach(viewModel.assets) { asset in
+                                ThemedCard(fixedHeight: 64) {
+                                    HStack(spacing: 12) {
+                                        Image(systemName: "doc")
+                                            .font(.title3)
+                                            .themedSecondary(themeManager.theme)
+
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text(asset.name)
+                                                .font(.headline.bold())
+                                                .themedForeground(themeManager.theme)
+                                            Text(asset.sizeString)
+                                                .font(.caption)
+                                                .themedSecondary(themeManager.theme)
+                                        }
+                                        Spacer()
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 12)
                     }
                 }
-
-                // 🔻 BARRE DU BAS — TOUJOURS EN DEHORS DU SCROLL
-                ThemedBottomBar(current: .vault)
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .onAppear { vm.load() }
+        .onAppear { viewModel.load() }
     }
 }
 
 #Preview {
     NavigationStack {
-        VaultView()
-            .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+        ShareView()
+            .environmentObject(ThemeManager(default: .aetherionDark))
+            .environmentObject(AppRouter())
     }
 }

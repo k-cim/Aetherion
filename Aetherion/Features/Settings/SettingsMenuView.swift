@@ -60,7 +60,8 @@ struct SettingsMenuView: View {
 
 #Preview {
     NavigationStack {
-        SettingsMenuView()
-            .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+        ShareView()
+            .environmentObject(ThemeManager(default: .aetherionDark))
+            .environmentObject(AppRouter())
     }
 }

@@ -1,19 +1,21 @@
-// === File: AetherionApp.swift
-// Version: 1.1
-// Date: 2025-08-30 05:35:00 UTC
-// Description: Main application entry point for Aetherion, injects ThemeManager.
-// Author: K-Cim
-
 import SwiftUI
 
 @main
 struct AetherionApp: App {
-    @StateObject private var themeManager = ThemeManager(default: ThemeID.aetherionDark)
+    @StateObject private var theme  = ThemeManager(default: .aetherionDark)
+    @StateObject private var router = AppRouter()
+    @StateObject private var nav    = NavigationCoordinator()
 
     var body: some Scene {
         WindowGroup {
-            HomeView()
-                .environmentObject(themeManager)
+            NavigationStack(path: $nav.path) {
+                AppContainerView()
+            }
+            // injection globale (ThemedScreen, BottomBar, etc.)
+            .environmentObject(theme)
+            .environmentObject(router)
+            .environmentObject(nav)
+            .tint(theme.theme.accent)   // couleur du chevron retour & co
         }
     }
 }

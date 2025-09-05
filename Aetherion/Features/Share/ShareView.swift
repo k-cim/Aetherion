@@ -31,4 +31,10 @@ struct ShareView: View {
     }
 }
 
-#Preview { ShareView() }
+#Preview {
+    NavigationStack {
+        ShareView()
+            .environmentObject(ThemeManager(default: .aetherionDark))
+            .environmentObject(AppRouter())
+    }
+}

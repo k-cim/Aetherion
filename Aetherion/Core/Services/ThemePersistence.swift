@@ -1,8 +1,5 @@
 // === File: ThemePersistence.swift
-// Version: 1.0
-// Date: 2025-08-30
-// Description: Save & load theme values (background color & card gradient) from UserDefaults.
-// Author: K-Cim
+// Description: UserDefaults-based persistence for theme colors & gradient opacities.
 
 import SwiftUI
 
@@ -10,48 +7,127 @@ final class ThemePersistence {
     static let shared = ThemePersistence()
     private init() {}
 
-    private let bgR = "aetherion_bg_r"
-    private let bgG = "aetherion_bg_g"
-    private let bgB = "aetherion_bg_b"
-    private let bgA = "aetherion_bg_a"
+    private let ud = UserDefaults.standard
 
-    private let cardStartKey = "aetherion_card_start_opacity"
-    private let cardEndKey   = "aetherion_card_end_opacity"
+    // MARK: - Keys
+    private enum Key {
+        // Background
+        static let backgroundColor = "theme.backgroundColor"
 
-    func saveBackgroundColor(_ color: Color) {
-        let ui = UIColor(color)
-        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        if ui.getRed(&r, &g, &b, &a) {
-            UserDefaults.standard.set(r, forKey: bgR)
-            UserDefaults.standard.set(g, forKey: bgG)
-            UserDefaults.standard.set(b, forKey: bgB)
-            UserDefaults.standard.set(a, forKey: bgA)
-        }
+        // Card gradient opacities
+        static let cardStartOpacity = "theme.card.startOpacity"
+        static let cardEndOpacity   = "theme.card.endOpacity"
+
+        // Card gradient colors
+        static let cardStartColor   = "theme.card.startColor"
+        static let cardEndColor     = "theme.card.endColor"
+
+        // Text colors
+        static let headerColor      = "theme.text.headerColor"
+        static let primaryText      = "theme.text.primary"
+        static let secondaryText    = "theme.text.secondary"
+
+        // Icons & controls
+        static let iconColor        = "theme.icon.color"
+        static let controlTint      = "theme.control.tint"
     }
 
-    func loadBackgroundColor(default fallback: Color = .black) -> Color {
-        let ud = UserDefaults.standard
-        guard ud.object(forKey: bgR) != nil,
-              ud.object(forKey: bgG) != nil,
-              ud.object(forKey: bgB) != nil else {
-            return fallback
-        }
-        let r = ud.double(forKey: bgR)
-        let g = ud.double(forKey: bgG)
-        let b = ud.double(forKey: bgB)
-        let a = ud.object(forKey: bgA) != nil ? ud.double(forKey: bgA) : 1.0
+    // MARK: - Generic Color save/load (stores RGBA as dictionary)
+    private func saveColor(_ color: Color, forKey key: String) {
+        let rgba = color.rgba
+        let dict: [String: Double] = ["r": rgba.r, "g": rgba.g, "b": rgba.b, "a": rgba.a]
+        ud.set(dict, forKey: key)
+    }
+
+    private func loadColor(forKey key: String, default defaultColor: Color) -> Color {
+        guard let dict = ud.dictionary(forKey: key) as? [String: Double],
+              let r = dict["r"], let g = dict["g"], let b = dict["b"], let a = dict["a"]
+        else { return defaultColor }
         return Color(.sRGB, red: r, green: g, blue: b, opacity: a)
     }
 
-    func saveCardGradient(start: Double, end: Double) {
-        UserDefaults.standard.set(start, forKey: cardStartKey)
-        UserDefaults.standard.set(end,   forKey: cardEndKey)
+    // MARK: - Background
+    func saveBackgroundColor(_ color: Color) {
+        saveColor(color, forKey: Key.backgroundColor)
+    }
+    func loadBackgroundColor(default def: Color) -> Color {
+        loadColor(forKey: Key.backgroundColor, default: def)
     }
 
+    // MARK: - Card gradient (opacities)
+    func saveCardGradient(start: Double, end: Double) {
+        ud.set(start, forKey: Key.cardStartOpacity)
+        ud.set(end,   forKey: Key.cardEndOpacity)
+    }
     func loadCardGradient(defaultStart: Double, defaultEnd: Double) -> (Double, Double) {
-        let ud = UserDefaults.standard
-        let start = ud.object(forKey: cardStartKey) != nil ? ud.double(forKey: cardStartKey) : defaultStart
-        let end   = ud.object(forKey: cardEndKey)   != nil ? ud.double(forKey: cardEndKey)   : defaultEnd
-        return (start, end)
+        let s = ud.object(forKey: Key.cardStartOpacity) as? Double ?? defaultStart
+        let e = ud.object(forKey: Key.cardEndOpacity)   as? Double ?? defaultEnd
+        return (s, e)
+    }
+
+    // MARK: - Card gradient (colors)
+    func saveCardGradientColors(start: Color, end: Color) {
+        saveColor(start, forKey: Key.cardStartColor)
+        saveColor(end,   forKey: Key.cardEndColor)
+    }
+    func loadCardGradientColors(defaultStart: Color, defaultEnd: Color) -> (Color, Color) {
+        let s = loadColor(forKey: Key.cardStartColor, default: defaultStart)
+        let e = loadColor(forKey: Key.cardEndColor,   default: defaultEnd)
+        return (s, e)
+    }
+
+    // MARK: - Texts
+    func saveHeaderColor(_ color: Color) {
+        saveColor(color, forKey: Key.headerColor)
+    }
+    func loadHeaderColor(default def: Color) -> Color {
+        loadColor(forKey: Key.headerColor, default: def)
+    }
+
+    func savePrimaryTextColor(_ color: Color) {
+        saveColor(color, forKey: Key.primaryText)
+    }
+    func loadPrimaryTextColor(default def: Color) -> Color {
+        loadColor(forKey: Key.primaryText, default: def)
+    }
+
+    func saveSecondaryTextColor(_ color: Color) {
+        saveColor(color, forKey: Key.secondaryText)
+    }
+    func loadSecondaryTextColor(default def: Color) -> Color {
+        loadColor(forKey: Key.secondaryText, default: def)
+    }
+
+    // MARK: - Icons & controls
+    func saveIconColor(_ color: Color) {
+        saveColor(color, forKey: Key.iconColor)
+    }
+    func loadIconColor(default def: Color) -> Color {
+        loadColor(forKey: Key.iconColor, default: def)
+    }
+
+    func saveControlTint(_ color: Color) {
+        saveColor(color, forKey: Key.controlTint)
+    }
+    func loadControlTint(default def: Color) -> Color {
+        loadColor(forKey: Key.controlTint, default: def)
+    }
+}
+
+// MARK: - Color → RGBA helper
+private extension Color {
+    /// Extracts sRGB components; falls back to white if not representable.
+    var rgba: (r: Double, g: Double, b: Double, a: Double) {
+        #if canImport(UIKit)
+        let ui = UIColor(self)
+        var r: CGFloat = 1, g: CGFloat = 1, b: CGFloat = 1, a: CGFloat = 1
+        if ui.getRed(&r, green: &g, blue: &b, alpha: &a) {
+            return (Double(r), Double(g), Double(b), Double(a))
+        } else {
+            return (1, 1, 1, 1)
+        }
+        #else
+        return (1, 1, 1, 1)
+        #endif
     }
 }

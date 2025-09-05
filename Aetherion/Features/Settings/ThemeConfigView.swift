@@ -1,133 +1,272 @@
-// === File: ThemeConfigView.swift
-// Version: 1.3
-// Date: 2025-08-30 05:10:00 UTC
-// Description: Theme configuration with live preview, Apply (persist), Reset (rollback), and bottom bar.
-// Author: K-Cim
-
 import SwiftUI
 
 struct ThemeConfigView: View {
     @EnvironmentObject private var themeManager: ThemeManager
 
-    @State private var startOpacity: Double = 0.30
-    @State private var endOpacity: Double = 0.10
-    @State private var hasLoadedFromTheme: Bool = false
+    // Dégradé
+    @State private var start: Double = 0.30
+    @State private var end:   Double = 0.10
+    @State private var startColor: Color = .white
+    @State private var endColor:   Color = .white
+
+    // Fond
+    @State private var bgColor: Color = .black
+
+    // Textes
+    @State private var headerColor: Color = .white
+    @State private var textColor:   Color = .white
+    @State private var secondaryTextColor: Color = .white.opacity(0.7)
+
+    // Icônes & Contrôles
+    @State private var iconColor: Color = .white.opacity(0.85)
+    @State private var controlTint: Color = .white.opacity(0.85)
+
+    // 🎯 Snapshot de session (état avant modifs)
+    private struct Snapshot {
+        var start: Double; var end: Double
+        var startColor: Color; var endColor: Color
+        var bgColor: Color
+        var header: Color; var primary: Color; var secondary: Color
+        var icon: Color; var control: Color
+    }
+    @State private var snapshot: Snapshot?
 
     var body: some View {
         ThemedScreen {
-            VStack(spacing: 16) {
-                // Large title
-                Text(NSLocalizedString("settings_theme", comment: "Theme"))
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
-                    .themedForeground(themeManager.theme)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 16)
-                    .padding(.top, 8)
+            VStack(spacing: 0) {
 
-                // Preview
-                ZStack {
-                    ThemeStyle.screenBackground(themeManager.theme)
-                    VStack(spacing: 20) {
+                ThemedHeaderTitle(text: "Thème")
+
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+
+                        // --- Dégradé (opacités) ---
                         ThemedCard {
-                            HStack(spacing: 16) {
-                                Image(systemName: "sparkles")
-                                    .font(.system(size: 28))
-                                    .themedSecondary(themeManager.theme)
-
-                                Text("Aetherion")
-                                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("Dégradé des cartes (opacités)")
+                                    .font(.headline.weight(.bold))
                                     .themedForeground(themeManager.theme)
 
-                                Spacer()
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("Opacité gauche").font(.caption).themedSecondary(themeManager.theme)
+                                    ColoredSlider(value: $start, range: 0...1, step: 0.01, tint: themeManager.theme.controlTint)
+                                    Text(String(format: "%.2f", start)).font(.caption2).themedSecondary(themeManager.theme)
+                                }
+
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("Opacité droite").font(.caption).themedSecondary(themeManager.theme)
+                                    ColoredSlider(value: $end, range: 0...1, step: 0.01, tint: themeManager.theme.controlTint)
+                                    Text(String(format: "%.2f", end)).font(.caption2).themedSecondary(themeManager.theme)
+                                }
                             }
                         }
-                        PrimaryButton(title: "Sample Button") { }
-                    }
-                    .padding()
-                }
-                .frame(height: 220)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
 
-                // Sliders (LIVE update)
-                ThemedCard {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Card Gradient")
-                            .font(.headline.weight(.bold))
-                            .themedForeground(themeManager.theme)
+                        // --- Dégradé (couleurs) ---
+                        ThemedCard {
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("Dégradé des cartes (couleurs)")
+                                    .font(.headline.weight(.bold))
+                                    .themedForeground(themeManager.theme)
 
-                        HStack {
-                            Text("Start")
-                            Slider(value: $startOpacity, in: 0...1, step: 0.05)
-                                .onChange(of: startOpacity) { new in
-                                    themeManager.liveUpdateCardGradient(startOpacity: new, endOpacity: endOpacity)
+                                HStack {
+                                    Text("Couleur gauche").font(.subheadline).themedSecondary(themeManager.theme)
+                                    Spacer()
+                                    ColorPicker("", selection: $startColor, supportsOpacity: true).labelsHidden()
                                 }
-                            Text(String(format: "%.2f", startOpacity))
+
+                                HStack {
+                                    Text("Couleur droite").font(.subheadline).themedSecondary(themeManager.theme)
+                                    Spacer()
+                                    ColorPicker("", selection: $endColor, supportsOpacity: true).labelsHidden()
+                                }
+                            }
                         }
 
-                        HStack {
-                            Text("End")
-                            Slider(value: $endOpacity, in: 0...1, step: 0.05)
-                                .onChange(of: endOpacity) { new in
-                                    themeManager.liveUpdateCardGradient(startOpacity: startOpacity, endOpacity: new)
+                        // --- Couleur du fond ---
+                        ThemedCard {
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("Couleur du fond")
+                                    .font(.headline.weight(.bold))
+                                    .themedForeground(themeManager.theme)
+
+                                HStack {
+                                    Text("Fond de l’application").font(.subheadline).themedSecondary(themeManager.theme)
+                                    Spacer()
+                                    ColorPicker("", selection: $bgColor, supportsOpacity: true).labelsHidden()
                                 }
-                            Text(String(format: "%.2f", endOpacity))
+                            }
                         }
+
+                        // --- Couleurs des textes ---
+                        ThemedCard {
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("Couleurs des textes")
+                                    .font(.headline.weight(.bold))
+                                    .themedForeground(themeManager.theme)
+
+                                HStack {
+                                    Text("Titres").font(.subheadline).themedSecondary(themeManager.theme)
+                                    Spacer()
+                                    ColorPicker("", selection: $headerColor, supportsOpacity: true).labelsHidden()
+                                }
+
+                                HStack {
+                                    Text("Texte principal").font(.subheadline).themedSecondary(themeManager.theme)
+                                    Spacer()
+                                    ColorPicker("", selection: $textColor, supportsOpacity: true).labelsHidden()
+                                }
+
+                                HStack {
+                                    Text("Texte secondaire").font(.subheadline).themedSecondary(themeManager.theme)
+                                    Spacer()
+                                    ColorPicker("", selection: $secondaryTextColor, supportsOpacity: true).labelsHidden()
+                                }
+                            }
+                        }
+
+                        // --- Icônes ---
+                        ThemedCard {
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("Icônes")
+                                    .font(.headline.weight(.bold))
+                                    .themedForeground(themeManager.theme)
+
+                                HStack {
+                                    Text("Couleur des icônes").font(.subheadline).themedSecondary(themeManager.theme)
+                                    Spacer()
+                                    ColorPicker("", selection: $iconColor, supportsOpacity: true).labelsHidden()
+                                }
+                            }
+                        }
+
+                        // --- Contrôles ---
+                        ThemedCard {
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("Contrôles")
+                                    .font(.headline.weight(.bold))
+                                    .themedForeground(themeManager.theme)
+
+                                HStack {
+                                    Text("Couleur des contrôles").font(.subheadline).themedSecondary(themeManager.theme)
+                                    Spacer()
+                                    ColorPicker("", selection: $controlTint, supportsOpacity: true).labelsHidden()
+                                }
+                            }
+                        }
+
+                        // --- Actions (Annuler / Réinitialiser) ---
+                        HStack(spacing: 12) {
+                            Button { cancelToSnapshot() } label: {
+                                ThemedCard(fixedHeight: 56) {
+                                    HStack { Spacer(); Text("Annuler").font(.headline.bold()).themedForeground(themeManager.theme); Spacer() }
+                                }
+                            }
+                            .buttonStyle(.plain)
+
+                            Button { resetAll() } label: {
+                                ThemedCard(fixedHeight: 56) {
+                                    HStack { Spacer(); Text("Réinitialiser").font(.headline.bold()).themedForeground(themeManager.theme); Spacer() }
+                                }
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        .padding(.top, 4)
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 120)
                 }
-                .padding(.horizontal, 16)
-
-                // Actions
-                HStack(spacing: 12) {
-                    Button {
-                        themeManager.applyCardGradient(startOpacity: startOpacity, endOpacity: endOpacity)
-                    } label: {
-                        Text("Apply")
-                            .font(.headline)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 16)
-                            .background(
-                                RoundedRectangle(cornerRadius: themeManager.theme.cornerRadius)
-                                    .fill(ThemeStyle.primaryButtonBackground(themeManager.theme))
-                            )
-                    }
-                    .buttonStyle(.plain)
-
-                    Button {
-                        themeManager.resetCardGradient()
-                        // Sync sliders after rollback
-                        startOpacity = themeManager.theme.cardStartOpacity
-                        endOpacity   = themeManager.theme.cardEndOpacity
-                    } label: {
-                        Text("Reset")
-                            .font(.headline)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 16)
-                            .background(
-                                RoundedRectangle(cornerRadius: themeManager.theme.cornerRadius)
-                                    .fill(ThemeStyle.primaryButtonBackground(themeManager.theme))
-                            )
-                    }
-                    .buttonStyle(.plain)
-                }
-                .padding(.horizontal, 16)
-
-                Spacer(minLength: 12)
-                ThemedBottomBar(current: .settings)
             }
         }
-        .onAppear {
-            guard !hasLoadedFromTheme else { return }
-            startOpacity = themeManager.theme.cardStartOpacity
-            endOpacity   = themeManager.theme.cardEndOpacity
-            hasLoadedFromTheme = true
-        }
-        .navigationBarTitleDisplayMode(.inline)
+        .onAppear(perform: loadInitialValuesAndSnapshot)
+        // live update
+        .onChange(of: start)             { themeManager.updateCardGradient(start: $0, end: end) }
+        .onChange(of: end)               { themeManager.updateCardGradient(start: start, end: $0) }
+        .onChange(of: startColor)        { themeManager.updateGradientColors(start: $0, end: endColor) }
+        .onChange(of: endColor)          { themeManager.updateGradientColors(start: startColor, end: $0) }
+        .onChange(of: bgColor)           { themeManager.updateBackgroundColor($0) }
+        .onChange(of: headerColor)       { themeManager.updateHeaderColor($0) }
+        .onChange(of: textColor)         { themeManager.updatePrimaryTextColor($0) }
+        .onChange(of: secondaryTextColor){ themeManager.updateSecondaryTextColor($0) }
+        .onChange(of: iconColor)         { themeManager.updateIconColor($0) }
+        .onChange(of: controlTint)       { themeManager.updateControlTint($0) }
     }
-}
 
-#Preview {
-    NavigationStack {
-        ThemeConfigView()
-            .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+    // MARK: - Init & Session snapshot
+
+    private func loadInitialValuesAndSnapshot() {
+        // valeurs UI
+        start      = themeManager.theme.cardStartOpacity
+        end        = themeManager.theme.cardEndOpacity
+        startColor = themeManager.theme.cardStartColor
+        endColor   = themeManager.theme.cardEndColor
+        bgColor    = themeManager.backgroundColor
+        headerColor        = themeManager.theme.headerColor
+        textColor          = themeManager.theme.foreground
+        secondaryTextColor = themeManager.theme.secondary
+        iconColor          = themeManager.theme.accent
+        controlTint        = themeManager.theme.controlTint
+
+        // snapshot de session
+        snapshot = Snapshot(
+            start: start, end: end,
+            startColor: startColor, endColor: endColor,
+            bgColor: bgColor,
+            header: headerColor, primary: textColor, secondary: secondaryTextColor,
+            icon: iconColor, control: controlTint
+        )
+    }
+
+    private func cancelToSnapshot() {
+        guard let s = snapshot else { return }
+        // réapplique l’état d’entrée de l’écran (live)
+        start = s.start; end = s.end
+        startColor = s.startColor; endColor = s.endColor
+        bgColor    = s.bgColor
+        headerColor = s.header
+        textColor   = s.primary
+        secondaryTextColor = s.secondary
+        iconColor   = s.icon
+        controlTint = s.control
+
+        themeManager.updateCardGradient(start: start, end: end)
+        themeManager.updateGradientColors(start: startColor, end: endColor)
+        themeManager.updateBackgroundColor(bgColor)
+        themeManager.updateHeaderColor(headerColor)
+        themeManager.updatePrimaryTextColor(textColor)
+        themeManager.updateSecondaryTextColor(secondaryTextColor)
+        themeManager.updateIconColor(iconColor)
+        themeManager.updateControlTint(controlTint)
+    }
+
+    private func resetAll() {
+        let p = Theme.preset(themeManager.theme.id)
+        start      = p.cardStartOpacity
+        end        = p.cardEndOpacity
+        startColor = p.cardStartColor
+        endColor   = p.cardEndColor
+        bgColor    = (p.id == .aetherionDark) ? .black : .white
+        headerColor        = p.headerColor
+        textColor          = p.foreground
+        secondaryTextColor = p.secondary
+        iconColor          = p.accent
+        controlTint        = p.controlTint
+
+        // on met aussi à jour le snapshot pour que "Annuler" revienne à ce nouvel état si tu le souhaites
+        snapshot = Snapshot(
+            start: start, end: end,
+            startColor: startColor, endColor: endColor,
+            bgColor: bgColor,
+            header: headerColor, primary: textColor, secondary: secondaryTextColor,
+            icon: iconColor, control: controlTint
+        )
+
+        themeManager.updateCardGradient(start: start, end: end)
+        themeManager.updateGradientColors(start: startColor, end: endColor)
+        themeManager.updateBackgroundColor(bgColor)
+        themeManager.updateHeaderColor(headerColor)
+        themeManager.updatePrimaryTextColor(textColor)
+        themeManager.updateSecondaryTextColor(secondaryTextColor)
+        themeManager.updateIconColor(iconColor)
+        themeManager.updateControlTint(controlTint)
     }
 }

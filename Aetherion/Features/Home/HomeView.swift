@@ -1,101 +1,73 @@
-// === File: HomeView.swift
-// Version: 2.4
-// Date: 2025-08-30 04:55:00 UTC
-// Description: Welcome screen with top-left header, brand card, CTA, and persistent bottom bar.
-// Author: K-Cim
-
 import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject private var themeManager: ThemeManager
-    @State private var goToDashboard = false
 
     var body: some View {
-        NavigationStack {
-            ThemedScreen {
-                VStack(spacing: 28) {
-                    // Top-left header + brand card
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text(NSLocalizedString("home", comment: "Home header"))
-                            .font(.title.bold())
-                            .foregroundStyle(ThemeStyle.foreground(themeManager.theme))
-                            .padding(.leading, 16)
+        ThemedScreen {
+            VStack(spacing: 0) {
 
-                        // Brand card
-                        HStack(spacing: 20) {
-                            if let _ = UIImage(named: "AppMark") {
-                                Image("AppMark")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 50, height: 50)
-                                    .accessibilityHidden(true)
-                            } else {
-                                Image(systemName: "shield.lefthalf.fill")
-                                    .font(.system(size: 40))
-                                    .foregroundStyle(ThemeStyle.foreground(themeManager.theme))
-                                    .accessibilityHidden(true)
+                // Titre en haut (unis avec le thème)
+                ThemedHeaderTitle(text: "Accueil")
+
+                ScrollView {
+                    VStack(spacing: 12) {
+
+                        // Bandeau Aetherion avec logo si dispo
+                        ThemedCard(fixedHeight: 64) {
+                            HStack(spacing: 12) {
+                                // ✅ Essaie d'afficher l'asset "AppLogo"; sinon fallback SF Symbol
+                                if UIImage(named: "AppMark") != nil {
+                                    Image("AppMark")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 40, height: 40)
+                                } else {
+                                    Image(systemName: "seal.fill")
+                                        .font(.title2.weight(.semibold))
+                                        .themedForeground(themeManager.theme)
+                                        .frame(width: 40, height: 40, alignment: .center)
+                                }
+
+                                Text("Aetherion")
+                                    .font(.title.bold())
+                                    .themedForeground(themeManager.theme)
+
+                                Spacer()
                             }
-
-                            Text("Aetherion")
-                                .font(.system(size: 28, weight: .bold, design: .rounded))
-                                .foregroundStyle(ThemeStyle.foreground(themeManager.theme))
-
-                            Spacer(minLength: 0)
                         }
-                        .padding(.vertical, 16)
-                        .padding(.horizontal, 20)
-                        .background(
-                            RoundedRectangle(cornerRadius: themeManager.theme.cornerRadius, style: .continuous)
-                                .fill(ThemeStyle.cardBackground(themeManager.theme))
-                        )
+                        .padding(.horizontal, 16)
+                        .padding(.top, 4)
+
+                        // Carte "Entrer" -> Dashboard, NavigationLink DANS la carte (meilleure zone cliquable)
+                        ThemedCard(fixedHeight: 80) {
+                            NavigationLink {
+                                DashboardView()
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text("Entrer")
+                                        .font(.title2.bold())
+                                        .themedForeground(themeManager.theme)
+                                    Spacer()
+                                }
+                                .contentShape(Rectangle()) // ✅ toute la zone est cliquable
+                            }
+                            .buttonStyle(.plain)           // ✅ pas de style bouton qui écrase le fond
+                        }
                         .padding(.horizontal, 16)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 40)
-
-                    Spacer()
-
-                    // Title + tagline
-                    VStack(spacing: 6) {
-                        Text(NSLocalizedString("home_title", comment: "App name"))
-                            .font(.system(size: 34, weight: .bold, design: .rounded))
-                            .foregroundStyle(ThemeStyle.foreground(themeManager.theme))
-
-                        Text(NSLocalizedString("home_tagline", comment: "Tagline"))
-                            .font(.subheadline)
-                            .foregroundStyle(ThemeStyle.secondary(themeManager.theme))
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 24)
-                    }
-
-                    // CTA
-                    PrimaryButton(
-                        title: NSLocalizedString("home_enter", comment: "Enter button")
-                    ) {
-                        goToDashboard = true
-                    }
-                    .padding(.horizontal, 24)
-
-                    Spacer()
-
-                    // Bottom bar (always last)
-                    ThemedBottomBar(current: .home)
+                    .padding(.top, 8)
+                    .padding(.bottom, 12)
                 }
-            }
-            .navigationDestination(isPresented: $goToDashboard) {
-                DashboardView()
             }
         }
     }
 }
 
-#Preview("FR") {
-    HomeView()
-        .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
-        .environment(\.locale, .init(identifier: "fr"))
-}
-#Preview("EN") {
-    HomeView()
-        .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
-        .environment(\.locale, .init(identifier: "en"))
+#Preview {
+    NavigationStack {
+        HomeView()
+            .environmentObject(ThemeManager(default: .aetherionDark))
+    }
 }

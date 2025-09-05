@@ -1,8 +1,6 @@
 // === File: DashboardView.swift
-// Version: 1.4
-// Date: 2025-08-30 05:00:00 UTC
-// Description: Themed dashboard with gradient card empty state, bold section headers, and persistent bottom bar.
-// Author: K-Cim
+// Date: 2025-08-30
+// Description: Dashboard screen showing recent Assets (coherent visuals with Vault/Contacts).
 
 import SwiftUI
 
@@ -12,105 +10,111 @@ struct DashboardView: View {
 
     var body: some View {
         ThemedScreen {
-            VStack(spacing: 8) {
-                List {
-                    // Documents section
-                    Section {
+            VStack(spacing: 0) {
+
+                // Bandeau haut (même gabarit que les autres pages)
+                ThemedCard {
+                    HStack(spacing: 12) {
+                        Image("AppLogo") // remplace par le nom exact de ton asset si besoin
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+
+                        Text("Tableau de bord")
+                            .font(.title.bold())
+                            .themedForeground(themeManager.theme)
+
+                        Spacer()
+                    }
+                    .frame(height: 64)
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 12) {
+                        // Titre section
+                        Text("Documents récents")
+                            .font(.headline.weight(.bold))
+                            .themedForeground(themeManager.theme)
+                            .padding(.horizontal, 16)
+                            .padding(.top, 6)
+
                         if vm.assets.isEmpty {
+                            // Etat vide (même hauteur que "Aucun fichier" / bouton Accueil)
                             ThemedCard {
-                                HStack(alignment: .firstTextBaseline, spacing: 12) {
-                                    Image(systemName: "doc")
-                                        .font(.title3.weight(.semibold))
-                                        .themedSecondary(themeManager.theme)
-
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(NSLocalizedString("no_files_title", comment: ""))
-                                            .font(.headline.weight(.bold))
-                                            .themedForeground(themeManager.theme)
-                                        Text(NSLocalizedString("no_files_subtitle", comment: ""))
-                                            .font(.subheadline)
-                                            .themedSecondary(themeManager.theme)
-                                    }
-                                    Spacer(minLength: 0)
-                                }
-                            }
-                            .listRowBackground(Color.clear)
-                        } else {
-                            ForEach(vm.assets) { asset in
-                                HStack(spacing: 12) {
-                                    Image(systemName: "doc.text")
-                                        .themedSecondary(themeManager.theme)
-
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text(asset.name)
-                                            .font(.body.weight(.semibold))
-                                            .themedForeground(themeManager.theme)
-                                        Text("\(asset.size) bytes")
-                                            .font(.caption)
-                                            .themedSecondary(themeManager.theme)
-                                    }
-
+                                HStack {
                                     Spacer()
+                                    Text("Aucun document récent")
+                                        .font(.title2.bold())
+                                        .themedForeground(themeManager.theme)
+                                    Spacer()
+                                }
+                                .frame(height: 80)
+                            }
+                            .padding(.horizontal, 16)
+                        } else {
+                            // Liste compacte
+                            VStack(spacing: 12) {
+                                ForEach(vm.assets) { asset in
+                                    ThemedCard {
+                                        HStack(spacing: 12) {
+                                            Image(systemName: "doc")
+                                                .font(.title3)
+                                                .themedSecondary(themeManager.theme)
 
-                                    Button(role: .destructive) { vm.delete(asset) } label: {
-                                        Image(systemName: "trash")
+                                            VStack(alignment: .leading, spacing: 4) {
+                                                Text(asset.name)
+                                                    .font(.headline.bold())
+                                                    .themedForeground(themeManager.theme)
+
+                                                Text(asset.sizeString)
+                                                    .font(.caption)
+                                                    .themedSecondary(themeManager.theme)
+                                            }
+
+                                            Spacer()
+                                        }
+                                        .frame(height: 64)
                                     }
-                                    .buttonStyle(.borderless)
-                                    .themedSecondary(themeManager.theme)
-                                    .accessibilityLabel("Delete")
                                 }
                             }
+                            .padding(.horizontal, 16)
                         }
-                    } header: {
-                        Text(NSLocalizedString("documents_section", comment: ""))
-                            .font(.title3.weight(.bold))
-                            .themedForeground(themeManager.theme)
-                    }
 
-                    // Navigation section
-                    Section {
-                        NavigationLink(NSLocalizedString("settings", comment: "")) { SettingsMenuView() }
-                        NavigationLink(NSLocalizedString("vault", comment: "")) { VaultView() }
-                        NavigationLink(NSLocalizedString("share", comment: "")) { ShareView() }
-                        NavigationLink(NSLocalizedString("onboarding", comment: "")) { OnboardingView() }
-                    } header: {
-                        Text(NSLocalizedString("navigation_section", comment: ""))
-                            .font(.title3.weight(.bold))
-                            .themedForeground(themeManager.theme)
+                        // Bouton de démo pour créer un fichier d'exemple (facultatif)
+                        ThemedCard {
+                            Button {
+                                vm.addSample()
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text("Ajouter un exemple")
+                                        .font(.headline.bold())
+                                        .themedForeground(themeManager.theme)
+                                    Spacer()
+                                }
+                                .frame(height: 56)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 6)
                     }
+                    .padding(.bottom, 12)
                 }
-                .themedListAppearance()
 
-                // Bottom bar
-                ThemedBottomBar(current: .home) // tu peux mettre `.vault` si tu veux associer ce dashboard au coffre
             }
         }
-        .navigationTitle(NSLocalizedString("dashboard_title", comment: ""))
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button { vm.load() } label: {
-                    Label(NSLocalizedString("refresh", comment: ""), systemImage: "arrow.clockwise")
-                }
-                .themedForeground(themeManager.theme)
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Button { vm.addSample() } label: {
-                    Label(NSLocalizedString("add", comment: ""), systemImage: "plus")
-                }
-                .themedForeground(themeManager.theme)
-            }
+        .onAppear {
+            vm.load()   // appel direct (pas de $vm)
         }
-        .onAppear { vm.load() }
     }
 }
 
-#Preview("FR themed") {
-    NavigationStack { DashboardView() }
-        .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
-        .environment(\.locale, .init(identifier: "fr"))
-}
-#Preview("EN themed") {
-    NavigationStack { DashboardView() }
-        .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
-        .environment(\.locale, .init(identifier: "en"))
+#Preview {
+    NavigationStack {
+        DashboardView()
+            .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+    }
 }

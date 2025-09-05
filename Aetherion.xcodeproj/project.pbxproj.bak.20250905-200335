@@ -23,8 +23,6 @@
 		770F121E2E6A2133004D78C8 /* ThemedHeaderTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F121D2E6A2126004D78C8 /* ThemedHeaderTitle.swift */; };
 		770F12242E6A2510004D78C8 /* RootSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12232E6A2503004D78C8 /* RootSwitch.swift */; };
 		770F12262E6B5AD8004D78C8 /* ColoredSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12252E6B5ACA004D78C8 /* ColoredSlider.swift */; };
-		770F12282E6B61A2004D78C8 /* AppContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12272E6B619C004D78C8 /* AppContainerView.swift */; };
-		770F122A2E6B7FE9004D78C8 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12292E6B7FD0004D78C8 /* NavigationCoordinator.swift */; };
 		77350EC32E624C0E00491B6D /* ThemeStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC22E624BFE00491B6D /* ThemeStyles.swift */; };
 		77350EC52E624DF500491B6D /* ThemeConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC42E624DDF00491B6D /* ThemeConfigView.swift */; };
 		77350ECB2E62674300491B6D /* SettingsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350ECA2E62673400491B6D /* SettingsMenuView.swift */; };
@@ -69,8 +67,6 @@
 		770F121D2E6A2126004D78C8 /* ThemedHeaderTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedHeaderTitle.swift; sourceTree = "<group>"; };
 		770F12232E6A2503004D78C8 /* RootSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSwitch.swift; sourceTree = "<group>"; };
 		770F12252E6B5ACA004D78C8 /* ColoredSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredSlider.swift; sourceTree = "<group>"; };
-		770F12272E6B619C004D78C8 /* AppContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainerView.swift; sourceTree = "<group>"; };
-		770F12292E6B7FD0004D78C8 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
 		77350EC22E624BFE00491B6D /* ThemeStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStyles.swift; sourceTree = "<group>"; };
 		77350EC42E624DDF00491B6D /* ThemeConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeConfigView.swift; sourceTree = "<group>"; };
 		77350ECA2E62673400491B6D /* SettingsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuView.swift; sourceTree = "<group>"; };
@@ -135,8 +131,6 @@
 		77855A0B2E620F7900B5B80F /* App */ = {
 			isa = PBXGroup;
 			children = (
-				770F12292E6B7FD0004D78C8 /* NavigationCoordinator.swift */,
-				770F12272E6B619C004D78C8 /* AppContainerView.swift */,
 				770F12232E6A2503004D78C8 /* RootSwitch.swift */,
 				77855A0A2E620F7900B5B80F /* AetherionApp.swift */,
 			);
@@ -395,7 +389,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				770F11F62E676213004D78C8 /* Contact.swift in Sources */,
-				770F12282E6B61A2004D78C8 /* AppContainerView.swift in Sources */,
 				770F11EF2E62E092004D78C8 /* ThemedCard.swift in Sources */,
 				770F12242E6A2510004D78C8 /* RootSwitch.swift in Sources */,
 				77350ECB2E62674300491B6D /* SettingsMenuView.swift in Sources */,
@@ -425,7 +418,6 @@
 				770F12182E677FDA004D78C8 /* SettingsOptionRow.swift in Sources */,
 				77F2F0C12E6290BC00B7D5FF /* AeTheme.swift in Sources */,
 				77350EC32E624C0E00491B6D /* ThemeStyles.swift in Sources */,
-				770F122A2E6B7FE9004D78C8 /* NavigationCoordinator.swift in Sources */,
 				77855A302E620F7900B5B80F /* Asset.swift in Sources */,
 				770F121E2E6A2133004D78C8 /* ThemedHeaderTitle.swift in Sources */,
 				77855A312E620F7900B5B80F /* HomeView.swift in Sources */,
