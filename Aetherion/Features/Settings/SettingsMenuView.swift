@@ -35,6 +35,7 @@ struct SettingsMenuView: View {
                         }
                         .padding(.horizontal, 16)
 
+
                         // Background color card
                         NavigationLink {
                             BackgroundColorConfigView()

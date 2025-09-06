@@ -103,6 +103,34 @@ struct SettingsView: View {
 
                         // Pavé : Thème
                         NavigationLink {
+                        ThemeDefautlView () // héritera des envObjects depuis l'app (barre globale)
+                        } label: {
+                            LocalCard(theme: theme) {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "paintpalette.fill")
+                                        .font(.title3.weight(.semibold))
+                                        .foregroundStyle(theme.accent)
+
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text("Thème Enristrés")
+                                            .font(.headline.bold())
+                                            .foregroundStyle(theme.foreground)
+                                        Text("Thème par défaut ou thème enregistrés de l’interface")
+                                            .font(.caption)
+                                            .foregroundStyle(theme.secondary)
+                                    }
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(theme.secondary)
+                                }
+                                .padding(.vertical, 6)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        
+                        // Pavé : Thème
+                        NavigationLink {
                             ThemeConfigView() // héritera des envObjects depuis l'app (barre globale)
                         } label: {
                             LocalCard(theme: theme) {
@@ -128,7 +156,6 @@ struct SettingsView: View {
                             }
                         }
                         .buttonStyle(.plain)
-
                         // =======================
                         // Section : Stockage
                         // =======================

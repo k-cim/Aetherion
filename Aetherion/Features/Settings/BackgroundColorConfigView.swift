@@ -137,6 +137,7 @@ struct BackgroundColorConfigView: View {
         .onChange(of: headerColor) { themeManager.updateHeaderColor($0) }
         .onChange(of: textColor)   { themeManager.updatePrimaryTextColor($0) }
     }
+    // MARK: - Init & Session snapshot
 }
 
 #Preview {
