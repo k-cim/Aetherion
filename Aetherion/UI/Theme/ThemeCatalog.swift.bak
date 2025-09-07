@@ -1,0 +1,127 @@
+// === File: UI/Theme/ThemeCatalog.swift
+// Description: Lecture/écriture de thèmes JSON (Documents/themes.json) + fallback presets.
+
+import SwiftUI
+
+struct ThemeEntry: Codable {
+    let id: String
+    let background: String
+    let foreground: String
+    let secondary: String
+    let accent: String
+    let controlTint: String
+    let cardStartOpacity: Double
+    let cardEndOpacity: Double
+    let cardStartColor: String
+    let cardEndColor: String
+    let cornerRadius: CGFloat
+    let headerFontSize: CGFloat
+    let headerFontWeight: String
+    let headerFontDesign: String
+    let headerColor: String
+}
+
+struct ThemeFile: Codable {
+    var themes: [ThemeEntry]
+}
+
+final class ThemeCatalog {
+    static let shared = ThemeCatalog()
+    private init() {}
+
+    private let fileName = "themes.json"
+
+    private var fileURL: URL {
+        let doc = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return doc.appendingPathComponent(fileName)
+    }
+
+    // MARK: - Load all themes (fallback = presets)
+    func loadThemes() -> [Theme] {
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let decoded = try JSONDecoder().decode(ThemeFile.self, from: data)
+            let mapped = decoded.themes.compactMap { $0.toTheme() }
+            if mapped.isEmpty { return ThemeID.allCases.map { Theme.preset($0) } }
+            return mapped
+        } catch {
+            print("⚠️ ThemeCatalog.loadThemes: \(error.localizedDescription) → fallback presets")
+            return ThemeID.allCases.map { Theme.preset($0) }
+        }
+    }
+
+    // MARK: - Save all themes
+    func saveThemes(_ themes: [Theme]) {
+        let entries = themes.map { ThemeEntry(from: $0) }
+        let wrapper = ThemeFile(themes: entries)
+        do {
+            let data = try JSONEncoder().encode(wrapper)
+            try data.write(to: fileURL, options: [.atomic])
+            print("✅ Themes saved at \(fileURL.path)")
+        } catch {
+            print("⚠️ ThemeCatalog.saveThemes: \(error.localizedDescription)")
+        }
+    }
+
+    // MARK: - Get theme by ID (fallback preset)
+    func theme(for id: ThemeID) -> Theme {
+        let all = loadThemes()
+        return all.first { $0.id == id } ?? Theme.preset(id)
+    }
+}
+
+// MARK: - Conversions
+// APRÈS (visible par ThemeCatalog+List.swift)
+extension ThemeEntry {
+    func toTheme() -> Theme? {
+        guard let themeID = ThemeID(rawValue: id) else { return nil }
+        guard
+            let bg  = Color(string: background),
+            let fg  = Color(string: foreground),
+            let sec = Color(string: secondary),
+            let acc = Color(string: accent),
+            let ctl = Color(string: controlTint),
+            let c0  = Color(string: cardStartColor),
+            let c1  = Color(string: cardEndColor),
+            let hdr = Color(string: headerColor)
+        else { return nil }
+
+        return Theme(
+            id: themeID,
+            background: bg,
+            foreground: fg,
+            secondary: sec,
+            accent: acc,
+            controlTint: ctl,
+            cardStartOpacity: cardStartOpacity,
+            cardEndOpacity: cardEndOpacity,
+            cardStartColor: c0,
+            cardEndColor: c1,
+            cornerRadius: cornerRadius,
+            headerFontSize: headerFontSize,
+            headerFontWeight: Font.Weight.from(string: headerFontWeight),
+            headerFontDesign: Font.Design.from(string: headerFontDesign),
+            headerColor: hdr
+        )
+    }
+}
+
+private extension ThemeEntry {
+    init(from t: Theme) {
+        self.id = t.id.rawValue
+        self.background = t.background.toHex()
+        self.foreground = t.foreground.toHex()
+        self.secondary  = t.secondary.toHex()
+        self.accent     = t.accent.toHex()
+        self.controlTint = t.controlTint.toHex()
+        self.cardStartOpacity = t.cardStartOpacity
+        self.cardEndOpacity   = t.cardEndOpacity
+        self.cardStartColor   = t.cardStartColor.toHex()
+        self.cardEndColor     = t.cardEndColor.toHex()
+        self.cornerRadius     = t.cornerRadius
+        self.headerFontSize   = t.headerFontSize
+        self.headerFontWeight = t.headerFontWeight.toString()
+        self.headerFontDesign = t.headerFontDesign.toString()
+        self.headerColor      = t.headerColor.toHex()
+    }
+}

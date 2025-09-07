@@ -1,15 +1,14 @@
-// === File: Features/Settings/SettingsView.swift
-// Description: Paramètres — sections Apparence / Stockage / Contact.
-//              Version autonome (ne lit pas ThemeManager) pour éviter le crash d'environnement.
+// === File: Features/Settings/ThemeDefautlView.swift
+// Description: Paramètres — Thèmes (roue basée sur JSON), Annuler/Appliquer.
+// NOTE: Stacks & paddings conservés à l’identique.
 
 import SwiftUI
 import UIKit
 
-// Enum UNIQUE (niveau fichier)
+// -------- Enum UNIQUE pour les libellés "fallback" (utile si liste JSON vide)
 private enum ThemeChoice: CaseIterable, Identifiable {
     case dark, light, blue, sepia, emerald
     var id: Self { self }
-
     var label: String {
         switch self {
         case .dark:    return "Thème Foncé"
@@ -21,7 +20,7 @@ private enum ThemeChoice: CaseIterable, Identifiable {
     }
 }
 
-// État persistant complet (valeurs enregistrées via ThemePersistence)
+// -------- Persisted snapshot (sauvegarde/restaure)
 private struct PersistedThemeState {
     var background: Color
     var foreground: Color
@@ -59,7 +58,9 @@ private struct PersistedThemeState {
         p.saveCardGradientColors(start: cardStartColor, end: cardEndColor)
         p.saveHeaderColor(headerColor)
     }
-}// Mapping roue -> ThemeID
+}
+
+// -------- Mapping fallback (si JSON absent)
 private func themeID(for choice: ThemeChoice) -> ThemeID {
     switch choice {
     case .dark:    return .aetherionDark
@@ -69,8 +70,6 @@ private func themeID(for choice: ThemeChoice) -> ThemeID {
     case .emerald: return .aetherionEmerald
     }
 }
-
-// Inverse ThemeID -> ThemeChoice
 private func choice(for id: ThemeID) -> ThemeChoice {
     switch id {
     case .aetherionDark:    return .dark
@@ -81,7 +80,7 @@ private func choice(for id: ThemeID) -> ThemeChoice {
     }
 }
 
-// MARK: - Local theme snapshot (chargé depuis la persistance)
+// -------- Snapshot visuel local pour les cartes
 private struct LocalTheme {
     let background: Color
     let foreground: Color
@@ -113,7 +112,6 @@ private struct LocalTheme {
 
     static func load() -> LocalTheme {
         let p = ThemePersistence.shared
-        // on part du preset dark (cohérent avec l’app) puis on applique les persistences
         let base = Theme.preset(.aetherionDark)
         return LocalTheme(
             background: p.loadBackgroundColor(default: .black),
@@ -131,7 +129,7 @@ private struct LocalTheme {
     }
 }
 
-// Radio sans libellé (juste le rond), lié à un Bool
+// -------- Radio (petit rond)
 private struct RadioDot: View {
     @EnvironmentObject private var themeManager: ThemeManager
     @Binding var isOn: Bool
@@ -148,12 +146,11 @@ private struct RadioDot: View {
     }
 }
 
-// MARK: - LocalCard (remplace ThemedCard ici, même visuel)
+// -------- Carte locale (même look que tes autres cartes)
 private struct LocalCard<Content: View>: View {
     let theme: LocalTheme
     let fixedHeight: CGFloat?
     @ViewBuilder var content: () -> Content
-    @State private var showVisualisation: Bool = false
 
     init(theme: LocalTheme, fixedHeight: CGFloat? = nil, @ViewBuilder content: @escaping () -> Content) {
         self.theme = theme
@@ -181,81 +178,57 @@ private struct LocalCard<Content: View>: View {
     }
 }
 
-// === UIPickerView roue de thèmes (texte coloré via attributedTitleForRow)
-private struct ThemeWheelPicker: UIViewRepresentable {
-    var options: [ThemeChoice]
-    @Binding var selection: ThemeChoice
-    var textColor: Color                  // même source que les boutons (themeManager.theme.foreground)
-    var onChange: (ThemeChoice) -> Void
-
-    func makeCoordinator() -> Coordinator { Coordinator(self) }
-
-    func makeUIView(context: Context) -> UIPickerView {
-        let v = UIPickerView()
-        v.dataSource = context.coordinator
-        v.delegate   = context.coordinator
-        if let idx = options.firstIndex(of: selection) {
-            v.selectRow(idx, inComponent: 0, animated: false)
-        }
-        return v
-    }
-
-    func updateUIView(_ uiView: UIPickerView, context: Context) {
-        uiView.reloadAllComponents()
-        if let idx = options.firstIndex(of: selection),
-           uiView.selectedRow(inComponent: 0) != idx {
-            uiView.selectRow(idx, inComponent: 0, animated: false)
-        }
-    }
-
-    final class Coordinator: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
-        let parent: ThemeWheelPicker
-        init(_ parent: ThemeWheelPicker) { self.parent = parent }
-
-        func numberOfComponents(in pickerView: UIPickerView) -> Int { 1 }
-        func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-            parent.options.count
-        }
-
-        func pickerView(_ pickerView: UIPickerView,
-                        attributedTitleForRow row: Int,
-                        forComponent component: Int) -> NSAttributedString? {
-            let name = parent.options[row].label
-            let uiColor = UIColor(parent.textColor)
-            return NSAttributedString(string: name, attributes: [.foregroundColor: uiColor])
-        }
-
-        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            let choice = parent.options[row]
-            parent.selection = choice
-            parent.onChange(choice)
-        }
-    }
-}
-
-// MARK: - SettingsView (autonome)
+// =====================================================
+//                    VIEW PRINCIPALE
+// =====================================================
 struct ThemeDefautlView: View {
     // Thème visuel local à l’écran
     @State private var theme = LocalTheme.load()
-    @State private var showVisualisation: Bool = false
-    @State private var initialThemeID: ThemeID = .aetherionDark
-    @State private var initialSnapshot: Theme? = nil          // snapshot mémoire
-    @State private var initialPersisted: PersistedThemeState? = nil // snapshot disque
-    @State private var didApply: Bool = false
-    @Environment(\.dismiss) private var dismiss
-    
-    // Pour appliquer globalement
-    @EnvironmentObject private var themeManager: ThemeManager
 
-    // Sélection de la roue
+    // Snapshots pour Annuler / Retour
+    @State private var initialThemeID: ThemeID = .aetherionDark
+    @State private var initialSnapshot: Theme? = nil                 // thème complet à l’arrivée
+    @State private var initialPersisted: PersistedThemeState? = nil  // ce qui est sur disque à l’arrivée
+    @State private var didApply: Bool = false                        // passé à true après “Appliquer”
+
+    // Intéractions locales
+    @State private var showVisualisation: Bool = false
+
+    // Données pour la roue basée JSON
+    @State private var themeItems: [ThemeListItem] = []              // items découverts
+    @State private var selectedItem: ThemeListItem? = nil            // nil = “Actuel (ne rien changer)”
+
+    // Accès au ThemeManager global
+    @EnvironmentObject private var themeManager: ThemeManager
+    @Environment(\.dismiss) private var dismiss
+    // — États locaux —
+
+    // fallback (libellé pour les textes si JSON vide)
     @State private var selectedChoice: ThemeChoice = .dark
 
+    // libellé utilisé dans tes textes sous les cartes (si JSON → displayName, sinon fallback enum)
+    private var selectedLabel: String {
+        selectedItem?.displayName ?? selectedChoice.label
+    }
+    // type de source (app vs enregistré)
+    private var isPresetFromBundle: Bool {
+        guard let url = selectedItem?.fileURL else { return true }
+        return !url.path.contains("/Documents/")
+    }
 
 
-    // applique le thème choisi (aperçu live)
-    private func applyTheme(for choice: ThemeChoice) {
-        let tid = themeID(for: choice)
-        let t   = Theme.preset(tid)
+    /// Mémorise l’état courant au moment d’entrer dans l’écran
+    private func takeSnapshotOnAppear() {
+        let current = themeManager.theme
+        initialThemeID   = current.id
+        initialSnapshot  = current
+        initialPersisted = PersistedThemeState.loadFromDisk(base: current)
+        // aligne l’aperçu local
+        theme = LocalTheme.fromTheme(current)
+    }
+
+    /// Applique un Theme comme aperçu global + aligne le pavé local (sans marquer “appliqué”)
+    private func previewTheme(_ t: Theme) {
         withAnimation(.easeInOut) {
             themeManager.theme = t
             themeManager.updateBackgroundColor(t.background)
@@ -266,10 +239,20 @@ struct ThemeDefautlView: View {
         }
     }
 
+    /// Restaure exactement l’état d’arrivée (thème + persistance)
+    private func restoreSnapshot() {
+        guard let snap = initialSnapshot else { return }
+        // restaure la persistance telle qu’elle était à l’arrivée
+        initialPersisted?.saveToDisk()
+        previewTheme(snap)
+        didApply = false
+    }
+
+    /// Fige l’état actuel comme “nouveau” (sauve sur disque + met à jour baseline)
     private func applyAction() {
         let t = themeManager.theme
-        // 1) Sauvegarde sur disque de l’état actuel (confirmé)
         let p = ThemePersistence.shared
+        // sauve tout
         p.saveBackgroundColor(t.background)
         p.savePrimaryTextColor(t.foreground)
         p.saveSecondaryTextColor(t.secondary)
@@ -279,34 +262,31 @@ struct ThemeDefautlView: View {
         p.saveCardGradientColors(start: t.cardStartColor, end: t.cardEndColor)
         p.saveHeaderColor(t.headerColor)
 
-        // 2) Met à jour la baseline mémoire + disque (ce qui sera “l’état d’arrivée” après apply)
+        // nouvelle baseline
         initialThemeID   = t.id
         initialSnapshot  = t
-        initialPersisted = PersistedThemeState.loadFromDisk(using: p, base: t)
-
-        // 3) Marque comme appliqué (on ne restaurera plus à la sortie)
+        initialPersisted = PersistedThemeState.loadFromDisk(base: t)
         didApply = true
     }
-
-    private func restoreSnapshot() {
-        guard let snap = initialSnapshot else { return }
-        // restaure la persistance aussi (si tu as ajouté initialPersisted)
-        initialPersisted?.saveToDisk()
+    // Applique le theme (depuis JSON ou fallback preset) + aligne l’aperçu local
+    private func applySelectedItem(_ item: ThemeListItem) {
+        let t = ThemeCatalog.shared.loadTheme(from: item)
         withAnimation(.easeInOut) {
-            themeManager.theme = snap
-            themeManager.updateBackgroundColor(snap.background)
-            themeManager.updateHeaderColor(snap.headerColor)
-            themeManager.updatePrimaryTextColor(snap.foreground)
-            theme = LocalTheme.fromTheme(snap)
-            selectedChoice = choice(for: initialThemeID)
+            themeManager.theme = t
+            themeManager.updateBackgroundColor(t.background)
+            themeManager.updateHeaderColor(t.headerColor)
+            themeManager.updatePrimaryTextColor(t.foreground)
+            theme = LocalTheme.fromTheme(t)   // si tu affiches un aperçu local
+            didApply = false
         }
     }
+
     var body: some View {
         ZStack {
             theme.background.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // Titre d'écran (style proche ThemedHeaderTitle)
+                // ====== Titre (inchangé) ======
                 HStack {
                     Text("Thème Enregistré")
                         .font(.system(size: 28, weight: .bold, design: .rounded))
@@ -319,9 +299,7 @@ struct ThemeDefautlView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
 
-                        // =======================
-                        // Section : Apparence
-                        // =======================
+                        // ====== Section Apparence (inchangée sauf libellé pris sur selectedLabel) ======
                         LocalCard(theme: theme) {
                             HStack(spacing: 12) {
                                 Image(systemName: "paintpalette.fill")
@@ -329,12 +307,11 @@ struct ThemeDefautlView: View {
                                     .foregroundStyle(theme.accent)
 
                                 VStack(alignment: .leading, spacing: 2) {
-                                    Text(selectedChoice.label)
+                                    Text(selectedLabel)
                                         .font(.headline.weight(.semibold))
                                         .foregroundStyle(theme.foreground)
 
-                                    let isPreset = (selectedChoice == .dark || selectedChoice == .light)
-                                    Text(isPreset ? "Thème de l’application" : "Thème enregistré")
+                                    Text(isPresetFromBundle ? "Thème de l’application" : "Thème enregistré")
                                         .font(.subheadline)
                                         .foregroundStyle(theme.secondary)
                                 }
@@ -343,7 +320,7 @@ struct ThemeDefautlView: View {
                             .padding(.vertical, 6)
                         }
 
-                        // Pavé : Visualisation
+                        // ====== Pavé : Visualisation (inchangé) ======
                         LocalCard(theme: theme) {
                             HStack(spacing: 12) {
                                 VStack(alignment: .leading, spacing: 2) {
@@ -356,7 +333,6 @@ struct ThemeDefautlView: View {
                                             .font(.subheadline)
                                             .foregroundStyle(theme.secondary)
                                             .lineLimit(1)
-
                                         Button {
                                             showVisualisation.toggle()
                                         } label: {
@@ -371,9 +347,7 @@ struct ThemeDefautlView: View {
                             .padding(.vertical, 6)
                         }
 
-                        // =======================
-                        // Section : Choix du thème
-                        // =======================
+                        // ====== Titre “Choix du Thème” (inchangé) ======
                         VStack(alignment: .leading) {
                             Text("Choix du Thème")
                                 .font(.title3.weight(.bold))
@@ -383,31 +357,35 @@ struct ThemeDefautlView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
 
-                        LocalCard(theme: theme) {
-                            VStack(alignment: .leading, spacing: 8) {
-                                ThemeWheelPicker(
-                                    options: Array(ThemeChoice.allCases),
-                                    selection: $selectedChoice,
-                                    textColor: themeManager.theme.foreground   // même couleur que les boutons
-                                ) { choice in
-                                    applyTheme(for: choice)                    // aperçu live
+                        // ====== Carte avec la roue (on garde ThemedCard comme chez toi) ======
+                        ThemedCard {
+                            ThemePickerWheel(
+                                items: themeItems,
+                                selection: $selectedItem,
+                                textColor: themeManager.theme.foreground   // même couleur que tes boutons
+                            ) { item in
+                                let t = ThemeCatalog.shared.loadTheme(from: item)
+                                withAnimation(.easeInOut) {
+                                    themeManager.theme = t
+                                    themeManager.updateBackgroundColor(t.background)
+                                    themeManager.updateHeaderColor(t.headerColor)
+                                    themeManager.updatePrimaryTextColor(t.foreground)
+                                    // si tu gardes un aperçu local:
+                                    theme = LocalTheme.fromTheme(t)
+                                    didApply = false
                                 }
-                                .frame(height: 140)
-                                .clipped()
-                                .id(themeManager.theme.id.rawValue)           // force le refresh quand le thème change
                             }
                         }
 
-                        // Récap’ nom + origine (pavé séparé)
+                        // ====== Récap (inchangé, libellés basés sur selectedLabel) ======
                         LocalCard(theme: theme) {
                             HStack(spacing: 12) {
                                 VStack(alignment: .leading, spacing: 2) {
-                                    Text(selectedChoice.label)
+                                    Text(selectedLabel)
                                         .font(.headline.weight(.semibold))
                                         .foregroundStyle(theme.foreground)
 
-                                    let isPreset = (selectedChoice == .dark || selectedChoice == .light)
-                                    Text(isPreset ? "Thème de l’application" : "Thème enregistré")
+                                    Text(isPresetFromBundle ? "Thème de l’application" : "Thème enregistré")
                                         .font(.subheadline)
                                         .foregroundStyle(theme.secondary)
                                 }
@@ -417,10 +395,10 @@ struct ThemeDefautlView: View {
                         }
                         .buttonStyle(.plain)
 
-                        // --- Actions (Annuler / Appliquer) ---
+                        // ====== Actions (Annuler / Appliquer) (inchangées) ======
                         HStack(spacing: 12) {
                             Button {
-                                restoreSnapshot()               // ⬅️ revient aux couleurs d’avant
+                                restoreSnapshot()
                             } label: {
                                 ThemedCard(fixedHeight: 56) {
                                     HStack {
@@ -435,7 +413,7 @@ struct ThemeDefautlView: View {
                             .buttonStyle(.plain)
 
                             Button {
-                                applyAction()                   // ⬅️ confirme et garde les couleurs
+                                applyAction()
                             } label: {
                                 ThemedCard(fixedHeight: 56) {
                                     HStack {
@@ -457,71 +435,70 @@ struct ThemeDefautlView: View {
                 }
             }
         }
-        
-        // Snapshot initial à l’arrivée
+        // -------- Lifecycle --------
         .onAppear {
-            // Snapshot mémoire initial
-            initialThemeID  = themeManager.theme.id
-            let lt          = LocalTheme.load()
-            initialSnapshot = Theme(
-                id: initialThemeID,
-                background: lt.background,
-                foreground: lt.foreground,
-                secondary: lt.secondary,
-                accent: lt.accent,
-                controlTint: lt.controlTint,
-                cardStartOpacity: lt.cardStartOpacity,
-                cardEndOpacity: lt.cardEndOpacity,
-                cardStartColor: lt.cardStartColor,
-                cardEndColor: lt.cardEndColor,
-                cornerRadius: themeManager.theme.cornerRadius,
-                headerFontSize: themeManager.theme.headerFontSize,
-                headerFontWeight: themeManager.theme.headerFontWeight,
-                headerFontDesign: themeManager.theme.headerFontDesign,
-                headerColor: lt.headerColor
-            )
-            // Snapshot disque initial
-            initialPersisted = PersistedThemeState.loadFromDisk(using: .shared, base: themeManager.theme)
-            selectedChoice   = choice(for: initialThemeID)
-            didApply         = false
+            // 1) snapshot d’arrivée
+            takeSnapshotOnAppear()
+
+            // 2) charge la liste depuis JSON (bundle + Documents/Themes)
+            let items = ThemeCatalog.shared.listThemes()
+            // insère “Actuel (ne rien changer)” tout en haut via selectedItem = nil
+            self.themeItems = items
+            self.selectedItem = nil
         }
         .onDisappear {
-            // Si on quitte par le bouton Retour sans avoir "Appliquer" → restaurer tout
-            if !didApply {
-                restoreSnapshot()
-            }
-        }
-        // Toute modification invalide l’état appliqué
-        .onChange(of: selectedChoice) { _ in
-            didApply = false
+            // si on quitte sans “Appliquer”, on restaure l’état d’arrivée
+            if !didApply { restoreSnapshot() }
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    // Si l’utilisateur n’a PAS cliqué “Appliquer”, on restaure AVANT de quitter
-                    if !didApply {
-                        withAnimation(.easeInOut) {
-                            restoreSnapshot()
-                        }
-                    }
+                    if !didApply { restoreSnapshot() }
                     dismiss()
                 } label: {
-                    // Chevron système, même look que le back natif
                     HStack(spacing: 6) {
                         Image(systemName: "chevron.left")
                         Text("Retour")
                     }
-                    .foregroundStyle(themeManager.theme.accent) // même teinte que le thème
+                    .foregroundStyle(themeManager.theme.accent)
                 }
+            }
+        }
+        .onChange(of: selectedItem) { newItem in
+            if let it = newItem {
+                applySelectedItem(it)
             }
         }
     }
 }
+// Sous-vue compacte pour la roue de thèmes JSON
+private struct ThemePickerWheel: View {
+    let items: [ThemeListItem]
+    @Binding var selection: ThemeListItem?
+    let textColor: Color
+    var onChange: (ThemeListItem) -> Void
 
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Picker("Thème", selection: $selection) {
+                ForEach(items) { item in
+                    Text(item.displayName)
+                        .tag(Optional(item)) // IMPORTANT: tag = Optional(ThemeListItem)
+                }
+            }
+            .pickerStyle(.wheel)
+            .frame(height: 140)
+            .clipped()
+        }
+        .onChange(of: selection) { newValue in
+            if let it = newValue { onChange(it) }
+        }
+    }
+}
 #Preview {
     NavigationStack {
         ThemeDefautlView()
-            .environmentObject(ThemeManager(default: .aetherionDark)) // évite le crash d'env
+            .environmentObject(ThemeManager(default: .aetherionDark))
     }
 }

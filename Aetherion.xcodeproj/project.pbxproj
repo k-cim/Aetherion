@@ -47,6 +47,9 @@
 		77855A572E6228AF00B5B80F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77855A542E6228AF00B5B80F /* Assets.xcassets */; };
 		77855A592E622F0800B5B80F /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A582E622ED500B5B80F /* DashboardViewModel.swift */; };
 		77855A5B2E622F2F00B5B80F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A5A2E622F1F00B5B80F /* DashboardView.swift */; };
+		77A2FC622E6D6FB1005735FF /* FontCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A2FC612E6D6FAA005735FF /* FontCoding.swift */; };
+		77A2FC662E6D722F005735FF /* JSON+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A2FC652E6D722C005735FF /* JSON+Utils.swift */; };
+		77A2FC682E6D726C005735FF /* ThemeCatalog+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A2FC672E6D7269005735FF /* ThemeCatalog+List.swift */; };
 		77A36CCF2E60F04B005C2D20 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 77A36CCE2E60F04B005C2D20 /* ZIPFoundation */; };
 		77A36CD22E60F057005C2D20 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 77A36CD12E60F057005C2D20 /* Algorithms */; };
 		77C158DA2E6CBC06002424CD /* sas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C158D92E6CBBF7002424CD /* sas.swift */; };
@@ -96,6 +99,9 @@
 		77855A542E6228AF00B5B80F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77855A582E622ED500B5B80F /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		77855A5A2E622F1F00B5B80F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		77A2FC612E6D6FAA005735FF /* FontCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCoding.swift; sourceTree = "<group>"; };
+		77A2FC652E6D722C005735FF /* JSON+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSON+Utils.swift"; sourceTree = "<group>"; };
+		77A2FC672E6D7269005735FF /* ThemeCatalog+List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeCatalog+List.swift"; sourceTree = "<group>"; };
 		77C158D92E6CBBF7002424CD /* sas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sas.swift; sourceTree = "<group>"; };
 		77F2F0C02E6290A700B7D5FF /* AeTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeTheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -293,6 +299,9 @@
 		77855A442E6222C800B5B80F /* Theme */ = {
 			isa = PBXGroup;
 			children = (
+				77A2FC672E6D7269005735FF /* ThemeCatalog+List.swift */,
+				77A2FC652E6D722C005735FF /* JSON+Utils.swift */,
+				77A2FC612E6D6FAA005735FF /* FontCoding.swift */,
 				770F11EC2E62DFB4004D78C8 /* ThemedModifiers.swift */,
 				770F11EA2E62DF6F004D78C8 /* ThemeManager.swift */,
 				770F11E82E62DEFA004D78C8 /* Theme.swift */,
@@ -405,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				770F11F62E676213004D78C8 /* Contact.swift in Sources */,
+				77A2FC662E6D722F005735FF /* JSON+Utils.swift in Sources */,
 				770F12282E6B61A2004D78C8 /* AppContainerView.swift in Sources */,
 				770F11EF2E62E092004D78C8 /* ThemedCard.swift in Sources */,
 				770F12242E6A2510004D78C8 /* RootSwitch.swift in Sources */,
@@ -421,6 +431,7 @@
 				77350EC52E624DF500491B6D /* ThemeConfigView.swift in Sources */,
 				77855A2A2E620F7900B5B80F /* SettingsViewModel.swift in Sources */,
 				77855A2B2E620F7900B5B80F /* StorageService.swift in Sources */,
+				77A2FC622E6D6FB1005735FF /* FontCoding.swift in Sources */,
 				77855A2C2E620F7900B5B80F /* OnboardingViewModel.swift in Sources */,
 				770F11EB2E62DF80004D78C8 /* ThemeManager.swift in Sources */,
 				770F121A2E678229004D78C8 /* ThemedHeader.swift in Sources */,
@@ -439,6 +450,7 @@
 				77855A302E620F7900B5B80F /* Asset.swift in Sources */,
 				77C158DA2E6CBC06002424CD /* sas.swift in Sources */,
 				770F121E2E6A2133004D78C8 /* ThemedHeaderTitle.swift in Sources */,
+				77A2FC682E6D726C005735FF /* ThemeCatalog+List.swift in Sources */,
 				77855A312E620F7900B5B80F /* HomeView.swift in Sources */,
 				770F121C2E6782FD004D78C8 /* BannerView.swift in Sources */,
 				77855A322E620F7900B5B80F /* AetherionApp.swift in Sources */,
