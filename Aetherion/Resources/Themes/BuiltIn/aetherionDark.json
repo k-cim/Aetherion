@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "id": "aetherionDark",
+  "name": "Aetherion Sombre",
+  "meta": { "author": "Aetherion", "createdAt": "2025-09-07T00:00:00Z" },
+
+  "background": {
+    "style": "solid",
+    "color": "#000000",
+    "gradient": {
+      "startColor": "#FFFFFF",
+      "endColor":   "#FFFFFF",
+      "startOpacity": 0.30,
+      "endOpacity":   0.10,
+      "startPoint": "leading",
+      "endPoint": "trailing"
+    }
+  },
+
+  "cards": {
+    "startColor": "#FFFFFF",
+    "endColor":   "#FFFFFF",
+    "startOpacity": 0.30,
+    "endOpacity":   0.10,
+    "cornerRadius": 16,
+    "strokeOpacity": 0.08
+  },
+
+  "text": {
+    "header":   { "color": "#FFFFFFFF",            "size": 28, "weight": "bold",     "design": "rounded" },
+    "title":    { "color": "#FFFFFFFF",            "size": 20, "weight": "semibold", "design": "default" },
+    "body":     { "color": "#FFFFFFFF",            "size": 16, "weight": "regular",  "design": "default" },
+    "secondary":{ "color": "rgba(255,255,255,0.7)","size": 14, "weight": "regular",  "design": "default" }
+  },
+
+  "icons": {
+    "color": "#FFFFFFD9",
+    "selectedOpacity": 1.00,
+    "unselectedOpacity": 0.40
+  },
+
+  "controls": {
+    "tint": "#FFFFFFD9",
+    "slider":  { "thumb": "#FFFFFFFF", "track": "rgba(255,255,255,0.30)" },
+    "toggle":  { "on":   "#FFFFFFD9",  "off":   "rgba(255,255,255,0.30)" },
+    "radio":   { "fill": "#FFFFFFD9",  "stroke":"rgba(255,255,255,0.30)" },
+    "progress":{ "track":"rgba(255,255,255,0.20)", "fill": "#FFFFFFD9" }
+  },
+
+  "bottombar": { "backgroundOpacity": 0.30 }
+}

@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "id": "aetherionBlue",
+  "name": "Aetherion Bleu",
+  "meta": { "author": "Aetherion", "createdAt": "2025-09-07T00:00:00Z" },
+
+  "background": {
+    "style": "gradient",
+    "color": "#0B1220",
+    "gradient": {
+      "startColor": "#0B1220",
+      "endColor":   "#0E1B3A",
+      "startOpacity": 1.00,
+      "endOpacity":   1.00,
+      "startPoint": "top",
+      "endPoint": "bottom"
+    }
+  },
+
+  "cards": {
+    "startColor": "#76A8FF",
+    "endColor":   "#B2C8FF",
+    "startOpacity": 0.18,
+    "endOpacity":   0.08,
+    "cornerRadius": 16,
+    "strokeOpacity": 0.10
+  },
+
+  "text": {
+    "header":   { "color": "#E6F0FFFF", "size": 28, "weight": "bold",     "design": "rounded" },
+    "title":    { "color": "#E6F0FFFF", "size": 20, "weight": "semibold", "design": "default" },
+    "body":     { "color": "#E6F0FFFF", "size": 16, "weight": "regular",  "design": "default" },
+    "secondary":{ "color": "rgba(230,240,255,0.70)", "size": 14, "weight": "regular", "design": "default" }
+  },
+
+  "icons": {
+    "color": "#9CC0FFFF",
+    "selectedOpacity": 1.00,
+    "unselectedOpacity": 0.45
+  },
+
+  "controls": {
+    "tint": "#9CC0FFFF",
+    "slider":  { "thumb": "#E6F0FFFF", "track": "rgba(156,192,255,0.35)" },
+    "toggle":  { "on":   "#9CC0FFFF",  "off":   "rgba(230,240,255,0.35)" },
+    "radio":   { "fill": "#9CC0FFFF",  "stroke":"rgba(230,240,255,0.35)" },
+    "progress":{ "track":"rgba(156,192,255,0.25)", "fill": "#9CC0FFFF" }
+  },
+
+  "bottombar": { "backgroundOpacity": 0.28 }
+}

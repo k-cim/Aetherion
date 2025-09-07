@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "id": "aetherionEmerald",
+  "name": "Aetherion Émeraude",
+  "meta": { "author": "Aetherion", "createdAt": "2025-09-07T00:00:00Z" },
+
+  "background": {
+    "style": "gradient",
+    "color": "#08150F",
+    "gradient": {
+      "startColor": "#0A1F17",
+      "endColor":   "#103125",
+      "startOpacity": 1.00,
+      "endOpacity":   1.00,
+      "startPoint": "top",
+      "endPoint": "bottom"
+    }
+  },
+
+  "cards": {
+    "startColor": "#38E1A4",
+    "endColor":   "#7BF0C5",
+    "startOpacity": 0.16,
+    "endOpacity":   0.08,
+    "cornerRadius": 16,
+    "strokeOpacity": 0.10
+  },
+
+  "text": {
+    "header":   { "color": "#E9FFF6FF", "size": 28, "weight": "bold",     "design": "rounded" },
+    "title":    { "color": "#E9FFF6FF", "size": 20, "weight": "semibold", "design": "default" },
+    "body":     { "color": "#E9FFF6FF", "size": 16, "weight": "regular",  "design": "default" },
+    "secondary":{ "color": "rgba(233,255,246,0.70)", "size": 14, "weight": "regular", "design": "default" }
+  },
+
+  "icons": {
+    "color": "#A9FFE0FF",
+    "selectedOpacity": 1.00,
+    "unselectedOpacity": 0.45
+  },
+
+  "controls": {
+    "tint": "#7BF0C5FF",
+    "slider":  { "thumb": "#E9FFF6FF", "track": "rgba(56,225,164,0.35)" },
+    "toggle":  { "on":   "#38E1A4FF",  "off":   "rgba(233,255,246,0.35)" },
+    "radio":   { "fill": "#38E1A4FF",  "stroke":"rgba(233,255,246,0.35)" },
+    "progress":{ "track":"rgba(56,225,164,0.25)", "fill": "#7BF0C5FF" }
+  },
+
+  "bottombar": { "backgroundOpacity": 0.26 }
+}
+

@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "id": "aetherionSepia",
+  "name": "Aetherion Sépia",
+  "meta": { "author": "Aetherion", "createdAt": "2025-09-07T00:00:00Z" },
+
+  "background": {
+    "style": "gradient",
+    "color": "#F7F3EA",
+    "gradient": {
+      "startColor": "#F7F3EA",
+      "endColor":   "#EDE3D3",
+      "startOpacity": 1.00,
+      "endOpacity":   1.00,
+      "startPoint": "topLeading",
+      "endPoint": "bottomTrailing"
+    }
+  },
+
+  "cards": {
+    "startColor": "#5E3D26",
+    "endColor":   "#8A5B3D",
+    "startOpacity": 0.10,
+    "endOpacity":   0.05,
+    "cornerRadius": 16,
+    "strokeOpacity": 0.08
+  },
+
+  "text": {
+    "header":   { "color": "#3A2A20FF", "size": 28, "weight": "bold",     "design": "serif" },
+    "title":    { "color": "#3A2A20FF", "size": 20, "weight": "semibold", "design": "default" },
+    "body":     { "color": "#3A2A20FF", "size": 16, "weight": "regular",  "design": "default" },
+    "secondary":{ "color": "rgba(58,42,32,0.70)", "size": 14, "weight": "regular", "design": "default" }
+  },
+
+  "icons": {
+    "color": "#3A2A20D9",
+    "selectedOpacity": 1.00,
+    "unselectedOpacity": 0.45
+  },
+
+  "controls": {
+    "tint": "#3A2A20D9",
+    "slider":  { "thumb": "#3A2A20FF", "track": "rgba(58,42,32,0.20)" },
+    "toggle":  { "on":   "#3A2A20D9",  "off":   "rgba(58,42,32,0.25)" },
+    "radio":   { "fill": "#3A2A20D9",  "stroke":"rgba(58,42,32,0.25)" },
+    "progress":{ "track":"rgba(58,42,32,0.15)", "fill": "#3A2A20D9" }
+  },
+
+  "bottombar": { "backgroundOpacity": 0.16 }
+}

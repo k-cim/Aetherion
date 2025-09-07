@@ -111,6 +111,11 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		77A2FC502E6D6B2C005735FF /* Themes */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Themes;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +312,7 @@
 		77855A552E6228AF00B5B80F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				77A2FC502E6D6B2C005735FF /* Themes */,
 				77855A532E6228AF00B5B80F /* Localization */,
 				77855A542E6228AF00B5B80F /* Assets.xcassets */,
 			);
@@ -331,6 +337,7 @@
 			fileSystemSynchronizedGroups = (
 				770F11F72E67625F004D78C8 /* Contacts */,
 				770F121F2E6A24C6004D78C8 /* Navigation */,
+				77A2FC502E6D6B2C005735FF /* Themes */,
 			);
 			name = Aetherion;
 			packageProductDependencies = (
