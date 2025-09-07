@@ -4,6 +4,23 @@
 
 import SwiftUI
 
+// Remplace TOUTES tes déclas ThemeChoice par UNE SEULE :
+private enum ThemeChoice: CaseIterable, Identifiable {
+    case dark, light, blue, sepia, emerald
+    var id: Self { self }
+}
+
+// Renomme la fonction de mapping pour éviter le conflit avec 'id'
+private func themeID(for choice: ThemeChoice) -> ThemeID {
+    switch choice {
+    case .dark:    return .aetherionDark
+    case .light:   return .aetherionLight
+    case .blue:    return .aetherionBlue
+    case .sepia:   return .aetherionSepia
+    case .emerald: return .aetherionEmerald
+    }
+}
+
 // MARK: - Local theme snapshot (chargé depuis la persistance)
 private struct LocalTheme {
     let background: Color
@@ -38,11 +55,30 @@ private struct LocalTheme {
     }
 }
 
+// Radio sans libellé (juste le rond), lié à un Bool
+private struct RadioDot: View {
+    @EnvironmentObject private var themeManager: ThemeManager
+    @Binding var isOn: Bool
+    var body: some View {
+        Button {
+            isOn.toggle()
+        } label: {
+            Image(systemName: isOn ? "largecircle.fill.circle" : "circle")
+                .font(.title3)
+                .foregroundStyle(themeManager.theme.accent)
+        }
+        .buttonStyle(.plain)
+        .contentShape(Rectangle())
+    }
+}
+
+
 // MARK: - LocalCard (remplace ThemedCard ici, même visuel)
 private struct LocalCard<Content: View>: View {
     let theme: LocalTheme
     let fixedHeight: CGFloat?
     @ViewBuilder var content: () -> Content
+    @State private var showVisualisation: Bool = false
     
     init(theme: LocalTheme, fixedHeight: CGFloat? = nil, @ViewBuilder content: @escaping () -> Content) {
         self.theme = theme
@@ -74,6 +110,20 @@ private struct LocalCard<Content: View>: View {
 struct ThemeDefautlView : View {
     // On ne lit plus ThemeManager ici → pas de crash si l'env manque
     @State private var theme = LocalTheme.load()
+    @State private var showVisualisation: Bool = false
+    @EnvironmentObject private var themeManager: ThemeManager
+    @State private var selectedChoice: ThemeChoice = .dark
+
+    // 5 choix de thèmes pour la roue
+    private enum ThemeChoice: String, CaseIterable, Identifiable {
+        case dark    = "Thème Foncé"
+        case light   = "Thème Clair"
+        case blue    = "Thème Bleu"
+        case sepia   = "Thème Sépia"
+        case emerald = "Thème Émeraude"
+        var id: String { rawValue }
+    }
+
     
     var body: some View {
         ZStack {
@@ -104,11 +154,14 @@ struct ThemeDefautlView : View {
                                     .foregroundStyle(theme.accent)
                                 
                                 VStack(alignment: .leading, spacing: 2) {
-                                    Text("Nom du Thème Enristrés")
-                                        .font(.headline.bold())
+                                    Text(selectedChoice.rawValue)
+                                        .font(.headline.weight(.semibold))
                                         .foregroundStyle(theme.foreground)
-                                    Text("Theme système ou theme custom")
-                                        .font(.caption)
+                                    
+                                    // “Thème de l’application” pour Foncé/Clair ; “Thème enregistré” sinon
+                                    let isPreset = (selectedChoice == .dark || selectedChoice == .light)
+                                    Text(isPreset ? "Thème de l’application" : "Thème enregistré")
+                                        .font(.subheadline)
                                         .foregroundStyle(theme.secondary)
                                 }
                                 Spacer()
@@ -128,9 +181,21 @@ struct ThemeDefautlView : View {
                                 Text("Visualisation")
                                     .font(.headline.bold())
                                     .foregroundStyle(theme.foreground)
-                                Text("texte bouton radio + un bouton radio ")
-                                    .font(.caption)
-                                    .foregroundStyle(theme.secondary)
+                                Spacer()
+                                HStack(alignment: .firstTextBaseline, spacing: 12) {
+                                    Text("Bouton Radio")
+                                        .font(.subheadline)
+                                        .foregroundStyle(theme.secondary)
+                                        .lineLimit(1)
+                                    
+                                    Button {
+                                        showVisualisation.toggle()
+                                    } label: {
+                                        Image(systemName: showVisualisation ? "largecircle.fill.circle" : "circle")
+                                            .font(.title3)
+                                            .foregroundStyle(theme.accent)
+                                    }
+                                }
                             }
                             Spacer()
                         }
@@ -138,29 +203,70 @@ struct ThemeDefautlView : View {
                     }
                      
                     // =======================
-                    // Section : Contact
+                    // Section : choix du theme
                     // =======================
-                    Text("Choix du Thème")
-                        .font(.title3.weight(.bold))
-                        .foregroundStyle(theme.foreground)
-                        .padding(.top, 8)
-                        .padding(.horizontal, 2)
+                    VStack(alignment: .leading) {
+                        Text("Choix du Thème")
+                            .font(.title3.weight(.bold))
+                            .foregroundStyle(theme.foreground)
+                            .padding(.top, 8)
+                            .padding(.horizontal, 2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    // Choix du theme
                     
-                    // Choix du theme 
-                    NavigationLink {
-                        ContactsView()
-                    } label: {
-                        LocalCard(theme: theme) {
-                            HStack(spacing: 12) {
-                                
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text("pacer ici un roue de choix de theme").font(.headline.bold()).foregroundStyle(theme.foreground)
-                                }
-                                Spacer()
-                        
+                    LocalCard(theme: theme) {
+                        VStack(alignment: .leading, spacing: 8) {
+                            // Roue de choix (wheel) — UN SEUL PICKER
+                            Picker("Thème", selection: $selectedChoice) {
+                                Text("Foncé").tag(ThemeChoice.dark)
+                                Text("Clair").tag(ThemeChoice.light)
+                                Text("Bleu").tag(ThemeChoice.blue)
+                                Text("Sépia").tag(ThemeChoice.sepia)
+                                Text("Émeraude").tag(ThemeChoice.emerald)
                             }
-                            .padding(.vertical, 6)
+                            .pickerStyle(.wheel)
+                            .frame(height: 140)
+
+                            // Détail sous la roue : nom + type
+                            VStack(alignment: .leading, spacing: 2) {
+                                let label: String = {
+                                    switch selectedChoice {
+                                    case .dark: return "Thème Foncé"
+                                    case .light: return "Thème Clair"
+                                    case .blue: return "Thème Bleu"
+                                    case .sepia: return "Thème Sépia"
+                                    case .emerald: return "Thème Émeraude"
+                                    }
+                                }()
+                               
+                            }
+                            .padding(.top, 4)
                         }
+                    }
+                    // 👉 applique réellement le thème quand on change la roue
+                    .onChange(of: selectedChoice) {
+                    }
+                    
+                    LocalCard(theme: theme) {
+                        HStack(spacing: 12) {
+                            
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(selectedChoice.rawValue)
+                                    .font(.headline.weight(.semibold))
+                                    .foregroundStyle(theme.foreground)
+                                
+                                // “Thème de l’application” pour Foncé/Clair ; “Thème enregistré” sinon
+                                let isPreset = (selectedChoice == .dark || selectedChoice == .light)
+                                Text(isPreset ? "Thème de l’application" : "Thème enregistré")
+                                    .font(.subheadline)
+                                    .foregroundStyle(theme.secondary)
+                            }
+                            .padding(.top, 4)
+                        }
+                        Spacer()
+                        
+                        
                     }
                     .buttonStyle(.plain)
                     

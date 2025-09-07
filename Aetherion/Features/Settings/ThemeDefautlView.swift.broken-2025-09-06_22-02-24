@@ -1,0 +1,158 @@
+// === File: ThemeDefautlView.swift
+// Date: 2025-09-06
+// Description: Default theme selector with a radio button and a wheel picker (5 predefined choices).
+// Notes: Pure UI; does not apply/persist theme here. Uses ThemeManager only for colors.
+
+import SwiftUI
+
+// MARK: - Local radio button (standalone, themed)
+private struct RadioButton: View {
+    @EnvironmentObject private var themeManager: ThemeManager
+    let title: String
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 10) {
+                Image(systemName: isSelected ? "largecircle.fill.circle" : "circle")
+                    .font(.title3)
+                    .foregroundStyle(themeManager.theme.accent)
+                Text(title)
+                    .themedForeground(themeManager.theme) // primaire
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Local choices for the wheel
+private enum ThemeWheelChoice: String, CaseIterable, Identifiable {
+    case dark = "Thème Foncé"
+    case light = "Thème Clair"
+    case blue = "Thème Bleu"
+    case sepia = "Thème Sépia"
+    case emerald = "Thème Émeraude"
+
+    var id: String { rawValue }
+}
+
+struct ThemeDefautlView: View {
+    @EnvironmentObject private var themeManager: ThemeManager
+
+    // Radio state (ex.: 0 = Prévisualiser, 1 = Appliquer)
+    @State private var radioMode: Int = 0
+
+    // Wheel picker selection
+    @State private var selectedChoice: ThemeWheelChoice = .dark
+
+    // Helper: preset (app) vs enregistré
+    private func isAppPreset(_ choice: ThemeWheelChoice) -> Bool {
+        switch choice {
+        case .dark, .light: return true
+        default: return false
+        }
+    }
+
+    var body: some View {
+        ThemedScreen {
+            VStack(alignment: .leading, spacing: 16) {
+
+                // En-tête (garde l’identité visuelle globale)
+                ThemedHeaderTitle(text: "Thème par défaut")
+
+                // --- Section "mode" avec un vrai bouton radio ---
+                ThemedCard {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Mode d’application")
+                            .font(.headline.bold())
+                            .themedForeground(themeManager.theme)
+
+                        HStack(spacing: 20) {
+                            RadioButton(title: "Prévisualiser",
+                                        isSelected: radioMode == 0) {
+                                radioMode = 0
+                            }
+                            RadioButton(title: "Appliquer",
+                                        isSelected: radioMode == 1) {
+                                radioMode = 1
+                            }
+                        }
+                    }
+                }
+
+                // --- Sélecteur (roue) des thèmes ---
+                ThemedCard {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Sélection du thème")
+                            .font(.headline.bold())
+                            .themedForeground(themeManager.theme)
+
+                        // Wheel Picker avec 5 choix
+                        Picker("Thème", selection: $selectedChoice) {
+                            ForEach(ThemeWheelChoice.allCases) { choice in
+                                Text(choice.rawValue)
+                                    .themedForeground(themeManager.theme)
+                                    .tag(choice)
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, 4)
+
+                        // Nom + type ("Thème de l’application" vs "Thème enregistré")
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(selectedChoice.rawValue)
+                                .font(.headline.weight(.semibold))
+                                .themedForeground(themeManager.theme)
+                            Text(isAppPreset(selectedChoice) ? "Thème de l’application" : "Thème enregistré")
+                                .foregroundStyle(themeManager.theme.secondary)
+                                .font(.subheadline)
+                        }
+                        .padding(.top, 6)
+                    }
+                }
+
+                // --- Boutons (facultatifs ici, non destructifs) ---
+                HStack(spacing: 12) {
+                    Button {
+                        // Tu pourras brancher ici l’application réelle du thème si tu veux
+                        // (ex. themeManager.setTheme(.aetherionDark) quand selectedChoice == .dark)
+                    } label: {
+                        ThemedCard(fixedHeight: 52) {
+                            HStack { Spacer()
+                                Text("Valider")
+                                    .font(.headline.bold())
+                                    .themedForeground(themeManager.theme)
+                                Spacer() }
+                        }
+                    }.buttonStyle(.plain)
+
+                    Button {
+                        // Remise à l’affichage par défaut (pas de persistance ici)
+                        radioMode = 0
+                        selectedChoice = .dark
+                    } label: {
+                        ThemedCard(fixedHeight: 52) {
+                            HStack { Spacer()
+                                Text("Réinitialiser")
+                                    .font(.headline.bold())
+                                    .themedForeground(themeManager.theme)
+                                Spacer() }
+                        }
+                    }.buttonStyle(.plain)
+                }
+                .padding(.top, 4)
+
+                Spacer(minLength: 0)
+            }
+        }
+    }
+}
+
+#Preview {
+    ThemeDefautlView()
+        .environmentObject(ThemeManager(default: .aetherionDark))
+        .environmentObject(AppRouter())
+}
