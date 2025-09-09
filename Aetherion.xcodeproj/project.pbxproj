@@ -16,7 +16,6 @@
 		770F11FF2E67648B004D78C8 /* ContactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11FE2E67647D004D78C8 /* ContactsService.swift */; };
 		770F12012E677021004D78C8 /* BackgroundColorConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12002E676FF2004D78C8 /* BackgroundColorConfigView.swift */; };
 		770F12032E677113004D78C8 /* ThemePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12022E677104004D78C8 /* ThemePersistence.swift */; };
-		770F12162E677411004D78C8 /* ThemeDefautlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12152E67740F004D78C8 /* ThemeDefautlView.swift */; };
 		770F12182E677FDA004D78C8 /* SettingsOptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12172E677FD4004D78C8 /* SettingsOptionRow.swift */; };
 		770F121A2E678229004D78C8 /* ThemedHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12192E678220004D78C8 /* ThemedHeader.swift */; };
 		770F121C2E6782FD004D78C8 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F121B2E6782F7004D78C8 /* BannerView.swift */; };
@@ -48,7 +47,6 @@
 		77855A592E622F0800B5B80F /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A582E622ED500B5B80F /* DashboardViewModel.swift */; };
 		77855A5B2E622F2F00B5B80F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A5A2E622F1F00B5B80F /* DashboardView.swift */; };
 		77A2FC622E6D6FB1005735FF /* FontCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A2FC612E6D6FAA005735FF /* FontCoding.swift */; };
-		77A2FC662E6D722F005735FF /* JSON+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A2FC652E6D722C005735FF /* JSON+Utils.swift */; };
 		77A2FC682E6D726C005735FF /* ThemeCatalog+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A2FC672E6D7269005735FF /* ThemeCatalog+List.swift */; };
 		77A36CCF2E60F04B005C2D20 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 77A36CCE2E60F04B005C2D20 /* ZIPFoundation */; };
 		77A36CD22E60F057005C2D20 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 77A36CD12E60F057005C2D20 /* Algorithms */; };
@@ -66,7 +64,6 @@
 		770F11FE2E67647D004D78C8 /* ContactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsService.swift; sourceTree = "<group>"; };
 		770F12002E676FF2004D78C8 /* BackgroundColorConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorConfigView.swift; sourceTree = "<group>"; };
 		770F12022E677104004D78C8 /* ThemePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePersistence.swift; sourceTree = "<group>"; };
-		770F12152E67740F004D78C8 /* ThemeDefautlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDefautlView.swift; sourceTree = "<group>"; };
 		770F12172E677FD4004D78C8 /* SettingsOptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOptionRow.swift; sourceTree = "<group>"; };
 		770F12192E678220004D78C8 /* ThemedHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedHeader.swift; sourceTree = "<group>"; };
 		770F121B2E6782F7004D78C8 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
@@ -100,7 +97,6 @@
 		77855A582E622ED500B5B80F /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		77855A5A2E622F1F00B5B80F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		77A2FC612E6D6FAA005735FF /* FontCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCoding.swift; sourceTree = "<group>"; };
-		77A2FC652E6D722C005735FF /* JSON+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSON+Utils.swift"; sourceTree = "<group>"; };
 		77A2FC672E6D7269005735FF /* ThemeCatalog+List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeCatalog+List.swift"; sourceTree = "<group>"; };
 		77C158D92E6CBBF7002424CD /* sas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sas.swift; sourceTree = "<group>"; };
 		77F2F0C02E6290A700B7D5FF /* AeTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeTheme.swift; sourceTree = "<group>"; };
@@ -217,7 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				77C158D92E6CBBF7002424CD /* sas.swift */,
-				770F12152E67740F004D78C8 /* ThemeDefautlView.swift */,
 				770F12002E676FF2004D78C8 /* BackgroundColorConfigView.swift */,
 				77350ECA2E62673400491B6D /* SettingsMenuView.swift */,
 				77350EC42E624DDF00491B6D /* ThemeConfigView.swift */,
@@ -300,7 +295,6 @@
 			isa = PBXGroup;
 			children = (
 				77A2FC672E6D7269005735FF /* ThemeCatalog+List.swift */,
-				77A2FC652E6D722C005735FF /* JSON+Utils.swift */,
 				77A2FC612E6D6FAA005735FF /* FontCoding.swift */,
 				770F11EC2E62DFB4004D78C8 /* ThemedModifiers.swift */,
 				770F11EA2E62DF6F004D78C8 /* ThemeManager.swift */,
@@ -414,7 +408,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				770F11F62E676213004D78C8 /* Contact.swift in Sources */,
-				77A2FC662E6D722F005735FF /* JSON+Utils.swift in Sources */,
 				770F12282E6B61A2004D78C8 /* AppContainerView.swift in Sources */,
 				770F11EF2E62E092004D78C8 /* ThemedCard.swift in Sources */,
 				770F12242E6A2510004D78C8 /* RootSwitch.swift in Sources */,
@@ -435,7 +428,6 @@
 				77855A2C2E620F7900B5B80F /* OnboardingViewModel.swift in Sources */,
 				770F11EB2E62DF80004D78C8 /* ThemeManager.swift in Sources */,
 				770F121A2E678229004D78C8 /* ThemedHeader.swift in Sources */,
-				770F12162E677411004D78C8 /* ThemeDefautlView.swift in Sources */,
 				77855A592E622F0800B5B80F /* DashboardViewModel.swift in Sources */,
 				77855A2D2E620F7900B5B80F /* PrimaryButton.swift in Sources */,
 				770F12262E6B5AD8004D78C8 /* ColoredSlider.swift in Sources */,

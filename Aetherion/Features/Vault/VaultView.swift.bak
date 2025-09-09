@@ -1,0 +1,68 @@
+// === File: VaultView.swift
+// Date: 2025-09-04
+// Description: Vault — header title from theme (no card), consistent card heights.
+
+import SwiftUI
+
+struct VaultView: View {
+    @EnvironmentObject private var themeManager: ThemeManager
+    @StateObject private var viewModel = VaultViewModel()
+
+    var body: some View {
+        ThemedScreen {
+            VStack(spacing: 0) {
+
+                ThemedHeaderTitle(text: "Coffre")   // ← Titre cohérent, sans encadré
+
+                ScrollView {
+                    if viewModel.assets.isEmpty {
+                        ThemedCard(fixedHeight: 80) {
+                            HStack {
+                                Spacer()
+                                Text("Aucun fichier")
+                                    .font(.title2.bold())
+                                    .themedForeground(themeManager.theme)
+                                Spacer()
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 12)
+                    } else {
+                        VStack(spacing: 12) {
+                            ForEach(viewModel.assets) { asset in
+                                ThemedCard(fixedHeight: 64) {
+                                    HStack(spacing: 12) {
+                                        Image(systemName: "doc")
+                                            .font(.title3)
+                                            .themedSecondary(themeManager.theme)
+
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text(asset.name)
+                                                .font(.headline.bold())
+                                                .themedForeground(themeManager.theme)
+                                            Text(asset.sizeString)
+                                                .font(.caption)
+                                                .themedSecondary(themeManager.theme)
+                                        }
+                                        Spacer()
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 12)
+                    }
+                }
+            }
+        }
+        .onAppear { viewModel.load() }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        ShareView()
+            .environmentObject(ThemeManager(default: .aetherionDark))
+            .environmentObject(AppRouter())
+    }
+}

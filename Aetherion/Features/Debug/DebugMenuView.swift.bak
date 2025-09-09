@@ -1,0 +1,20 @@
+import SwiftUI
+
+struct DebugMenuView: View {
+    var body: some View {
+        NavigationStack {
+            List {
+                Section("App") {
+                    NavigationLink("HomeView") { HomeView() }
+                    NavigationLink("DashboardView") { DashboardView() }
+                    NavigationLink("SettingsView") { SettingsView() }
+                    NavigationLink("OnboardingView") { OnboardingView() }
+                    NavigationLink("ContactsView") { ContactsView() }
+                    NavigationLink("ShareView") { ShareView() }
+                    NavigationLink("VaultView") { VaultView() }
+                }
+            }
+            .navigationTitle("Debug Menu")
+        }
+    }
+}

@@ -1,0 +1,120 @@
+// === File: DashboardView.swift
+// Date: 2025-08-30
+// Description: Dashboard screen showing recent Assets (coherent visuals with Vault/Contacts).
+
+import SwiftUI
+
+struct DashboardView: View {
+    @EnvironmentObject private var themeManager: ThemeManager
+    @StateObject private var vm = DashboardViewModel()
+
+    var body: some View {
+        ThemedScreen {
+            VStack(spacing: 0) {
+
+                // Bandeau haut (même gabarit que les autres pages)
+                ThemedCard {
+                    HStack(spacing: 12) {
+                        Image("AppLogo") // remplace par le nom exact de ton asset si besoin
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+
+                        Text("Tableau de bord")
+                            .font(.title.bold())
+                            .themedForeground(themeManager.theme)
+
+                        Spacer()
+                    }
+                    .frame(height: 64)
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 12) {
+                        // Titre section
+                        Text("Documents récents")
+                            .font(.headline.weight(.bold))
+                            .themedForeground(themeManager.theme)
+                            .padding(.horizontal, 16)
+                            .padding(.top, 6)
+
+                        if vm.assets.isEmpty {
+                            // Etat vide (même hauteur que "Aucun fichier" / bouton Accueil)
+                            ThemedCard {
+                                HStack {
+                                    Spacer()
+                                    Text("Aucun document récent")
+                                        .font(.title2.bold())
+                                        .themedForeground(themeManager.theme)
+                                    Spacer()
+                                }
+                                .frame(height: 80)
+                            }
+                            .padding(.horizontal, 16)
+                        } else {
+                            // Liste compacte
+                            VStack(spacing: 12) {
+                                ForEach(vm.assets) { asset in
+                                    ThemedCard {
+                                        HStack(spacing: 12) {
+                                            Image(systemName: "doc")
+                                                .font(.title3)
+                                                .themedSecondary(themeManager.theme)
+
+                                            VStack(alignment: .leading, spacing: 4) {
+                                                Text(asset.name)
+                                                    .font(.headline.bold())
+                                                    .themedForeground(themeManager.theme)
+
+                                                Text(asset.sizeString)
+                                                    .font(.caption)
+                                                    .themedSecondary(themeManager.theme)
+                                            }
+
+                                            Spacer()
+                                        }
+                                        .frame(height: 64)
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, 16)
+                        }
+
+                        // Bouton de démo pour créer un fichier d'exemple (facultatif)
+                        ThemedCard {
+                            Button {
+                                vm.addSample()
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text("Ajouter un exemple")
+                                        .font(.headline.bold())
+                                        .themedForeground(themeManager.theme)
+                                    Spacer()
+                                }
+                                .frame(height: 56)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 6)
+                    }
+                    .padding(.bottom, 12)
+                }
+
+            }
+        }
+        .onAppear {
+            vm.load()   // appel direct (pas de $vm)
+        }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        DashboardView()
+            .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+    }
+}
