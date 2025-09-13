@@ -18,17 +18,17 @@ struct SettingsRow: View {
         HStack(spacing: 14) {
             Image(systemName: icon)
                 .font(.title3.weight(.semibold))
-                .themedSecondary(themeManager.theme)
+                .foregroundStyle(themeManager.theme.secondary)
                 .opacity(disabled ? 0.4 : 1.0)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.headline.weight(.bold))   // plus gros + bold
-                    .themedForeground(themeManager.theme)
+                    .foregroundStyle(themeManager.theme.foreground)
                     .opacity(disabled ? 0.5 : 1.0)
                 Text(subtitle)
                     .font(.footnote)
-                    .themedSecondary(themeManager.theme)
+                    .foregroundStyle(themeManager.theme.secondary)
                     .opacity(disabled ? 0.5 : 0.8)
             }
 
@@ -37,7 +37,7 @@ struct SettingsRow: View {
             if !disabled {
                 Image(systemName: "chevron.right")
                     .font(.footnote.weight(.semibold))
-                    .themedSecondary(themeManager.theme)
+                    .foregroundStyle(themeManager.theme.secondary)
                     .opacity(0.5)
             }
         }

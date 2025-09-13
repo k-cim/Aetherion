@@ -1,0 +1,18 @@
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/swift-algorithms/Sources/Algorithms/Split.swift":
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Split.o"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Split.swiftdeps"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Split.d"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Split.swiftconstvalues"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Split.dia"
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/swift-algorithms/Sources/Algorithms/Suffix.swift":
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Suffix.d"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Suffix.dia"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Suffix.o"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Suffix.swiftconstvalues"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Suffix.swiftdeps"
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/swift-algorithms/Sources/Algorithms/Stride.swift":
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Stride.o"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Stride.dia"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Stride.d"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Stride.swiftdeps"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Stride.swiftconstvalues"

@@ -1,45 +1,42 @@
-// === File: StorageService.swift
-// Date: 2025-08-30
-// Description: Utilities to list files from app Documents directory for Vault.
+// === File: Core/Services/StorageService.swift
+// Rôle: persistance des thèmes (ID de thème + override JSON)
+//       + utilitaires fichiers/Documents
+
 
 import Foundation
 
 enum StorageService {
-    /// Returns the app Documents directory URL.
-    static func documentsURL() -> URL {
-        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    // MARK: - Thème (ID via UserDefaults)
+    private static let ud = UserDefaults.standard
+    private static let selectedKey = "ae.selectedThemeID"
+
+    static func saveSelectedThemeID(_ id: ThemeID) {
+        ud.set(id.rawValue, forKey: selectedKey)
     }
 
-    /// Lists files in Documents (non-recursive) as `Asset`.
-    static func listAssets() -> [Asset] {
-        let dir = documentsURL()
-        let fm = FileManager.default
+    static func loadSelectedThemeID(default id: ThemeID = .aetherionDark) -> ThemeID {
+        ud.string(forKey: selectedKey).flatMap(ThemeID.init(rawValue:)) ?? id
+    }
 
-        guard let items = try? fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey], options: [.skipsHiddenFiles]) else {
-            return []
-        }
+    // MARK: - Override JSON (fichier via ThemeOverrideDiskStore)
+    static func saveOverride(_ theme: Theme) throws {
+        try ThemeOverrideDiskStore.save(theme: theme)
+    }
 
-        var result: [Asset] = []
-        for url in items {
-            // Skip directories
-            var isDir: ObjCBool = false
-            if fm.fileExists(atPath: url.path, isDirectory: &isDir), isDir.boolValue {
-                continue
-            }
+    static func loadOverride() -> Theme? {
+        ThemeOverrideDiskStore.load()
+    }
 
-            // Attributes
-            let attrs = (try? fm.attributesOfItem(atPath: url.path)) ?? [:]
-            let size = (attrs[.size] as? NSNumber)?.int64Value ?? 0
-            let modified = attrs[.modificationDate] as? Date
+    static func clearOverride() throws {
+        try ThemeOverrideDiskStore.clear()
+    }
 
-            let asset = Asset(name: url.lastPathComponent,
-                              url: url,
-                              sizeBytes: size,
-                              modifiedAt: modified)
-            result.append(asset)
-        }
-
-        // Sort by name ascending
-        return result.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+    // MARK: - Dossier Documents (une seule API)
+    static var documentsURL: URL {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
 }
+
+// ⛔️ IMPORTANT:
+// - NE PAS redéclarer ici des extensions sur URL (modifiedAt, fileSize).
+//   Ces helpers doivent rester dans Core/Extensions/URL+FileAttributes.swift

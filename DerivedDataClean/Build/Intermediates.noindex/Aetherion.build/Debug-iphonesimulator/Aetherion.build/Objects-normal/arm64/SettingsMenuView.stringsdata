@@ -1,0 +1,32 @@
+{
+  "source": "/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Settings/SettingsMenuView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Paramètres",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 17
+        }
+      },
+      {
+        "comment": "",
+        "key": "Thème",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 29
+        }
+      },
+      {
+        "comment": "",
+        "key": "Couleur du fond",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 46
+        }
+      }
+    ]
+  },
+  "version": 1
+}

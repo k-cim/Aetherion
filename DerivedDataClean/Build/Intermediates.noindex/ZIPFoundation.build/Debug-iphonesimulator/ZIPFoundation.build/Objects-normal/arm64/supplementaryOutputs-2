@@ -1,0 +1,18 @@
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/ZIPFoundation/Sources/ZIPFoundation/Archive+Progress.swift":
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+Progress.dia"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+Progress.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+Progress.o"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+Progress.d"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+Progress.swiftdeps"
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/ZIPFoundation/Sources/ZIPFoundation/Archive+MemoryFile.swift":
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+MemoryFile.swiftdeps"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+MemoryFile.dia"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+MemoryFile.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+MemoryFile.o"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+MemoryFile.d"
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/ZIPFoundation/Sources/ZIPFoundation/Archive+Helpers.swift":
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+Helpers.o"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+Helpers.swiftdeps"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+Helpers.dia"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+Helpers.swiftconstvalues"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/ZIPFoundation.build/Debug-iphonesimulator/ZIPFoundation.build/Objects-normal/arm64/Archive+Helpers.d"

@@ -1,0 +1,18 @@
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/swift-algorithms/Sources/Algorithms/Trim.swift":
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Trim.o"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Trim.dia"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Trim.swiftconstvalues"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Trim.d"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Trim.swiftdeps"
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/swift-algorithms/Sources/Algorithms/Unique.swift":
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Unique.swiftdeps"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Unique.dia"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Unique.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Unique.o"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Unique.d"
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/swift-algorithms/Sources/Algorithms/Windows.swift":
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Windows.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Windows.o"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Windows.swiftdeps"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Windows.dia"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Windows.d"

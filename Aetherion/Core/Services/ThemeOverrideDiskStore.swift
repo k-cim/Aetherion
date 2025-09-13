@@ -1,42 +1,42 @@
-// === File: Core/Services/ThemeDiskStore.swift
-// JSON override pour un thème complet (couleurs RGBA 0...1)
+// === File: Core/Services/ThemeOverrideDiskStore.swift
+// Sauvegarde/lecture d'un thème custom dans ~/Library/Application Support/Aetherion/theme.json
 
 import SwiftUI
 
-// DTO codable pour le JSON
-private struct ThemeOverrideFile: Codable {
-    var id: String
-    struct RGBA: Codable { var r: Double; var g: Double; var b: Double; var a: Double }
-    var background: RGBA
-    var foreground: RGBA
-    var secondary: RGBA
-    var accent: RGBA
-    var controlTint: RGBA
-    var cardStartOpacity: Double
-    var cardEndOpacity: Double
-    var cardStartColor: RGBA
-    var cardEndColor: RGBA
-    var cornerRadius: Double
-    var headerFontSize: Double
-    var headerFontWeight: String   // "regular", "bold", ...
-    var headerFontDesign: String   // "default", "rounded", ...
-    var headerColor: RGBA
-}
-
-enum ThemeDiskStore {
+enum ThemeOverrideDiskStore {
     // ~/Library/Application Support/Aetherion/theme.json
     private static var url: URL = {
         let fm = FileManager.default
         let base = try! fm.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        let dir = base.appendingPathComponent("Aetherion", isDirectory: true)
+        let dir  = base.appendingPathComponent("Aetherion", isDirectory: true)
         if !fm.fileExists(atPath: dir.path) { try? fm.createDirectory(at: dir, withIntermediateDirectories: true) }
         return dir.appendingPathComponent("theme.json")
     }()
 
-    // MARK: - Public API
+    // DTO JSON
+    struct RGBA: Codable { var r: Double; var g: Double; var b: Double; var a: Double }
 
+    struct OverrideDTO: Codable {
+        var id: String
+        var background: RGBA
+        var foreground: RGBA
+        var secondary: RGBA
+        var accent: RGBA
+        var controlTint: RGBA
+        var cardStartOpacity: Double
+        var cardEndOpacity: Double
+        var cardStartColor: RGBA
+        var cardEndColor: RGBA
+        var cornerRadius: Double
+        var headerFontSize: Double
+        var headerFontWeight: String
+        var headerFontDesign: String
+        var headerColor: RGBA
+    }
+
+    // MARK: - API
     static func save(theme t: Theme) throws {
-        let dto = ThemeOverrideFile(
+        let dto = OverrideDTO(
             id: t.id.rawValue,
             background: t.background.rgba(),
             foreground: t.foreground.rgba(),
@@ -54,14 +54,13 @@ enum ThemeDiskStore {
             headerColor: t.headerColor.rgba()
         )
         let data = try JSONEncoder().encode(dto)
-        try data.write(to: url, options: .atomic)
+        try data.write(to: url, options: Data.WritingOptions.atomic)
     }
 
     static func load() -> Theme? {
         guard let data = try? Data(contentsOf: url),
-              let dto  = try? JSONDecoder().decode(ThemeOverrideFile.self, from: data),
-              let id   = ThemeID(rawValue: dto.id)
-        else { return nil }
+              let dto  = try? JSONDecoder().decode(OverrideDTO.self, from: data),
+              let id   = ThemeID(rawValue: dto.id) else { return nil }
 
         var t = Theme.preset(id)
         t.background       = Color.rgba(dto.background)
@@ -81,12 +80,12 @@ enum ThemeDiskStore {
         return t
     }
 
-    static func clear() {
-        try? FileManager.default.removeItem(at: url)
+    static func clear() throws {
+        let fm = FileManager.default
+        if fm.fileExists(atPath: url.path) { try fm.removeItem(at: url) }
     }
 }
 
-// MARK: - Color <-> RGBA helpers (fiables iOS/macOS)
 #if canImport(UIKit)
 import UIKit
 #endif
@@ -95,34 +94,27 @@ import AppKit
 #endif
 
 private extension Color {
-    /// Décompose une Color en RGBA (0...1) de façon cross-platform (OK Xcode : labels nommés)
-    func rgba() -> ThemeOverrideFile.RGBA {
+    // ✅ Version confirmée (ta correction Xcode) — ne plus toucher
+    func rgba() -> ThemeOverrideDiskStore.RGBA {
         #if canImport(UIKit)
         let ui = UIColor(self)
         var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         ui.getRed(&r, green: &g, blue: &b, alpha: &a)
-        return ThemeOverrideFile.RGBA(r: Double(r), g: Double(g), b: Double(b), a: Double(a))
+        return .init(r: Double(r), g: Double(g), b: Double(b), a: Double(a))
         #elseif canImport(AppKit)
         let ns = NSColor(self).usingColorSpace(.deviceRGB)
             ?? NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1)
-        return ThemeOverrideFile.RGBA(
-            r: Double(ns.redComponent),
-            g: Double(ns.greenComponent),
-            b: Double(ns.blueComponent),
-            a: Double(ns.alphaComponent)
-        )
+        return .init(r: Double(ns.redComponent), g: Double(ns.greenComponent), b: Double(ns.blueComponent), a: Double(ns.alphaComponent))
         #else
-        return ThemeOverrideFile.RGBA(r: 1, g: 1, b: 1, a: 1)
+        return .init(r: 1, g: 1, b: 1, a: 1)
         #endif
     }
 
-    /// Reconstruit une Color à partir d’un RGBA (espace sRGB explicite)
-    static func rgba(_ c: ThemeOverrideFile.RGBA) -> Color {
+    static func rgba(_ c: ThemeOverrideDiskStore.RGBA) -> Color {
         Color(.sRGB, red: c.r, green: c.g, blue: c.b, opacity: c.a)
     }
 }
 
-// MARK: - Font helpers (nom <-> valeur)
 private extension Font.Weight {
     var name: String {
         switch self {
@@ -157,20 +149,20 @@ private extension Font.Weight {
 private extension Font.Design {
     var name: String {
         switch self {
-        case .default:    return "default"
-        case .serif:      return "serif"
-        case .rounded:    return "rounded"
+        case .default: return "default"
+        case .serif: return "serif"
+        case .rounded: return "rounded"
         case .monospaced: return "monospaced"
         @unknown default: return "default"
         }
     }
     static func from(_ name: String) -> Font.Design? {
         switch name.lowercased() {
-        case "default":    return .default
-        case "serif":      return .serif
-        case "rounded":    return .rounded
+        case "default": return .default
+        case "serif": return .serif
+        case "rounded": return .rounded
         case "monospaced": return .monospaced
-        default:           return nil
+        default: return nil
         }
     }
 }

@@ -1,17 +1,22 @@
-// === File: Features/Settings/SettingsView.swift
-// Description: Paramètres — sections Apparence / Stockage / Contact.
-//              Version autonome (ne lit pas ThemeManager) pour éviter le crash d'environnement.
+// === File: Features/Settings/ThemeDefautlView.swift
+// Choix d’un preset avec prévisualisation locale, tout en restant
+// synchronisé avec le thème global (et les changements venant de ThemeConfigView).
 
 import SwiftUI
 
-// Remplace TOUTES tes déclas ThemeChoice par UNE SEULE :
-private enum ThemeChoice: CaseIterable, Identifiable {
-    case dark, light, blue, sepia, emerald
-    var id: Self { self }
+// Mapping ThemeID -> choix de roue
+private func choice(for id: ThemeID) -> ThemeDefautlView.ThemeChoice {
+    switch id {
+    case .aetherionDark:    return .dark
+    case .aetherionLight:   return .light
+    case .aetherionBlue:    return .blue
+    case .aetherionSepia:   return .sepia
+    case .aetherionEmerald: return .emerald
+    }
 }
 
-// Renomme la fonction de mapping pour éviter le conflit avec 'id'
-private func themeID(for choice: ThemeChoice) -> ThemeID {
+// Mapping choix de roue -> ThemeID
+private func themeID(for choice: ThemeDefautlView.ThemeChoice) -> ThemeID {
     switch choice {
     case .dark:    return .aetherionDark
     case .light:   return .aetherionLight
@@ -21,75 +26,21 @@ private func themeID(for choice: ThemeChoice) -> ThemeID {
     }
 }
 
-// MARK: - Local theme snapshot (chargé depuis la persistance)
-private struct LocalTheme {
-    let background: Color
-    let foreground: Color
-    let secondary: Color
-    let accent: Color
-    let controlTint: Color
-    let cardStartOpacity: Double
-    let cardEndOpacity: Double
-    let cardStartColor: Color
-    let cardEndColor: Color
-    let cornerRadius: CGFloat
-    let headerColor: Color
-    
-    static func load() -> LocalTheme {
-        let p = ThemePersistence.shared
-        // on part du preset dark (cohérent avec l’app) puis on applique les persistences
-        let base = Theme.preset(.aetherionDark)
-        return LocalTheme(
-            background: p.loadBackgroundColor(default: .black),
-            foreground: p.loadPrimaryTextColor(default: base.foreground),
-            secondary: p.loadSecondaryTextColor(default: base.secondary),
-            accent: p.loadIconColor(default: base.accent),
-            controlTint: p.loadControlTint(default: base.controlTint),
-            cardStartOpacity: p.loadCardGradient(defaultStart: base.cardStartOpacity, defaultEnd: base.cardEndOpacity).0,
-            cardEndOpacity:   p.loadCardGradient(defaultStart: base.cardStartOpacity, defaultEnd: base.cardEndOpacity).1,
-            cardStartColor:   p.loadCardGradientColors(defaultStart: base.cardStartColor, defaultEnd: base.cardEndColor).0,
-            cardEndColor:     p.loadCardGradientColors(defaultStart: base.cardStartColor, defaultEnd: base.cardEndColor).1,
-            cornerRadius: base.cornerRadius,
-            headerColor: p.loadHeaderColor(default: base.headerColor)
-        )
-    }
-}
-
-// Radio sans libellé (juste le rond), lié à un Bool
-private struct RadioDot: View {
-    @EnvironmentObject private var themeManager: ThemeManager
-    @Binding var isOn: Bool
-    var body: some View {
-        Button {
-            isOn.toggle()
-        } label: {
-            Image(systemName: isOn ? "largecircle.fill.circle" : "circle")
-                .font(.title3)
-                .foregroundStyle(themeManager.theme.accent)
-        }
-        .buttonStyle(.plain)
-        .contentShape(Rectangle())
-    }
-}
-
-
-// MARK: - LocalCard (remplace ThemedCard ici, même visuel)
-private struct LocalCard<Content: View>: View {
-    let theme: LocalTheme
+// Carte autonome qui prend un Theme (pour preview locale)
+private struct PreviewCard<Content: View>: View {
+    let theme: Theme
     let fixedHeight: CGFloat?
     @ViewBuilder var content: () -> Content
-    @State private var showVisualisation: Bool = false
-    
-    init(theme: LocalTheme, fixedHeight: CGFloat? = nil, @ViewBuilder content: @escaping () -> Content) {
+
+    init(theme: Theme, fixedHeight: CGFloat? = nil, @ViewBuilder content: @escaping () -> Content) {
         self.theme = theme
         self.fixedHeight = fixedHeight
         self.content = content
     }
-    
+
     var body: some View {
         let start = theme.cardStartColor.opacity(theme.cardStartOpacity)
         let end   = theme.cardEndColor.opacity(theme.cardEndOpacity)
-        
         ZStack {
             RoundedRectangle(cornerRadius: theme.cornerRadius, style: .continuous)
                 .fill(LinearGradient(colors: [start, end], startPoint: .leading, endPoint: .trailing))
@@ -106,16 +57,19 @@ private struct LocalCard<Content: View>: View {
     }
 }
 
-// MARK: - SettingsView (autonome)
-struct ThemeDefautlView : View {
-    // On ne lit plus ThemeManager ici → pas de crash si l'env manque
-    @State private var theme = LocalTheme.load()
-    @State private var showVisualisation: Bool = false
+struct ThemeDefautlView: View {
     @EnvironmentObject private var themeManager: ThemeManager
-    @State private var selectedChoice: ThemeChoice = .dark
 
-    // 5 choix de thèmes pour la roue
-    private enum ThemeChoice: String, CaseIterable, Identifiable {
+    // 👇 Prévisualisation locale (ne modifie pas le global tant qu’on n’appuie pas sur Appliquer)
+    @State private var preview: Theme = Theme.preset(.aetherionDark)
+    @State private var selectedChoice: ThemeChoice = .dark
+    @State private var showVisualisation: Bool = false
+
+    // Choix appliqué actuellement (d’après le global)
+    private var appliedChoice: ThemeChoice { choice(for: themeManager.theme.id) }
+    private var canApply: Bool { selectedChoice != appliedChoice }
+
+    enum ThemeChoice: String, CaseIterable, Identifiable {
         case dark    = "Thème Foncé"
         case light   = "Thème Clair"
         case blue    = "Thème Bleu"
@@ -124,184 +78,164 @@ struct ThemeDefautlView : View {
         var id: String { rawValue }
     }
 
-    
     var body: some View {
         ZStack {
-            theme.background.ignoresSafeArea()
-            
+            // 👇 Le fond de CET écran suit la preview locale
+            preview.background.ignoresSafeArea()
+
             VStack(spacing: 0) {
-                // Titre d'écran (style proche ThemedHeaderTitle)
                 HStack {
-                    Text("Thème Enregistré")
+                    Text("Thème")
                         .font(.system(size: 28, weight: .bold, design: .rounded))
-                        .foregroundStyle(theme.headerColor)
+                        .foregroundStyle(preview.headerColor)
                     Spacer()
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 8)
-                
+
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
-                        
-                        // =======================
-                        // Section : Apparence
-                        // =======================
-                        
-                        LocalCard(theme: theme) {
+
+                        // Info
+                        PreviewCard(theme: preview) {
                             HStack(spacing: 12) {
                                 Image(systemName: "paintpalette.fill")
                                     .font(.title3.weight(.semibold))
-                                    .foregroundStyle(theme.accent)
-                                
+                                    .foregroundStyle(preview.accent)
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(selectedChoice.rawValue)
                                         .font(.headline.weight(.semibold))
-                                        .foregroundStyle(theme.foreground)
-                                    
-                                    // “Thème de l’application” pour Foncé/Clair ; “Thème enregistré” sinon
-                                    let isPreset = (selectedChoice == .dark || selectedChoice == .light)
-                                    Text(isPreset ? "Thème de l’application" : "Thème enregistré")
+                                        .foregroundStyle(preview.foreground)
+                                    Text((selectedChoice == .dark || selectedChoice == .light) ? "Thème de l’application" : "Thème enregistré")
                                         .font(.subheadline)
-                                        .foregroundStyle(theme.secondary)
+                                        .foregroundStyle(preview.secondary)
                                 }
                                 Spacer()
                             }
                             .padding(.vertical, 6)
                         }
-                    }
-                    .buttonStyle(.plain)
-                    
-                    // Pavé : Thème
-                    
-                    
-                    LocalCard(theme: theme) {
-                        HStack(spacing: 12) {
-                            
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Visualisation")
-                                    .font(.headline.bold())
-                                    .foregroundStyle(theme.foreground)
+
+                        // Visualisation simple
+                        PreviewCard(theme: preview) {
+                            HStack(spacing: 12) {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Visualisation")
+                                        .font(.headline.bold())
+                                        .foregroundStyle(preview.foreground)
+                                    Spacer()
+                                    HStack(alignment: .firstTextBaseline, spacing: 12) {
+                                        Text("Bouton Radio").font(.subheadline).foregroundStyle(preview.secondary)
+                                        Button {
+                                            showVisualisation.toggle()
+                                        } label: {
+                                            Image(systemName: showVisualisation ? "largecircle.fill.circle" : "circle")
+                                                .font(.title3)
+                                                .foregroundStyle(preview.accent)
+                                        }
+                                    }
+                                }
                                 Spacer()
-                                HStack(alignment: .firstTextBaseline, spacing: 12) {
-                                    Text("Bouton Radio")
-                                        .font(.subheadline)
-                                        .foregroundStyle(theme.secondary)
-                                        .lineLimit(1)
-                                    
-                                    Button {
-                                        showVisualisation.toggle()
-                                    } label: {
-                                        Image(systemName: showVisualisation ? "largecircle.fill.circle" : "circle")
-                                            .font(.title3)
-                                            .foregroundStyle(theme.accent)
+                            }
+                            .padding(.vertical, 6)
+                        }
+
+                        // Choix roue
+                        VStack(alignment: .leading) {
+                            Text("Choix du Thème")
+                                .font(.title3.weight(.bold))
+                                .foregroundStyle(preview.foreground)
+                                .padding(.top, 8)
+                                .padding(.horizontal, 2)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        PreviewCard(theme: preview) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Picker("Thème", selection: $selectedChoice) {
+                                    Text("Foncé").tag(ThemeChoice.dark)
+                                    Text("Clair").tag(ThemeChoice.light)
+                                    Text("Bleu").tag(ThemeChoice.blue)
+                                    Text("Sépia").tag(ThemeChoice.sepia)
+                                    Text("Émeraude").tag(ThemeChoice.emerald)
+                                }
+                                .pickerStyle(.wheel)
+                                .frame(height: 140)
+                            }
+                        }
+                        .onChange(of: selectedChoice) { newValue in
+                            // 🔁 Tourner la roue recolorise la page en local, sans toucher le global
+                            let id = themeID(for: newValue)
+                            preview = Theme.preset(id)
+                        }
+
+                        // Rappel du choix
+                        PreviewCard(theme: preview) {
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text(selectedChoice.rawValue)
+                                    .font(.headline.weight(.semibold))
+                                    .foregroundStyle(preview.foreground)
+                                Text((selectedChoice == .dark || selectedChoice == .light) ? "Thème de l’application" : "Thème enregistré")
+                                    .font(.subheadline)
+                                    .foregroundStyle(preview.secondary)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 4)
+                        }
+
+                        // Actions
+                        HStack(spacing: 12) {
+                            Button {
+                                // Remet la preview sur le thème global courant
+                                preview = themeManager.theme
+                                selectedChoice = choice(for: themeManager.theme.id)
+                            } label: {
+                                PreviewCard(theme: preview, fixedHeight: 56) {
+                                    HStack { Spacer(); Text("Réinitialiser").font(.headline.bold()).foregroundStyle(preview.foreground); Spacer() }
+                                }
+                            }
+                            .buttonStyle(.plain)
+
+                            Button {
+                                guard canApply else { return }
+                                // On choisit un PRESET => on supprime l’override JSON et on persiste l’ID
+                                let id = themeID(for: selectedChoice)
+                                themeManager.clearDiskOverride()
+                                themeManager.applyID(id, persist: true)
+                                // La preview va se resynchroniser via onReceive ci-dessous
+                            } label: {
+                                PreviewCard(theme: preview, fixedHeight: 56) {
+                                    HStack {
+                                        Spacer()
+                                        Text("Appliquer")
+                                            .font(.headline.bold())
+                                            .foregroundStyle(canApply ? preview.foreground : preview.secondary)
+                                        Spacer()
                                     }
                                 }
                             }
-                            Spacer()
+                            .buttonStyle(.plain)
+                            .disabled(!canApply)
                         }
-                        .padding(.vertical, 6)
+                        .padding(.top, 4)
                     }
-                     
-                    // =======================
-                    // Section : choix du theme
-                    // =======================
-                    VStack(alignment: .leading) {
-                        Text("Choix du Thème")
-                            .font(.title3.weight(.bold))
-                            .foregroundStyle(theme.foreground)
-                            .padding(.top, 8)
-                            .padding(.horizontal, 2)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    // Choix du theme
-                    
-                    LocalCard(theme: theme) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            // Roue de choix (wheel) — UN SEUL PICKER
-                            Picker("Thème", selection: $selectedChoice) {
-                                Text("Foncé").tag(ThemeChoice.dark)
-                                Text("Clair").tag(ThemeChoice.light)
-                                Text("Bleu").tag(ThemeChoice.blue)
-                                Text("Sépia").tag(ThemeChoice.sepia)
-                                Text("Émeraude").tag(ThemeChoice.emerald)
-                            }
-                            .pickerStyle(.wheel)
-                            .frame(height: 140)
-
-                            // Détail sous la roue : nom + type
-                            VStack(alignment: .leading, spacing: 2) {
-                                let label: String = {
-                                    switch selectedChoice {
-                                    case .dark: return "Thème Foncé"
-                                    case .light: return "Thème Clair"
-                                    case .blue: return "Thème Bleu"
-                                    case .sepia: return "Thème Sépia"
-                                    case .emerald: return "Thème Émeraude"
-                                    }
-                                }()
-                               
-                            }
-                            .padding(.top, 4)
-                        }
-                    }
-                    // 👉 applique réellement le thème quand on change la roue
-                    .onChange(of: selectedChoice) {
-                    }
-                    
-                    LocalCard(theme: theme) {
-                        HStack(spacing: 12) {
-                            
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(selectedChoice.rawValue)
-                                    .font(.headline.weight(.semibold))
-                                    .foregroundStyle(theme.foreground)
-                                
-                                // “Thème de l’application” pour Foncé/Clair ; “Thème enregistré” sinon
-                                let isPreset = (selectedChoice == .dark || selectedChoice == .light)
-                                Text(isPreset ? "Thème de l’application" : "Thème enregistré")
-                                    .font(.subheadline)
-                                    .foregroundStyle(theme.secondary)
-                            }
-                            .padding(.top, 4)
-                        }
-                        Spacer()
-                        
-                        
-                    }
-                    .buttonStyle(.plain)
-                    
-                    // --- Actions (Annuler / Réinitialiser) ---
-                    HStack(spacing: 12) {
-                        Button {  } label: {
-                            ThemedCard(fixedHeight: 56) {
-                                HStack { Spacer(); Text("Reinitialiser").font(.headline.bold())
-                                    Spacer() }
-                            }
-                        }
-                        .buttonStyle(.plain)
-
-                        Button {  } label: {
-                            ThemedCard(fixedHeight: 56) {
-                                HStack { Spacer(); Text("Appliquer").font(.headline.bold())
-                                                                              Spacer() }
-                            }
-                        }
-                        .buttonStyle(.plain)
-                    }
-                    .padding(.top, 4)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 8)
+                    .padding(.bottom, 120)
                 }
-                .padding(.horizontal, 16)
-                .padding(.top, 8)
-                .padding(.bottom, 120) // espace pour la bottom bar globale
             }
         }
+        // 🧲 Sync initiale & quand ThemeConfigView applique des changements globaux
+        .onAppear {
+            preview = themeManager.theme
+            selectedChoice = choice(for: themeManager.theme.id)
+        }
+        .onReceive(themeManager.$theme) { newTheme in
+            // Si ThemeConfigView applique un override JSON, on le reflète ici (fond + textes)
+            preview = newTheme
+            selectedChoice = choice(for: newTheme.id)
+        }
     }
-        
 }
-//
 
 #Preview {
-    NavigationStack {
-        ThemeDefautlView ()
-    }
+    NavigationStack { ThemeDefautlView() }
 }

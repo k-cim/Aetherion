@@ -68,5 +68,5 @@ struct BackgroundColorConfigView: View {
 
 #Preview {
     BackgroundColorConfigView()
-        .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+        // // // .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
 }

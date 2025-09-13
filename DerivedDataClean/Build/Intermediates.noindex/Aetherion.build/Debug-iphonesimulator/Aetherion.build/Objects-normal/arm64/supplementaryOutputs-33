@@ -1,0 +1,36 @@
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/UI/Components/SettingsRow.swift":
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsRow.swiftdeps"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsRow.dia"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsRow.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsRow.o"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsRow.d"
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Home/HomeViewModel.swift":
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/HomeViewModel.o"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/HomeViewModel.d"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/HomeViewModel.swiftdeps"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/HomeViewModel.dia"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/HomeViewModel.swiftconstvalues"
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Onboarding/OnboardingView.swift":
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/OnboardingView.swiftdeps"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/OnboardingView.dia"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/OnboardingView.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/OnboardingView.o"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/OnboardingView.d"
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Settings/ThemeDefautlView.swift":
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemeDefautlView.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemeDefautlView.o"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemeDefautlView.swiftdeps"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemeDefautlView.dia"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemeDefautlView.d"
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Core/Services/ContactsService.swift":
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ContactsService.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ContactsService.o"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ContactsService.dia"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ContactsService.swiftdeps"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ContactsService.d"
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/UI/Components/SettingsOptionRow.swift":
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsOptionRow.d"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsOptionRow.swiftconstvalues"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsOptionRow.dia"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsOptionRow.swiftdeps"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsOptionRow.o"

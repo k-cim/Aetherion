@@ -1,68 +1,80 @@
-// === File: VaultView.swift
-// Date: 2025-09-04
-// Description: Vault — header title from theme (no card), consistent card heights.
-
+// === File: Features/Vault/VaultView.swift
 import SwiftUI
 
 struct VaultView: View {
     @EnvironmentObject private var themeManager: ThemeManager
-    @StateObject private var viewModel = VaultViewModel()
+    @StateObject private var vm = VaultViewModel()
 
     var body: some View {
         ThemedScreen {
             VStack(spacing: 0) {
+                ThemedHeaderTitle(text: "Coffre")
 
-                ThemedHeaderTitle(text: "Coffre")   // ← Titre cohérent, sans encadré
+                // Bandeau actions
+                HStack(spacing: 12) {
+                    PrimaryButton(title: "Recharger") { vm.reload() }
+                    PrimaryButton(title: "Ajouter un exemple") { vm.addSample() }
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 8)
 
+                // Liste des items
                 ScrollView {
-                    if viewModel.assets.isEmpty {
-                        ThemedCard(fixedHeight: 80) {
-                            HStack {
-                                Spacer()
-                                Text("Aucun fichier")
-                                    .font(.title2.bold())
-                                    .themedForeground(themeManager.theme)
-                                Spacer()
-                            }
-                        }
-                        .padding(.horizontal, 16)
-                        .padding(.top, 12)
-                    } else {
-                        VStack(spacing: 12) {
-                            ForEach(viewModel.assets) { asset in
-                                ThemedCard(fixedHeight: 64) {
-                                    HStack(spacing: 12) {
-                                        Image(systemName: "doc")
-                                            .font(.title3)
-                                            .themedSecondary(themeManager.theme)
+                    LazyVStack(spacing: 12) {
+                        ForEach(vm.items) { item in
+                            ThemedCard {
+                                HStack {
+                                    Image(systemName: "doc.text")
+                                        .font(.title3)
+                                        .foregroundStyle(themeManager.theme.accent)
 
-                                        VStack(alignment: .leading, spacing: 4) {
-                                            Text(asset.name)
-                                                .font(.headline.bold())
-                                                .themedForeground(themeManager.theme)
-                                            Text(asset.sizeString)
-                                                .font(.caption)
-                                                .themedSecondary(themeManager.theme)
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(item.name)
+                                            .font(.headline)
+                                            .foregroundStyle(themeManager.theme.foreground)
+                                        HStack(spacing: 8) {
+                                            if let dt = item.modifiedAt {
+                                                Text(dt.formatted(date: .abbreviated, time: .shortened))
+                                                    .font(.caption)
+                                                    .foregroundStyle(themeManager.theme.secondary)
+                                            }
+                                            if let size = item.size {
+                                                Text(ByteCountFormatter.string(fromByteCount: size, countStyle: .file))
+                                                    .font(.caption)
+                                                    .foregroundStyle(themeManager.theme.secondary)
+                                            }
                                         }
-                                        Spacer()
                                     }
+                                    Spacer()
                                 }
+                                .padding(.vertical, 6)
                             }
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.top, 12)
+
+                        if vm.items.isEmpty {
+                            ThemedCard {
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text("Aucun fichier")
+                                        .font(.headline)
+                                        .foregroundStyle(themeManager.theme.foreground)
+                                    Text("Appuie sur “Ajouter un exemple” pour créer un fichier.")
+                                        .font(.caption)
+                                        .foregroundStyle(themeManager.theme.secondary)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 120)
                 }
             }
         }
-        .onAppear { viewModel.load() }
+        .onAppear { vm.reload() }
     }
 }
 
 #Preview {
-    NavigationStack {
-        ShareView()
-            .environmentObject(ThemeManager(default: .aetherionDark))
-            .environmentObject(AppRouter())
-    }
+    VaultView()
+        // // // .environmentObject(ThemeManager(default: .aetherionDark))
 }

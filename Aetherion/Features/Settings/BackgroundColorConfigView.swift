@@ -24,7 +24,7 @@ struct BackgroundColorConfigView: View {
                         // Aperçu
                         Text("Aperçu écran")
                             .font(.headline.weight(.bold))
-                            .themedForeground(themeManager.theme)
+                            .foregroundStyle(themeManager.theme.foreground)
                             .padding(.horizontal, 16)
 
                         ThemedCard(fixedHeight: 80) {
@@ -32,7 +32,7 @@ struct BackgroundColorConfigView: View {
                                 Spacer()
                                 Text("Fond actuel")
                                     .font(.title3.bold())
-                                    .themedForeground(themeManager.theme)
+                                    .foregroundStyle(themeManager.theme.foreground)
                                 Spacer()
                             }
                         }
@@ -43,13 +43,13 @@ struct BackgroundColorConfigView: View {
                             VStack(alignment: .leading, spacing: 12) {
                                 Text("Choisir une couleur")
                                     .font(.headline.weight(.bold))
-                                    .themedForeground(themeManager.theme)
+                                    .foregroundStyle(themeManager.theme.foreground)
 
                                 // Picker à droite de l'intitulé
                                 HStack {
                                     Text("Couleur du fond")
                                         .font(.subheadline)
-                                        .themedForeground(themeManager.theme)
+                                        .foregroundStyle(themeManager.theme.foreground)
                                     Spacer()
                                     ColorPicker("", selection: $bgColor, supportsOpacity: true)
                                         .labelsHidden()
@@ -63,13 +63,13 @@ struct BackgroundColorConfigView: View {
                             VStack(alignment: .leading, spacing: 12) {
                                 Text("Couleurs des textes")
                                     .font(.headline.weight(.bold))
-                                    .themedForeground(themeManager.theme)
+                                    .foregroundStyle(themeManager.theme.foreground)
 
                                 // Titres (header)
                                 HStack {
                                     Text("Titres")
                                         .font(.subheadline)
-                                        .themedForeground(themeManager.theme)
+                                        .foregroundStyle(themeManager.theme.foreground)
                                     Spacer()
                                     ColorPicker("", selection: $headerColor, supportsOpacity: true)
                                         .labelsHidden()
@@ -79,7 +79,7 @@ struct BackgroundColorConfigView: View {
                                 HStack {
                                     Text("Texte principal")
                                         .font(.subheadline)
-                                        .themedForeground(themeManager.theme)
+                                        .foregroundStyle(themeManager.theme.foreground)
                                     Spacer()
                                     ColorPicker("", selection: $textColor, supportsOpacity: true)
                                         .labelsHidden()
@@ -92,12 +92,12 @@ struct BackgroundColorConfigView: View {
                         HStack(spacing: 12) {
                             Button {
                                 // Appliquer toutes les couleurs
-                                themeManager.updateBackgroundColor(bgColor)
-                                themeManager.updateHeaderColor(headerColor)
-                                themeManager.updatePrimaryTextColor(textColor)
+                                // themeManager.updateBackgroundColor(bgColor)
+                                // themeManager.updateHeaderColor(headerColor)
+                                // themeManager.updatePrimaryTextColor(textColor)
                             } label: {
                                 ThemedCard(fixedHeight: 56) {
-                                    HStack { Spacer(); Text("Appliquer").font(.headline.bold()).themedForeground(themeManager.theme); Spacer() }
+                                    HStack { Spacer(); Text("Appliquer").font(.headline.bold()).foregroundStyle(themeManager.theme.foreground); Spacer() }
                                 }
                             }
                             .buttonStyle(.plain)
@@ -109,12 +109,12 @@ struct BackgroundColorConfigView: View {
                                 headerColor = Theme.preset(themeManager.theme.id).headerColor
                                 textColor = Theme.preset(themeManager.theme.id).foreground
 
-                                themeManager.updateBackgroundColor(bgColor)
-                                themeManager.updateHeaderColor(headerColor)
-                                themeManager.updatePrimaryTextColor(textColor)
+                                // themeManager.updateBackgroundColor(bgColor)
+                                // themeManager.updateHeaderColor(headerColor)
+                                // themeManager.updatePrimaryTextColor(textColor)
                             } label: {
                                 ThemedCard(fixedHeight: 56) {
-                                    HStack { Spacer(); Text("Réinitialiser").font(.headline.bold()).themedForeground(themeManager.theme); Spacer() }
+                                    HStack { Spacer(); Text("Réinitialiser").font(.headline.bold()).foregroundStyle(themeManager.theme.foreground); Spacer() }
                                 }
                             }
                             .buttonStyle(.plain)
@@ -128,14 +128,14 @@ struct BackgroundColorConfigView: View {
         }
         .onAppear {
             // init depuis l'état courant
-            bgColor     = themeManager.backgroundColor
+            bgColor     = themeManager.theme.background
             headerColor = themeManager.theme.headerColor
             textColor   = themeManager.theme.foreground
         }
         // Live update (optionnel mais pratique)
-        .onChange(of: bgColor)     { themeManager.updateBackgroundColor($0) }
-        .onChange(of: headerColor) { themeManager.updateHeaderColor($0) }
-        .onChange(of: textColor)   { themeManager.updatePrimaryTextColor($0) }
+        .onChange(of: bgColor)     { }// themeManager.updateBackgroundColor($0) }
+        .onChange(of: headerColor) { }// themeManager.updateHeaderColor($0) }
+        .onChange(of: textColor)   { }// themeManager.updatePrimaryTextColor($0) }
     }
     // MARK: - Init & Session snapshot
 }
@@ -143,7 +143,7 @@ struct BackgroundColorConfigView: View {
 #Preview {
     NavigationStack {
         BackgroundColorConfigView()
-            .environmentObject(ThemeManager(default: .aetherionDark))
+            // // // .environmentObject(ThemeManager(default: .aetherionDark))
             .environmentObject(AppRouter())
     }
 }

@@ -1,0 +1,36 @@
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Home/DashboardView.swift":
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/DashboardView.dia"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/DashboardView.d"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/DashboardView.swiftdeps"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/DashboardView.o"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/DashboardView.swiftconstvalues"
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Share/ShareViewModel.swift":
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ShareViewModel.dia"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ShareViewModel.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ShareViewModel.o"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ShareViewModel.swiftdeps"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ShareViewModel.d"
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Core/Services/ThemePersistence.swift":
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemePersistence.o"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemePersistence.swiftconstvalues"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemePersistence.d"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemePersistence.swiftdeps"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemePersistence.dia"
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Settings/SettingsView.swift":
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsView.dia"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsView.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsView.o"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsView.d"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/SettingsView.swiftdeps"
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Vault/VaultViewModel.swift":
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/VaultViewModel.swiftdeps"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/VaultViewModel.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/VaultViewModel.o"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/VaultViewModel.dia"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/VaultViewModel.d"
+"/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/UI/Theme/ThemedModifiers.swift":
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemedModifiers.o"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemedModifiers.d"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemedModifiers.swiftconstvalues"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemedModifiers.swiftdeps"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/Aetherion.build/Debug-iphonesimulator/Aetherion.build/Objects-normal/arm64/ThemedModifiers.dia"

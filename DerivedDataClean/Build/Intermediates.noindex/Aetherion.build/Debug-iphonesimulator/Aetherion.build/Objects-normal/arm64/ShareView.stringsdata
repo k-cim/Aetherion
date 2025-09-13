@@ -1,0 +1,32 @@
+{
+  "source": "/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Share/ShareView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Share",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 30
+        }
+      },
+      {
+        "comment": "",
+        "key": "Secure Sharing",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 14
+        }
+      },
+      {
+        "comment": "",
+        "key": "Generate link (demo)",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 16
+        }
+      }
+    ]
+  },
+  "version": 1
+}

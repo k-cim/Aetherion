@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>11</integer>
+	<key>logs</key>
+	<dict>
+		<key>7B34A0C4-90C2-43AD-898F-EE450168AE27</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>7B34A0C4-90C2-43AD-898F-EE450168AE27.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Aetherion project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Aetherion</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Cleaning project Aetherion with scheme Aetherion</string>
+			<key>timeStartedRecording</key>
+			<real>779443988.30333495</real>
+			<key>timeStoppedRecording</key>
+			<real>779443988.69603097</real>
+			<key>title</key>
+			<string>Cleaning project Aetherion with scheme Aetherion</string>
+			<key>uniqueIdentifier</key>
+			<string>7B34A0C4-90C2-43AD-898F-EE450168AE27</string>
+		</dict>
+		<key>D4CE085E-FD08-4D21-BD32-104B3EBFDC8B</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>D4CE085E-FD08-4D21-BD32-104B3EBFDC8B.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Aetherion project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Aetherion</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Cleaning project Aetherion with scheme Aetherion</string>
+			<key>timeStartedRecording</key>
+			<real>779445375.19904602</real>
+			<key>timeStoppedRecording</key>
+			<real>779445375.60758102</real>
+			<key>title</key>
+			<string>Cleaning project Aetherion with scheme Aetherion</string>
+			<key>uniqueIdentifier</key>
+			<string>D4CE085E-FD08-4D21-BD32-104B3EBFDC8B</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

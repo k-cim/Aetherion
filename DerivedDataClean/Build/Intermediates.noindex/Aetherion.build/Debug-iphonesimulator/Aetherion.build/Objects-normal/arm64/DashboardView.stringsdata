@@ -1,0 +1,24 @@
+{
+  "source": "/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Home/DashboardView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Aucun fichier récent",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 60
+        }
+      },
+      {
+        "comment": "",
+        "key": "Ajoute un exemple pour tester.",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 63
+        }
+      }
+    ]
+  },
+  "version": 1
+}

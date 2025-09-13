@@ -16,7 +16,7 @@ struct SettingsMenuView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Paramètres")
                             .font(.largeTitle.bold())
-                            .themedForeground(themeManager.theme)
+                            .foregroundStyle(themeManager.theme.foreground)
                             .padding(.horizontal, 16)
 
                         // Theme card
@@ -53,7 +53,6 @@ struct SettingsMenuView: View {
                         .padding(.horizontal, 16)
                     }
                 }
-                ThemedBottomBar(current: .settings)
             }
         }
     }
@@ -62,7 +61,7 @@ struct SettingsMenuView: View {
 #Preview {
     NavigationStack {
         ShareView()
-            .environmentObject(ThemeManager(default: .aetherionDark))
+            // // // .environmentObject(ThemeManager(default: .aetherionDark))
             .environmentObject(AppRouter())
     }
 }

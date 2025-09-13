@@ -25,13 +25,13 @@ struct HomeView: View {
                                 } else {
                                     Image(systemName: "seal.fill")
                                         .font(.title2.weight(.semibold))
-                                        .themedForeground(themeManager.theme)
+                                        .foregroundStyle(themeManager.theme.foreground)
                                         .frame(width: 40, height: 40, alignment: .center)
                                 }
 
                                 Text("Aetherion")
                                     .font(.title.bold())
-                                    .themedForeground(themeManager.theme)
+                                    .foregroundStyle(themeManager.theme.foreground)
 
                                 Spacer()
                             }
@@ -48,7 +48,7 @@ struct HomeView: View {
                                     Spacer()
                                     Text("Entrer")
                                         .font(.title2.bold())
-                                        .themedForeground(themeManager.theme)
+                                        .foregroundStyle(themeManager.theme.foreground)
                                     Spacer()
                                 }
                                 .contentShape(Rectangle()) // ✅ toute la zone est cliquable
@@ -68,6 +68,6 @@ struct HomeView: View {
 #Preview {
     NavigationStack {
         HomeView()
-            .environmentObject(ThemeManager(default: .aetherionDark))
+            // // // .environmentObject(ThemeManager(default: .aetherionDark))
     }
 }

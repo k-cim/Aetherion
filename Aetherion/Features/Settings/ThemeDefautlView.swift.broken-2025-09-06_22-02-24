@@ -19,7 +19,7 @@ private struct RadioButton: View {
                     .font(.title3)
                     .foregroundStyle(themeManager.theme.accent)
                 Text(title)
-                    .themedForeground(themeManager.theme) // primaire
+                    .foregroundStyle(themeManager.theme.foreground) // primaire
             }
             .contentShape(Rectangle())
         }
@@ -67,7 +67,7 @@ struct ThemeDefautlView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Mode d’application")
                             .font(.headline.bold())
-                            .themedForeground(themeManager.theme)
+                            .foregroundStyle(themeManager.theme.foreground)
 
                         HStack(spacing: 20) {
                             RadioButton(title: "Prévisualiser",
@@ -87,13 +87,13 @@ struct ThemeDefautlView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Sélection du thème")
                             .font(.headline.bold())
-                            .themedForeground(themeManager.theme)
+                            .foregroundStyle(themeManager.theme.foreground)
 
                         // Wheel Picker avec 5 choix
                         Picker("Thème", selection: $selectedChoice) {
                             ForEach(ThemeWheelChoice.allCases) { choice in
                                 Text(choice.rawValue)
-                                    .themedForeground(themeManager.theme)
+                                    .foregroundStyle(themeManager.theme.foreground)
                                     .tag(choice)
                             }
                         }
@@ -105,7 +105,7 @@ struct ThemeDefautlView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(selectedChoice.rawValue)
                                 .font(.headline.weight(.semibold))
-                                .themedForeground(themeManager.theme)
+                                .foregroundStyle(themeManager.theme.foreground)
                             Text(isAppPreset(selectedChoice) ? "Thème de l’application" : "Thème enregistré")
                                 .foregroundStyle(themeManager.theme.secondary)
                                 .font(.subheadline)
@@ -124,7 +124,7 @@ struct ThemeDefautlView: View {
                             HStack { Spacer()
                                 Text("Valider")
                                     .font(.headline.bold())
-                                    .themedForeground(themeManager.theme)
+                                    .foregroundStyle(themeManager.theme.foreground)
                                 Spacer() }
                         }
                     }.buttonStyle(.plain)
@@ -138,7 +138,7 @@ struct ThemeDefautlView: View {
                             HStack { Spacer()
                                 Text("Réinitialiser")
                                     .font(.headline.bold())
-                                    .themedForeground(themeManager.theme)
+                                    .foregroundStyle(themeManager.theme.foreground)
                                 Spacer() }
                         }
                     }.buttonStyle(.plain)
@@ -153,6 +153,6 @@ struct ThemeDefautlView: View {
 
 #Preview {
     ThemeDefautlView()
-        .environmentObject(ThemeManager(default: .aetherionDark))
+        // // // .environmentObject(ThemeManager(default: .aetherionDark))
         .environmentObject(AppRouter())
 }

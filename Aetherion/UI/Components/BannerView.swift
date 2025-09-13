@@ -22,7 +22,7 @@ struct BannerView: View {
 
                 Text(title)
                     .font(.title.bold())
-                    .themedForeground(themeManager.theme)
+                    .foregroundStyle(themeManager.theme.foreground)
 
                 Spacer()
             }

@@ -115,6 +115,6 @@ struct DashboardView: View {
 #Preview {
     NavigationStack {
         DashboardView()
-            .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+            // // // .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
     }
 }

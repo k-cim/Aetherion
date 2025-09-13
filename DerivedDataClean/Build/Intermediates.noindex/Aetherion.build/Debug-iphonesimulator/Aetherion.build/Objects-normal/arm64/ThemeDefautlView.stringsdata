@@ -1,0 +1,136 @@
+{
+  "source": "/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Settings/ThemeDefautlView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Thème",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 88
+        }
+      },
+      {
+        "comment": "",
+        "key": "Thème de l’application",
+        "location": {
+          "startingColumn": 98,
+          "startingLine": 109
+        }
+      },
+      {
+        "comment": "",
+        "key": "Thème enregistré",
+        "location": {
+          "startingColumn": 128,
+          "startingLine": 109
+        }
+      },
+      {
+        "comment": "",
+        "key": "Visualisation",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 122
+        }
+      },
+      {
+        "comment": "",
+        "key": "Bouton Radio",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 127
+        }
+      },
+      {
+        "comment": "",
+        "key": "Choix du Thème",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 144
+        }
+      },
+      {
+        "comment": "",
+        "key": "Thème",
+        "location": {
+          "startingColumn": 40,
+          "startingLine": 153
+        }
+      },
+      {
+        "comment": "",
+        "key": "Foncé",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 154
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clair",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 155
+        }
+      },
+      {
+        "comment": "",
+        "key": "Bleu",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 156
+        }
+      },
+      {
+        "comment": "",
+        "key": "Sépia",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 157
+        }
+      },
+      {
+        "comment": "",
+        "key": "Émeraude",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 158
+        }
+      },
+      {
+        "comment": "",
+        "key": "Thème de l’application",
+        "location": {
+          "startingColumn": 94,
+          "startingLine": 176
+        }
+      },
+      {
+        "comment": "",
+        "key": "Thème enregistré",
+        "location": {
+          "startingColumn": 124,
+          "startingLine": 176
+        }
+      },
+      {
+        "comment": "",
+        "key": "Réinitialiser",
+        "location": {
+          "startingColumn": 61,
+          "startingLine": 192
+        }
+      },
+      {
+        "comment": "",
+        "key": "Appliquer",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 208
+        }
+      }
+    ]
+  },
+  "version": 1
+}

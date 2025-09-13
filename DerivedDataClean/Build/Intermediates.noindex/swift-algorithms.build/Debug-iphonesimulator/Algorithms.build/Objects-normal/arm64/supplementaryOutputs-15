@@ -1,0 +1,24 @@
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/swift-algorithms/Sources/Algorithms/Intersperse.swift":
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Intersperse.swiftdeps"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Intersperse.swiftconstvalues"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Intersperse.dia"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Intersperse.o"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Intersperse.d"
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/swift-algorithms/Sources/Algorithms/FlattenCollection.swift":
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/FlattenCollection.d"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/FlattenCollection.swiftdeps"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/FlattenCollection.o"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/FlattenCollection.swiftconstvalues"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/FlattenCollection.dia"
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/swift-algorithms/Sources/Algorithms/Grouped.swift":
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Grouped.swiftconstvalues"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Grouped.d"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Grouped.o"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Grouped.swiftdeps"
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Grouped.dia"
+"/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/SourcePackages/checkouts/swift-algorithms/Sources/Algorithms/Indexed.swift":
+  diagnostics: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Indexed.dia"
+  const-values: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Indexed.swiftconstvalues"
+  object: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Indexed.o"
+  dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Indexed.d"
+  swift-dependencies: "/Users/mickaelpuaud/Dev/Aetherion-2/DerivedDataClean/Build/Intermediates.noindex/swift-algorithms.build/Debug-iphonesimulator/Algorithms.build/Objects-normal/arm64/Indexed.swiftdeps"

@@ -1,11 +1,12 @@
-// === File: Theme.swift
+// === File: UI/Theme/Theme.swift
 // Description: Theme model + presets (colors + typography + gradient colors + controlTint)
+
 import SwiftUI
 
-enum ThemeID: String, CaseIterable, Identifiable {
+// Source unique des IDs de thèmes
+enum ThemeID: String, CaseIterable, Identifiable, Hashable {
     case aetherionDark
     case aetherionLight
-    // ⬇️ nouveaux
     case aetherionBlue
     case aetherionSepia
     case aetherionEmerald
@@ -13,14 +14,14 @@ enum ThemeID: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-struct Theme {
+struct Theme: Identifiable {
     // Couleurs globales
     var id: ThemeID
     var background: Color
     var foreground: Color         // texte principal
-    var secondary: Color          // texte secondaire (sous-titres, infos)
+    var secondary: Color          // texte secondaire
     var accent: Color             // accent / icônes actives
-    var controlTint: Color        // NEW: contrôles (toggle, slider, progress, radio)
+    var controlTint: Color        // contrôles (toggle, slider, progress, radio)
 
     // Cartes (dégradé)
     var cardStartOpacity: Double
@@ -71,15 +72,13 @@ struct Theme {
                 headerColor: .black
             )
 
-        // ⬇️ NOUVEAUX PRÉSETS
         case .aetherionBlue:
-            // Bleu profond (texte clair)
             return Theme(
                 id: id,
-                background: Color(red: 0.06, green: 0.10, blue: 0.20),   // #0F1A33 approx
+                background: Color(red: 0.06, green: 0.10, blue: 0.20),
                 foreground: .white,
                 secondary: .white.opacity(0.75),
-                accent: Color(red: 0.55, green: 0.80, blue: 1.00),       // bleu clair accent
+                accent: Color(red: 0.55, green: 0.80, blue: 1.00),
                 controlTint: Color(red: 0.55, green: 0.80, blue: 1.00),
                 cardStartOpacity: 0.28, cardEndOpacity: 0.10,
                 cardStartColor: .white, cardEndColor: .white,
@@ -89,13 +88,12 @@ struct Theme {
             )
 
         case .aetherionSepia:
-            // Tons papier / sepia (texte sombre)
             return Theme(
                 id: id,
-                background: Color(red: 0.96, green: 0.93, blue: 0.86),   // crème
-                foreground: Color(red: 0.18, green: 0.15, blue: 0.12),   // brun foncé
+                background: Color(red: 0.96, green: 0.93, blue: 0.86),
+                foreground: Color(red: 0.18, green: 0.15, blue: 0.12),
                 secondary: Color(red: 0.18, green: 0.15, blue: 0.12).opacity(0.7),
-                accent: Color(red: 0.60, green: 0.42, blue: 0.24),       // sépia accent
+                accent: Color(red: 0.60, green: 0.42, blue: 0.24),
                 controlTint: Color(red: 0.60, green: 0.42, blue: 0.24),
                 cardStartOpacity: 0.10, cardEndOpacity: 0.03,
                 cardStartColor: .black, cardEndColor: .black,
@@ -105,13 +103,12 @@ struct Theme {
             )
 
         case .aetherionEmerald:
-            // Vert émeraude sombre (texte clair)
             return Theme(
                 id: id,
-                background: Color(red: 0.02, green: 0.16, blue: 0.12),   // vert très sombre
+                background: Color(red: 0.02, green: 0.16, blue: 0.12),
                 foreground: .white,
                 secondary: .white.opacity(0.75),
-                accent: Color(red: 0.40, green: 0.95, blue: 0.70),       // émeraude vive
+                accent: Color(red: 0.40, green: 0.95, blue: 0.70),
                 controlTint: Color(red: 0.40, green: 0.95, blue: 0.70),
                 cardStartOpacity: 0.26, cardEndOpacity: 0.10,
                 cardStartColor: .white, cardEndColor: .white,
@@ -122,3 +119,11 @@ struct Theme {
         }
     }
 }
+
+// Equatable manuel : thèmes égaux si même ID
+extension Theme: Equatable {
+    static func == (lhs: Theme, rhs: Theme) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+

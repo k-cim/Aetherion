@@ -17,12 +17,12 @@ struct ThemedHeader: View {
             if let systemIcon {
                 Image(systemName: systemIcon)
                     .font(.title2.weight(.semibold))
-                    .themedForeground(themeManager.theme)
+                    .foregroundStyle(themeManager.theme.foreground)
             }
 
             Text(title)
                 .font(.system(size: 22, weight: .bold, design: .rounded))
-                .themedForeground(themeManager.theme)
+                .foregroundStyle(themeManager.theme.foreground)
 
             Spacer()
         }

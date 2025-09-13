@@ -4,18 +4,19 @@
 
 import Foundation
 
-struct Asset: Identifiable, Equatable {
-    let id = UUID()
-    let name: String
+/// Représente un fichier dans Documents (nom, taille, date, etc.)
+struct FileAsset: Identifiable, Hashable {
+    let id: URL
     let url: URL
-    let sizeBytes: Int64
+    let name: String
     let modifiedAt: Date?
+    let size: Int64?
 
-    /// Human-readable size (e.g., "1.2 Mo")
-    var sizeString: String {
-        ByteCountFormatter.string(fromByteCount: sizeBytes, countStyle: .file)
-            .replacingOccurrences(of: "KB", with: "Ko")
-            .replacingOccurrences(of: "MB", with: "Mo")
-            .replacingOccurrences(of: "GB", with: "Go")
+    init(url: URL) {
+        self.url = url
+        self.id = url
+        self.name = url.lastPathComponent
+        self.modifiedAt = url.modifiedAt
+        self.size = url.fileSize
     }
 }

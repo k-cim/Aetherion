@@ -21,7 +21,7 @@ struct ContactsView: View {
                                 Spacer()
                                 Text("Aucun contact")
                                     .font(.title2.bold())
-                                    .themedForeground(themeManager.theme)
+                                    .foregroundStyle(themeManager.theme.foreground)
                                 Spacer()
                             }
                         }
@@ -34,10 +34,10 @@ struct ContactsView: View {
                                     HStack(spacing: 12) {
                                         Image(systemName: "person.crop.circle")
                                             .font(.title3)
-                                            .themedSecondary(themeManager.theme)
+                                            .foregroundStyle(themeManager.theme.secondary)
                                         Text(contact.name)
                                             .font(.headline.bold())
-                                            .themedForeground(themeManager.theme)
+                                            .foregroundStyle(themeManager.theme.foreground)
                                         Spacer()
                                     }
                                 }
@@ -56,6 +56,6 @@ struct ContactsView: View {
 #Preview {
     NavigationStack {
         ContactsView()
-            .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+            // // // .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
     }
 }

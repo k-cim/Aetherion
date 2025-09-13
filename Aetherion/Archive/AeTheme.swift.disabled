@@ -1,0 +1,45 @@
+// === File: AeTheme.swift
+// Date: 2025-08-30
+// Description: Single source of truth for ThemeID (no model duplication)
+import SwiftUI
+
+// === Thèmes disponibles (ID stable, 1 seule déclaration dans tout le projet)
+enum ThemeID: String, CaseIterable, Identifiable {
+    case aetherionDark, aetherionLight, aetherionBlue, aetherionSepia, aetherionEmerald
+    var id: String { rawValue }
+}
+
+// === Cible de thème (pour des overrides par vue/onglet si on en veut plus tard)
+enum ThemedSurface: String, CaseIterable, Identifiable {
+    case global      // thème par défaut de l'app
+    case home, vault, contacts, settings
+    var id: String { rawValue }
+}
+
+// === Persistance minimale (UserDefaults)
+enum ThemeStorage {
+    private static let globalKey = "ae.selectedThemeID"
+    private static func surfaceKey(_ s: ThemedSurface) -> String { "ae.surface.\(s.rawValue)" }
+
+    // Global
+    static func loadGlobal(default def: ThemeID) -> ThemeID {
+        if let raw = UserDefaults.standard.string(forKey: globalKey),
+           let id  = ThemeID(rawValue: raw) { return id }
+        return def
+    }
+    static func saveGlobal(_ id: ThemeID) {
+        UserDefaults.standard.set(id.rawValue, forKey: globalKey)
+    }
+
+    // (Optionnel) Override par vue — prêt pour plus tard
+    static func loadOverride(for surface: ThemedSurface) -> ThemeID? {
+        guard surface != .global,
+              let raw = UserDefaults.standard.string(forKey: surfaceKey(surface)) else { return nil }
+        return ThemeID(rawValue: raw)
+    }
+    static func saveOverride(_ id: ThemeID?, for surface: ThemedSurface) {
+        let key = surfaceKey(surface)
+        let ud = UserDefaults.standard
+        if let id { ud.set(id.rawValue, forKey: key) } else { ud.removeObject(forKey: key) }
+    }
+}

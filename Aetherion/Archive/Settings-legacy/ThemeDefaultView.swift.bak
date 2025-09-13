@@ -499,6 +499,6 @@ private struct ThemePickerWheel: View {
 #Preview {
     NavigationStack {
         ThemeDefautlView()
-            .environmentObject(ThemeManager(default: .aetherionDark))
+            // // // .environmentObject(ThemeManager(default: .aetherionDark))
     }
 }

@@ -33,7 +33,7 @@ private struct PersistedThemeState {
     var cardEndColor: Color
     var headerColor: Color
 
-    static func loadFromDisk(using p: ThemePersistence = .shared, base: Theme) -> PersistedThemeState {
+// //     static func loadFromDisk(using p: ThemePersistence = .shared, base: Theme) -> PersistedThemeState {
         PersistedThemeState(
             background:      p.loadBackgroundColor(default: base.background),
             foreground:      p.loadPrimaryTextColor(default: base.foreground),
@@ -48,7 +48,7 @@ private struct PersistedThemeState {
         )
     }
 
-    func saveToDisk(using p: ThemePersistence = .shared) {
+// //     func saveToDisk(using p: ThemePersistence = .shared) {
         p.saveBackgroundColor(background)
         p.savePrimaryTextColor(foreground)
         p.saveSecondaryTextColor(secondary)
@@ -111,7 +111,7 @@ private struct LocalTheme {
     }
 
     static func load() -> LocalTheme {
-        let p = ThemePersistence.shared
+// //         let p = ThemePersistence.shared
         let base = Theme.preset(.aetherionDark)
         return LocalTheme(
             background: p.loadBackgroundColor(default: .black),
@@ -251,7 +251,7 @@ struct ThemeDefautlView: View {
     /// Fige l’état actuel comme “nouveau” (sauve sur disque + met à jour baseline)
     private func applyAction() {
         let t = themeManager.theme
-        let p = ThemePersistence.shared
+// //         let p = ThemePersistence.shared
         // sauve tout
         p.saveBackgroundColor(t.background)
         p.savePrimaryTextColor(t.foreground)
@@ -499,6 +499,6 @@ private struct ThemePickerWheel: View {
 #Preview {
     NavigationStack {
         ThemeDefautlView()
-            .environmentObject(ThemeManager(default: .aetherionDark))
+            // // // .environmentObject(ThemeManager(default: .aetherionDark))
     }
 }

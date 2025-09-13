@@ -1,0 +1,24 @@
+{
+  "source": "/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Home/HomeView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Aetherion",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 32
+        }
+      },
+      {
+        "comment": "",
+        "key": "Entrer",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 49
+        }
+      }
+    ]
+  },
+  "version": 1
+}

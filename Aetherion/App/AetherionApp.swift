@@ -1,21 +1,29 @@
+// === File: App/AetherionApp.swift
 import SwiftUI
+import Foundation
 
 @main
 struct AetherionApp: App {
-    @StateObject private var theme  = ThemeManager(default: .aetherionDark)
+    @StateObject private var theme: ThemeManager
     @StateObject private var router = AppRouter()
     @StateObject private var nav    = NavigationCoordinator()
+
+    init() {
+        // Récupère le thème persistant (sinon dark)
+        let saved = UserDefaults.standard.string(forKey: "ae.selectedThemeID")
+        let initialID = saved.flatMap(ThemeID.init(rawValue:)) ?? .aetherionDark
+        _theme = StateObject(wrappedValue: ThemeManager(default: initialID))
+    }
 
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $nav.path) {
                 AppContainerView()
             }
-            // injection globale (ThemedScreen, BottomBar, etc.)
             .environmentObject(theme)
             .environmentObject(router)
             .environmentObject(nav)
-            .tint(theme.theme.accent)   // couleur du chevron retour & co
+            .tint(theme.theme.accent)
         }
     }
 }

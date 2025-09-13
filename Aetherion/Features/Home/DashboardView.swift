@@ -11,110 +11,73 @@ struct DashboardView: View {
     var body: some View {
         ThemedScreen {
             VStack(spacing: 0) {
+                ThemedHeaderTitle(text: "Tableau de bord")
 
-                // Bandeau haut (même gabarit que les autres pages)
-                ThemedCard {
-                    HStack(spacing: 12) {
-                        Image("AppLogo") // remplace par le nom exact de ton asset si besoin
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40)
-
-                        Text("Tableau de bord")
-                            .font(.title.bold())
-                            .themedForeground(themeManager.theme)
-
-                        Spacer()
-                    }
-                    .frame(height: 64)
+                // Actions
+                HStack(spacing: 12) {
+                    PrimaryButton(title: "Recharger") { vm.reload() }
+                    PrimaryButton(title: "Ajouter un exemple") { vm.addSample() }
                 }
                 .padding(.horizontal, 16)
-                .padding(.top, 8)
+                .padding(.bottom, 8)
 
+                // Fichiers récents
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 12) {
-                        // Titre section
-                        Text("Documents récents")
-                            .font(.headline.weight(.bold))
-                            .themedForeground(themeManager.theme)
-                            .padding(.horizontal, 16)
-                            .padding(.top, 6)
-
-                        if vm.assets.isEmpty {
-                            // Etat vide (même hauteur que "Aucun fichier" / bouton Accueil)
+                    LazyVStack(spacing: 12) {
+                        ForEach(vm.recent) { item in
                             ThemedCard {
                                 HStack {
-                                    Spacer()
-                                    Text("Aucun document récent")
-                                        .font(.title2.bold())
-                                        .themedForeground(themeManager.theme)
-                                    Spacer()
-                                }
-                                .frame(height: 80)
-                            }
-                            .padding(.horizontal, 16)
-                        } else {
-                            // Liste compacte
-                            VStack(spacing: 12) {
-                                ForEach(vm.assets) { asset in
-                                    ThemedCard {
-                                        HStack(spacing: 12) {
-                                            Image(systemName: "doc")
-                                                .font(.title3)
-                                                .themedSecondary(themeManager.theme)
+                                    Image(systemName: "doc.text")
+                                        .font(.title3)
+                                        .foregroundStyle(themeManager.theme.accent)
 
-                                            VStack(alignment: .leading, spacing: 4) {
-                                                Text(asset.name)
-                                                    .font(.headline.bold())
-                                                    .themedForeground(themeManager.theme)
-
-                                                Text(asset.sizeString)
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(item.name)
+                                            .font(.headline)
+                                            .foregroundStyle(themeManager.theme.foreground)
+                                        HStack(spacing: 8) {
+                                            if let dt = item.modifiedAt {
+                                                Text(dt.formatted(date: .abbreviated, time: .shortened))
                                                     .font(.caption)
-                                                    .themedSecondary(themeManager.theme)
+                                                    .foregroundStyle(themeManager.theme.secondary)
                                             }
-
-                                            Spacer()
+                                            if let size = item.size {
+                                                Text(ByteCountFormatter.string(fromByteCount: size, countStyle: .file))
+                                                    .font(.caption)
+                                                    .foregroundStyle(themeManager.theme.secondary)
+                                            }
                                         }
-                                        .frame(height: 64)
                                     }
+                                    Spacer()
                                 }
+                                .padding(.vertical, 6)
                             }
-                            .padding(.horizontal, 16)
                         }
 
-                        // Bouton de démo pour créer un fichier d'exemple (facultatif)
-                        ThemedCard {
-                            Button {
-                                vm.addSample()
-                            } label: {
-                                HStack {
-                                    Spacer()
-                                    Text("Ajouter un exemple")
-                                        .font(.headline.bold())
-                                        .themedForeground(themeManager.theme)
-                                    Spacer()
+                        if vm.recent.isEmpty {
+                            ThemedCard {
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text("Aucun fichier récent")
+                                        .font(.headline)
+                                        .foregroundStyle(themeManager.theme.foreground)
+                                    Text("Ajoute un exemple pour tester.")
+                                        .font(.caption)
+                                        .foregroundStyle(themeManager.theme.secondary)
                                 }
-                                .frame(height: 56)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                            .buttonStyle(.plain)
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.top, 6)
                     }
-                    .padding(.bottom, 12)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 120)
                 }
-
             }
         }
-        .onAppear {
-            vm.load()   // appel direct (pas de $vm)
-        }
+        .onAppear { vm.reload() }
     }
 }
 
 #Preview {
-    NavigationStack {
-        DashboardView()
-            .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
-    }
+    DashboardView()
+        // // // .environmentObject(ThemeManager(default: .aetherionDark))
 }

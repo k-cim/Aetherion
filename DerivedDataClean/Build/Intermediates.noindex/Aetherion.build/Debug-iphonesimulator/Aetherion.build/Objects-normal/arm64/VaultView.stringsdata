@@ -1,0 +1,24 @@
+{
+  "source": "/Users/mickaelpuaud/Dev/Aetherion-2/Aetherion/Features/Vault/VaultView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Aucun fichier",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 57
+        }
+      },
+      {
+        "comment": "",
+        "key": "Appuie sur “Ajouter un exemple” pour créer un fichier.",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 60
+        }
+      }
+    ]
+  },
+  "version": 1
+}
