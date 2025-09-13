@@ -1,15 +1,6 @@
-# macOS
 .DS_Store
-
-# Xcode
-DerivedData/
 xcuserdata/
+DerivedData/
+.build/
 *.xcuserstate
 *.xccheckout
-
-# SwiftPM
-.build/
-.swiftpm/
-
-# Logs
-*.log
