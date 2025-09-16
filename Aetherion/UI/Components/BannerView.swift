@@ -1,7 +1,7 @@
-// === File: BannerView.swift
-// Version: 1.0
-// Date: 2025-08-30
-// Description: Reusable top banner (logo left + title right) with same style as Home screen.
+// === File: UI/Components/BannerView.swift
+// Version: 1.1 (fix fg/bg access & ShapeStyle types)
+// Date: 2025-09-15
+// Description: Reusable top banner (logo left + title right) coherent with theme.
 // Author: K-Cim
 
 import SwiftUI
@@ -9,8 +9,11 @@ import SwiftUI
 struct BannerView: View {
     @EnvironmentObject private var themeManager: ThemeManager
 
-    let logoName: String    // ex: "AppLogo" depuis Assets
+    let logoName: String    // ex: "AppMark" depuis Assets
     let title: String       // ex: "Aetherion"
+
+    // alias locaux pratiques (évite de répéter themeManager.theme partout)
+    private var t: Theme { themeManager.theme }
 
     var body: some View {
         ThemedCard {
@@ -22,7 +25,7 @@ struct BannerView: View {
 
                 Text(title)
                     .font(.title.bold())
-                    .foregroundStyle(themeManager.theme.foreground)
+                    .foregroundStyle(t.foreground)   // ✅ Color, pas un Binding
 
                 Spacer()
             }

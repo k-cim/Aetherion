@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "id": "aetherionNeo",
+  "name": "Aetherion Neo",
+  "meta": { "author": "Aetherion", "createdAt": "2025-09-13T00:00:00Z" },
+
+  "background": {
+    "style": "gradient",
+    "color": "#070A12",
+    "gradient": {
+      "startColor": "#05060A",
+      "endColor":   "#0B0F1A",
+      "startOpacity": 1.00,
+      "endOpacity":   1.00,
+      "startPoint": "top",
+      "endPoint": "bottom"
+    }
+  },
+
+  "cards": {
+    "startColor": "#36D7FF",
+    "endColor":   "#B86BFF",
+    "startOpacity": 0.16,
+    "endOpacity":   0.08,
+    "cornerRadius": 16,
+    "strokeOpacity": 0.10
+  },
+
+  "text": {
+    "header":   { "color": "#F2F6FFFF", "size": 28, "weight": "bold",     "design": "rounded" },
+    "title":    { "color": "#E8EEFFFF", "size": 20, "weight": "semibold", "design": "default" },
+    "body":     { "color": "#E8EEFFFF", "size": 16, "weight": "regular",  "design": "default" },
+    "secondary":{ "color": "rgba(232,238,255,0.70)", "size": 14, "weight": "regular", "design": "default" }
+  },
+
+  "icons": {
+    "color": "#36D7FF",
+    "selectedOpacity": 1.00,
+    "unselectedOpacity": 0.45
+  },
+
+  "controls": {
+    "tint": "#36D7FF",
+    "slider":  { "thumb": "#F2F6FFFF", "track": "rgba(54,215,255,0.35)" },
+    "toggle":  { "on":   "#36D7FF",    "off":   "rgba(242,246,255,0.35)" },
+    "radio":   { "fill": "#36D7FF",    "stroke":"rgba(242,246,255,0.35)" },
+    "progress":{ "track":"rgba(54,215,255,0.25)", "fill": "#36D7FF" }
+  },
+
+  "bottombar": { "backgroundOpacity": 0.28 }
+}

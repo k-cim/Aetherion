@@ -1,21 +1,25 @@
-// === File: ContactsViewModel.swift
-// Date: 2025-08-30
-// Description: Observable view model for Contacts screen.
+// === File: Features/Contacts/ContactsViewModel.swift
+// Version: 2.0
+// Date: 2025-09-15
+// Rôle : ViewModel Contacts — charge via ContactsService.
 
 import Foundation
 
-struct ContactItem: Identifiable, Equatable {
-    let id = UUID()
-    var name: String
-}
-
 @MainActor
 final class ContactsViewModel: ObservableObject {
-    @Published var contacts: [ContactItem] = []
+    @Published var contacts: [Contact] = []
+    @Published var errorMessage: String?
+
+    init() {}
 
     func load() {
-        // Laisse vide pour afficher "Aucun contact".
-        // Pour tester avec des données :
-        // self.contacts = [ContactItem(name: "Alice"), ContactItem(name: "Bob")]
+        Task {
+            do {
+                let list = try await ContactsService.shared.fetchAll()
+                self.contacts = list
+            } catch {
+                self.errorMessage = (error as NSError).localizedDescription
+            }
+        }
     }
 }

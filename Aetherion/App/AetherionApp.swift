@@ -13,6 +13,10 @@ struct AetherionApp: App {
         let saved = UserDefaults.standard.string(forKey: "ae.selectedThemeID")
         let initialID = saved.flatMap(ThemeID.init(rawValue:)) ?? .aetherionDark
         _theme = StateObject(wrappedValue: ThemeManager(default: initialID))
+        
+    #if DEBUG
+    ThemeOverrideDiskStore._debugSelfTest()
+    #endif
     }
 
     var body: some Scene {
@@ -23,7 +27,7 @@ struct AetherionApp: App {
             .environmentObject(theme)
             .environmentObject(router)
             .environmentObject(nav)
-            .tint(theme.theme.accent)
+            .tint(theme.theme.accent) // ✅ utilise la proxy
         }
     }
 }

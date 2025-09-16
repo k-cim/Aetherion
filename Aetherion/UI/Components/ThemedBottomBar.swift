@@ -1,8 +1,13 @@
 // === File: UI/Components/ThemedBottomBar.swift
-// Version: 2.0 (lean build-friendly)
-// Description: Bottom bar minimaliste, sûre pour le compilateur.
+// Version: 2.5
+// Date: 2025-09-14
+// Description: Barre d’onglets thémée, sûre et accessible.
+//              - Fond dégradé cohérent (ThemeKit)
+//              - Safe area friendly (home indicator)
+//              - Touch targets confort (≥44pt), retour haptique optionnel
+//              - Accessibilité (tab bar, selected state)
+//              - Animations douces et factorisation
 // Author: K-Cim
-
 
 import SwiftUI
 
@@ -22,17 +27,18 @@ struct ThemedBottomBar: View {
         let end    = t.cardEndColor.opacity(t.cardEndOpacity)
 
         ZStack {
-            // couche fond (couleur pure)
+            // ⚠️ Ces trois calques deviennent non-interactifs
             RoundedRectangle(cornerRadius: radius, style: .continuous)
                 .fill(t.background)
+                .allowsHitTesting(false)
 
-            // couche gradient
             RoundedRectangle(cornerRadius: radius, style: .continuous)
                 .fill(LinearGradient(colors: [start, end], startPoint: .leading, endPoint: .trailing))
+                .allowsHitTesting(false)
 
-            // trait
             RoundedRectangle(cornerRadius: radius, style: .continuous)
                 .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
+                .allowsHitTesting(false)
 
             HStack(spacing: 0) {
                 barItem(.home,     system: "house.fill",     label: "Accueil")
@@ -48,6 +54,8 @@ struct ThemedBottomBar: View {
         .padding(.top, 6)
         .padding(.bottom, 8)
         .background(Color.clear)
+        // (optionnel) s’assure que la barre est au-dessus du contenu
+        .zIndex(999)
     }
 
     @ViewBuilder
@@ -70,7 +78,7 @@ struct ThemedBottomBar: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, 4)
             .foregroundStyle(accent)
-            .contentShape(Rectangle())
+            .contentShape(Rectangle()) // zone cliquable pleine largeur
         }
         .buttonStyle(.plain)
     }

@@ -1,7 +1,7 @@
-// === File: SettingsMenuView.swift
-// Version: 1.3
-// Date: 2025-08-30 20:45:00 UTC
-// Description: Settings hub; includes Theme + Background color entries.
+// === File: Features/Settings/SettingsMenuView.swift
+// Version: 2.0
+// Date: 2025-09-14
+// Description: Settings hub; routes updated (ThemeDefaultView / ThemeConfigView) without changing UI style.
 // Author: K-Cim
 
 import SwiftUI
@@ -19,9 +19,9 @@ struct SettingsMenuView: View {
                             .foregroundStyle(themeManager.theme.foreground)
                             .padding(.horizontal, 16)
 
-                        // Theme card
+                        // Theme card (presets / wheel)
                         NavigationLink {
-                            ThemeConfigView()
+                            ThemeDefaultView()   // ⬅️ destination mise à jour
                         } label: {
                             ThemedCard {
                                 HStack {
@@ -35,10 +35,9 @@ struct SettingsMenuView: View {
                         }
                         .padding(.horizontal, 16)
 
-
-                        // Background color card
+                        // Background color card (goes to full color config)
                         NavigationLink {
-                            BackgroundColorConfigView()
+                            ThemeConfigView()    // ⬅️ destination mise à jour (fond inclus)
                         } label: {
                             ThemedCard {
                                 HStack {
@@ -60,8 +59,8 @@ struct SettingsMenuView: View {
 
 #Preview {
     NavigationStack {
-        ShareView()
-            // // // .environmentObject(ThemeManager(default: .aetherionDark))
+        SettingsMenuView()
+            .environmentObject(ThemeManager(default: .aetherionDark))
             .environmentObject(AppRouter())
     }
 }

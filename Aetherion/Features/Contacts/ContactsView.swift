@@ -1,6 +1,7 @@
-// === File: ContactsView.swift
-// Date: 2025-09-04
-// Description: Contacts — header title from theme (no card), consistent card heights.
+// === File: Features/Contacts/ContactsView.swift
+// Version: 2.0
+// Date: 2025-09-15
+// Rôle : Liste des contacts (affichage basique), cohérente avec le thème.
 
 import SwiftUI
 
@@ -11,10 +12,20 @@ struct ContactsView: View {
     var body: some View {
         ThemedScreen {
             VStack(spacing: 0) {
-
-                ThemedHeaderTitle(text: "Contacts")   // ← Titre cohérent, sans encadré
+                ThemedHeaderTitle(text: "Contacts")
 
                 ScrollView {
+                    if let msg = vm.errorMessage {
+                        ThemedCard {
+                            Text(msg)
+                                .font(.footnote)
+                                .foregroundStyle(.red.opacity(0.9))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 12)
+                    }
+
                     if vm.contacts.isEmpty {
                         ThemedCard(fixedHeight: 80) {
                             HStack {
@@ -56,6 +67,6 @@ struct ContactsView: View {
 #Preview {
     NavigationStack {
         ContactsView()
-            // // // .environmentObject(ThemeManager(default: ThemeID.aetherionDark))
+            .environmentObject(ThemeManager(default: .aetherionDark))
     }
 }

@@ -1,6 +1,92 @@
+# ------- macOS
 .DS_Store
+.AppleDouble
+Icon?
+Thumbs.db
+
+# ------- Xcode / Swift
 xcuserdata/
-DerivedData/
-.build/
 *.xcuserstate
 *.xccheckout
+*.xcscmblueprint
+
+# Garder le .xcodeproj et les schemes partagés
+Aetherion.xcodeproj/project.xcworkspace/xcuserdata/
+
+# SwiftPM / build caches
+.swiftpm/
+.build/
+
+# ------- Builds & artefacts
+build/
+DerivedData/
+DerivedDataClean/
+**/Products/
+**/Intermediates.noindex/
+**/XCBuildData/
+**/ModuleCache.noindex/
+**/CompilationCache.noindex/
+**/EagerLinkingTBDs/
+**/Logs/
+**/PIFCache/
+**/GeneratedModuleMaps-*/
+**/Release-iphoneos/
+**/Debug-iphonesimulator/
+
+# objets/compilés
+**/*.o
+**/*.d
+**/*.dia
+**/*.swiftmodule
+**/*.swiftdoc
+**/*.swiftsourceinfo
+**/*.abi.json
+**/*-OutputFileMap.json
+**/*ConstValuesFileList
+**/*LinkFileList
+**/*dependency_info.dat
+**/*_CodeSignature/
+**/__preview.dylib
+**/Assets.car
+
+# ------- Archives perso & sauvegardes
+archives/
+Aetherion/Archive/          # tes backups .bak, legacy, etc.
+Z_backup_conflicts/
+*.bak
+*.bak.*
+*.disabled
+*.broken-*
+*.old
+*.tmp
+*~
+
+# ------- Fichiers de projet de secours
+Aetherion.xcodeproj/project.pbxproj.bak*
+
+# (On GARDE)
+# - Aetherion.xcodeproj/project.pbxproj
+# - Aetherion.xcodeproj/xcshareddata/xcschemes/*
+# - Aetherion.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+# - Aetherion.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+# - Sources Swift, Resources (Assets.xcassets, Localization, Themes/BuiltIn), Docs, scripts *.sh
+
+# ---- Backups / parasites
+*.bak
+*.bak.*
+*.disabled
+*.broken-*
+Aetherion/Archive/
+build.log
+
+# ---- Xcode/macOS
+.DS_Store
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+**/*.xcworkspace/xcuserdata/
+**/*.xcodeproj/project.xcworkspace/xcuserdata/
+DerivedData/
+build/
+.build/
+.swiftpm/xcode/
