@@ -1,32 +1,13 @@
-// === File: Features/Settings/ThemeDefautlView.swift
-// Choix d’un preset avec prévisualisation locale, tout en restant
-// synchronisé avec le thème global (et les changements venant de ThemeConfigView).
+// === File: Features/Settings/ThemeDefaultView.swift
+// Version: 2.2
+// Date: 2025-09-15
+// Rôle : Afficher les thèmes (bundle + Documents) via ThemeCatalog,
+//        prévisualiser en LIVE, Appliquer/Reset, rollback si on quitte sans appliquer.
+// Note : fichier unique dans la target (avec la typo "Defautl") pour éviter toute confusion.
 
 import SwiftUI
 
-// Mapping ThemeID -> choix de roue
-private func choice(for id: ThemeID) -> ThemeDefautlView.ThemeChoice {
-    switch id {
-    case .aetherionDark:    return .dark
-    case .aetherionLight:   return .light
-    case .aetherionBlue:    return .blue
-    case .aetherionSepia:   return .sepia
-    case .aetherionEmerald: return .emerald
-    }
-}
-
-// Mapping choix de roue -> ThemeID
-private func themeID(for choice: ThemeDefautlView.ThemeChoice) -> ThemeID {
-    switch choice {
-    case .dark:    return .aetherionDark
-    case .light:   return .aetherionLight
-    case .blue:    return .aetherionBlue
-    case .sepia:   return .aetherionSepia
-    case .emerald: return .aetherionEmerald
-    }
-}
-
-// Carte autonome qui prend un Theme (pour preview locale)
+// Carte de prévisualisation indépendante (on injecte `theme`)
 private struct PreviewCard<Content: View>: View {
     let theme: Theme
     let fixedHeight: CGFloat?
@@ -57,38 +38,218 @@ private struct PreviewCard<Content: View>: View {
     }
 }
 
-struct ThemeDefautlView: View {
+private struct WheelChoice: Identifiable, Equatable {
+    enum Kind: Equatable {
+        case preset(ThemeID)                 // item /dev/null mappé à ThemeID
+        case bundle(url: URL, rawID: String) // JSON réel (bundle/Documents)
+        case userUnsaved                     // thème modifié non persisté
+    }
+    var id: String
+    var name: String
+    var kind: Kind
+}
+
+struct ThemeDefaultView: View {
     @EnvironmentObject private var themeManager: ThemeManager
 
-    // 👇 Prévisualisation locale (ne modifie pas le global tant qu’on n’appuie pas sur Appliquer)
+    // Aperçu local (pour peindre les cartes)
     @State private var preview: Theme = Theme.preset(.aetherionDark)
-    @State private var selectedChoice: ThemeChoice = .dark
-    @State private var showVisualisation: Bool = false
 
-    // Choix appliqué actuellement (d’après le global)
-    private var appliedChoice: ThemeChoice { choice(for: themeManager.theme.id) }
-    private var canApply: Bool { selectedChoice != appliedChoice }
+    // Données roue
+    @State private var choices: [WheelChoice] = []
+    @State private var selectedChoiceID: String = ""
+    private var selectedChoice: WheelChoice? { choices.first { $0.id == selectedChoiceID } }
 
-    enum ThemeChoice: String, CaseIterable, Identifiable {
-        case dark    = "Thème Foncé"
-        case light   = "Thème Clair"
-        case blue    = "Thème Bleu"
-        case sepia   = "Thème Sépia"
-        case emerald = "Thème Émeraude"
-        var id: String { rawValue }
+    // Debug
+    @State private var showJsonSheet = false
+    @State private var debugRows: [String] = []
+
+    // Snapshot d’entrée + commit
+    @State private var enterSnapshot: Theme? = nil
+    @State private var committed: Bool = false
+
+    // Persistance d’ID
+    private let ud = UserDefaults.standard
+    private let selectedKey = "ae.selectedThemeID"
+
+    private var persistedID: ThemeID {
+        ud.string(forKey: selectedKey).flatMap(ThemeID.init) ?? themeManager.theme.id
     }
 
-    var body: some View {
-        ZStack {
-            // 👇 Le fond de CET écran suit la preview locale
-            preview.background.ignoresSafeArea()
+    // MARK: - Wheel building
 
+    private func rebuildFromGlobal() {
+        let current = themeManager.theme
+        preview = current
+
+        let persistedID = ud.string(forKey: "ae.selectedThemeID").flatMap(ThemeID.init)
+        let lastRaw = ud.string(forKey: "ae.lastSelectedRawID")
+
+        let items = ThemeCatalog.shared.listThemes()
+        var built: [WheelChoice] = []
+
+        for it in items {
+            if it.fileURL.path == "/dev/null", let tid = ThemeID(rawValue: it.id) {
+                built.append(.init(id: "preset.\(tid.rawValue)", name: it.displayName, kind: .preset(tid)))
+            } else {
+                built.append(.init(id: "bundle.\(it.id)", name: it.displayName, kind: .bundle(url: it.fileURL, rawID: it.id)))
+            }
+        }
+
+        built.sort { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+
+        // Ajoute "non enregistré" uniquement à titre d'info dans la roue (pas sélection auto)
+        if themeManager.colorModified {
+            built.append(.init(id: "user.unsaved", name: "Thème non enregistré", kind: .userUnsaved))
+        }
+
+        // 1) Si la sélection actuelle existe encore, on la garde (évite les sauts visuels)
+        if built.contains(where: { $0.id == selectedChoiceID }) {
+            choices = built
+            return
+        }
+
+        // 2) Si on a un rawID JSON mémorisé
+        if let raw = lastRaw {
+            let tag = "bundle.\(raw)"
+            if built.contains(where: { $0.id == tag }) {
+                selectedChoiceID = tag
+                choices = built
+                return
+            }
+        }
+
+        // 3) Si on a un ID enum persisté
+        if let pid = persistedID {
+            let tag = "preset.\(pid.rawValue)"
+            if built.contains(where: { $0.id == tag }) {
+                selectedChoiceID = tag
+                choices = built
+                return
+            }
+        }
+
+        // 4) Fallback : premier item
+        selectedChoiceID = built.first?.id ?? ""
+        choices = built
+    }
+
+    private func handleSelectionChange() {
+        guard let choice = selectedChoice else { return }
+
+        let t: Theme
+        switch choice.kind {
+        case .preset(let pid):
+            t = UserThemeStore.loadTheme(for: pid)   // Override > JSON > preset
+        case .bundle(let url, let rawID):
+            let fb = ThemeID(rawValue: rawID)
+            t = ThemeBundleStore.loadTheme(from: url, fallbackID: fb) ?? Theme.preset(.aetherionDark)
+        case .userUnsaved:
+            // Vue “info” seulement : on reste sur l’état actuel
+            return
+        }
+
+        // LIVE (toutes les vues suivent)
+        themeManager.applyTheme(t)
+        preview = t
+    }
+
+    private func actionReset() {
+        guard let snap = enterSnapshot else { return }
+        themeManager.applyTheme(snap) // rollback à l'état d'entrée
+        preview = snap
+        committed = true
+    }
+
+    private func actionApply() {
+        guard let choice = selectedChoice else { return }
+
+        switch choice.kind {
+        case .preset(let pid):
+            // 1) Palette LIVE
+            let t = UserThemeStore.loadTheme(for: pid)
+            themeManager.applyTheme(t)
+            // 2) Persistance (ID connu)
+            themeManager.persistSelectedID(pid)                    // ae.selectedThemeID
+            ud.removeObject(forKey: "ae.lastSelectedRawID")        // nettoie ancien rawID
+            // 3) UI / flags
+            preview = t
+            themeManager.endColorEditing()
+            committed = true
+            // 4) Verrouille la sélection sur l'item appliqué
+            selectedChoiceID = "preset.\(pid.rawValue)"
+
+        case .bundle(let url, let rawID):
+            // 1) Palette LIVE
+            let fb = ThemeID(rawValue: rawID)
+            let t = ThemeCatalog.shared.loadTheme(from: .init(id: rawID, displayName: rawID, fileURL: url))
+                ?? Theme.preset(fb ?? .aetherionDark)
+            themeManager.applyTheme(t)
+            // 2) Persistance (toujours rawID ; + ID si convertible)
+            ud.set(rawID, forKey: "ae.lastSelectedRawID")
+            if let pid = fb { themeManager.persistSelectedID(pid) }
+            // 3) UI / flags
+            preview = t
+            themeManager.endColorEditing()
+            committed = true
+            // 4) Verrouille la sélection sur l'item appliqué
+            selectedChoiceID = "bundle.\(rawID)"
+
+        case .userUnsaved:
+            // On valide l'état courant et on le rend durable en override disque (sans toucher l'ID)
+            themeManager.persistCurrentThemeToDisk()
+            // On peut garder l'indicateur "modifié" si tu veux signaler le statut "ad hoc"
+            themeManager.beginColorEditing()
+            committed = true
+        }
+    }
+
+    private func canApply() -> Bool {
+        guard let c = selectedChoice else { return false }
+        switch c.kind {
+        case .preset(let pid): return pid != persistedID
+        case .bundle:          return true
+        case .userUnsaved:     return false
+        }
+    }
+
+    // MARK: - Snapshot / lifecycle
+
+    private func snapshotEnter() {
+        enterSnapshot = themeManager.theme
+        committed = false
+    }
+
+    private func handleDisappear() {
+        if !committed, let snap = enterSnapshot {
+            themeManager.applyTheme(snap) // rollback simple
+        }
+    }
+
+    private func buildDebugRows() {
+        let items = ThemeCatalog.shared.listThemes()
+        debugRows = items.map { "\($0.displayName) | id: \($0.id) | \($0.fileURL.lastPathComponent)" }
+    }
+
+    // MARK: - UI
+
+    var body: some View {
+        ThemedScreen {
             VStack(spacing: 0) {
+                // En-tête
                 HStack {
                     Text("Thème")
                         .font(.system(size: 28, weight: .bold, design: .rounded))
-                        .foregroundStyle(preview.headerColor)
+                        .foregroundStyle(themeManager.theme.headerColor)
                     Spacer()
+                    Button {
+                        buildDebugRows()
+                        showJsonSheet = true
+                    } label: {
+                        Image(systemName: "doc.text.magnifyingglass")
+                            .font(.title3.weight(.semibold))
+                            .foregroundStyle(themeManager.theme.accent)
+                    }
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 8)
@@ -96,124 +257,62 @@ struct ThemeDefautlView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
 
-                        // Info
+                        // Carte titre + statut
                         PreviewCard(theme: preview) {
-                            HStack(spacing: 12) {
-                                Image(systemName: "paintpalette.fill")
-                                    .font(.title3.weight(.semibold))
-                                    .foregroundStyle(preview.accent)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(selectedChoice.rawValue)
-                                        .font(.headline.weight(.semibold))
-                                        .foregroundStyle(preview.foreground)
-                                    Text((selectedChoice == .dark || selectedChoice == .light) ? "Thème de l’application" : "Thème enregistré")
-                                        .font(.subheadline)
-                                        .foregroundStyle(preview.secondary)
-                                }
-                                Spacer()
-                            }
-                            .padding(.vertical, 6)
-                        }
-
-                        // Visualisation simple
-                        PreviewCard(theme: preview) {
-                            HStack(spacing: 12) {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text("Visualisation")
-                                        .font(.headline.bold())
-                                        .foregroundStyle(preview.foreground)
-                                    Spacer()
-                                    HStack(alignment: .firstTextBaseline, spacing: 12) {
-                                        Text("Bouton Radio").font(.subheadline).foregroundStyle(preview.secondary)
-                                        Button {
-                                            showVisualisation.toggle()
-                                        } label: {
-                                            Image(systemName: showVisualisation ? "largecircle.fill.circle" : "circle")
-                                                .font(.title3)
-                                                .foregroundStyle(preview.accent)
-                                        }
-                                    }
-                                }
-                                Spacer()
-                            }
-                            .padding(.vertical, 6)
-                        }
-
-                        // Choix roue
-                        VStack(alignment: .leading) {
-                            Text("Choix du Thème")
-                                .font(.title3.weight(.bold))
-                                .foregroundStyle(preview.foreground)
-                                .padding(.top, 8)
-                                .padding(.horizontal, 2)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                        PreviewCard(theme: preview) {
-                            VStack(alignment: .leading, spacing: 8) {
-                                Picker("Thème", selection: $selectedChoice) {
-                                    Text("Foncé").tag(ThemeChoice.dark)
-                                    Text("Clair").tag(ThemeChoice.light)
-                                    Text("Bleu").tag(ThemeChoice.blue)
-                                    Text("Sépia").tag(ThemeChoice.sepia)
-                                    Text("Émeraude").tag(ThemeChoice.emerald)
-                                }
-                                .pickerStyle(.wheel)
-                                .frame(height: 140)
-                            }
-                        }
-                        .onChange(of: selectedChoice) { newValue in
-                            // 🔁 Tourner la roue recolorise la page en local, sans toucher le global
-                            let id = themeID(for: newValue)
-                            preview = Theme.preset(id)
-                        }
-
-                        // Rappel du choix
-                        PreviewCard(theme: preview) {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text(selectedChoice.rawValue)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(selectedChoice?.name ?? "—")
                                     .font(.headline.weight(.semibold))
                                     .foregroundStyle(preview.foreground)
-                                Text((selectedChoice == .dark || selectedChoice == .light) ? "Thème de l’application" : "Thème enregistré")
+                                let isUnsaved = (selectedChoice?.kind == .userUnsaved)
+                                Text(isUnsaved ? "Thème non enregistré" : "Thème bundle/preset")
                                     .font(.subheadline)
                                     .foregroundStyle(preview.secondary)
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 4)
+                        }
+
+                        // Carte roue
+                        PreviewCard(theme: preview) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Choix du Thème")
+                                    .font(.title3.weight(.bold))
+                                    .foregroundStyle(preview.foreground)
+                                Picker("Thème", selection: $selectedChoiceID) {
+                                    ForEach(choices) { c in Text(c.name).tag(c.id) }
+                                }
+                                .pickerStyle(.wheel)
+                                .frame(height: 140)
+                                .onChange(of: selectedChoiceID) { _ in handleSelectionChange() }
+                            }
                         }
 
                         // Actions
                         HStack(spacing: 12) {
-                            Button {
-                                // Remet la preview sur le thème global courant
-                                preview = themeManager.theme
-                                selectedChoice = choice(for: themeManager.theme.id)
-                            } label: {
+                            Button(action: actionReset) {
                                 PreviewCard(theme: preview, fixedHeight: 56) {
-                                    HStack { Spacer(); Text("Réinitialiser").font(.headline.bold()).foregroundStyle(preview.foreground); Spacer() }
+                                    HStack {
+                                        Spacer()
+                                        Text("Réinitialiser")
+                                            .font(.headline.bold())
+                                            .foregroundStyle(preview.foreground)
+                                        Spacer()
+                                    }
                                 }
                             }
                             .buttonStyle(.plain)
 
-                            Button {
-                                guard canApply else { return }
-                                // On choisit un PRESET => on supprime l’override JSON et on persiste l’ID
-                                let id = themeID(for: selectedChoice)
-                                themeManager.clearDiskOverride()
-                                themeManager.applyID(id, persist: true)
-                                // La preview va se resynchroniser via onReceive ci-dessous
-                            } label: {
+                            Button(action: actionApply) {
                                 PreviewCard(theme: preview, fixedHeight: 56) {
                                     HStack {
                                         Spacer()
                                         Text("Appliquer")
                                             .font(.headline.bold())
-                                            .foregroundStyle(canApply ? preview.foreground : preview.secondary)
+                                            .foregroundStyle(preview.foreground)
                                         Spacer()
                                     }
                                 }
                             }
                             .buttonStyle(.plain)
-                            .disabled(!canApply)
+                            .disabled(!canApply())
                         }
                         .padding(.top, 4)
                     }
@@ -223,19 +322,18 @@ struct ThemeDefautlView: View {
                 }
             }
         }
-        // 🧲 Sync initiale & quand ThemeConfigView applique des changements globaux
-        .onAppear {
-            preview = themeManager.theme
-            selectedChoice = choice(for: themeManager.theme.id)
-        }
-        .onReceive(themeManager.$theme) { newTheme in
-            // Si ThemeConfigView applique un override JSON, on le reflète ici (fond + textes)
-            preview = newTheme
-            selectedChoice = choice(for: newTheme.id)
+        .onAppear { rebuildFromGlobal(); snapshotEnter() }
+        // IMPORTANT : ne pas rebuilder à chaque changement de theme pour éviter les reboucles
+        // .onReceive(themeManager.$theme) { _ in rebuildFromGlobal() }
+        .onReceive(themeManager.$colorModified) { _ in rebuildFromGlobal() }
+        .onDisappear { handleDisappear() }
+        .sheet(isPresented: $showJsonSheet) {
+            NavigationStack {
+                List(debugRows, id: \.self) {
+                    Text($0).font(.caption.monospaced())
+                }
+                .navigationTitle("JSON détectés")
+            }
         }
     }
-}
-
-#Preview {
-    NavigationStack { ThemeDefautlView() }
 }

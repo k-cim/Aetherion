@@ -1,17 +1,28 @@
 // === File: UI/Theme/ThemeCatalog+List.swift
-// Rôle: découverte des JSON de thèmes + chargement en Theme (sans redéfinitions multiples)
+// Version: 1.6
+// Date: 2025-09-14 07:45:30 UTC
+// Description: Découverte et chargement des thèmes externes.
+//              - Scanne les emplacements: Bundle/Themes, Bundle root, Documents/Themes
+//              - Expose une liste plate (ThemeListItem) pour l’UI (picker/roue)
+//              - Charge un thème depuis JSON (préfère Theme Codable), avec fallbacks:
+//                1) Decode direct via `Theme` (Codable)
+//                2) Schéma strict (ThemeJSONLoader.ThemeFile)
+//                3) Schéma souple (ThemeEntryDTO optionnel → mapping)
+//                4) Fallback preset par ID / nom de fichier
+// Author: K-Cim
 
 import SwiftUI
 import Foundation
+import os
 
-// MARK: - Item de liste pour la roue
+// MARK: - Item de liste pour l’UI
 struct ThemeListItem: Identifiable, Hashable {
     public let id: String            // identifiant (souvent = filename sans extension)
     public let displayName: String   // nom affiché
     public let fileURL: URL          // URL du JSON (ou /dev/null pour presets)
 }
 
-// MARK: - DTO souple (tous optionnels) pour tolérer des JSON partiels
+// MARK: - DTO souple (optionnels) pour tolérer des JSON partiels
 private struct ThemeEntryDTO: Decodable {
     var id: String?
     var displayName: String?
@@ -23,7 +34,7 @@ private struct ThemeEntryDTO: Decodable {
     var accent: String?
     var controlTint: String?
 
-    // Cartes (dégradés)
+    // Cartes (dégradé)
     var cardStartOpacity: Double?
     var cardEndOpacity: Double?
     var cardStartColor: String?
@@ -182,13 +193,14 @@ final class ThemeCatalog {
     public static let shared = ThemeCatalog()
     private init() {}
 
-    /// Retourne les thèmes découverts dans `Themes.bundle/Contents/Resources/Themes/`,
-    /// dans le bundle racine et dans `Documents/Themes`.
+    private let log = Logger(subsystem: "net.aetherion.app", category: "ThemeCatalog")
+
+    /// Retourne les thèmes découverts dans `Bundle/Themes`, le bundle racine et `Documents/Themes`.
     public func listThemes() -> [ThemeListItem] {
         var items: [ThemeListItem] = []
         let fm = FileManager.default
 
-        // 0) Sous-dossier bundle "Themes" (folder reference BLEU)
+        // 0) Sous-dossier bundle "Themes" (folder reference)
         if let urls = Bundle.main.urls(forResourcesWithExtension: "json", subdirectory: "Themes") {
             for url in urls {
                 let name = url.deletingPathExtension().lastPathComponent
@@ -223,9 +235,9 @@ final class ThemeCatalog {
         }
 
         items.sort { $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending }
-        // Debug utile si la roue reste vide
-        print("🧩 ThemeCatalog.listThemes() -> \(items.count) item(s)")
-        items.forEach { print("   • \($0.displayName) @ \($0.fileURL.lastPathComponent)") }
+
+        log.debug("ThemeCatalog.listThemes() -> \(items.count) item(s)")
+        items.forEach { log.debug("• \($0.displayName, privacy: .public) @ \($0.fileURL.lastPathComponent, privacy: .public)") }
 
         // Fallback : si aucun JSON trouvé, on propose les presets intégrés
         if items.isEmpty {
@@ -236,13 +248,14 @@ final class ThemeCatalog {
 
     /// Fallback intégrés (aucun JSON trouvé)
     public func builtInPresetsAsListItems() -> [ThemeListItem] {
-        let ids: [ThemeID] = [.aetherionDark, .aetherionLight, .aetherionBlue, .aetherionSepia, .aetherionEmerald]
+        let ids: [ThemeID] = [.aetherionDark]
         return ids.map { id in
             ThemeListItem(id: id.rawValue, displayName: id.rawValue, fileURL: URL(fileURLWithPath: "/dev/null"))
         }
     }
 
-    /// Charge un thème depuis un item (JSON strict → JSON souple DTO → preset)
+    /// Charge un thème depuis un item.
+    /// Ordre: Theme (Codable) → JSON strict → JSON souple → preset.
     public func loadTheme(from item: ThemeListItem) -> Theme {
         // Presets intégrés
         if item.fileURL.path == "/dev/null" {
@@ -250,12 +263,19 @@ final class ThemeCatalog {
             return Theme.preset(id)
         }
 
-        // 1) Essai schéma strict
+        // 0) Tentative directe via Theme (Codable)
+        if let data = try? Data(contentsOf: item.fileURL) {
+            if let t = try? JSONDecoder().decode(Theme.self, from: data) {
+                return t
+            }
+        }
+
+        // 1) Schéma strict
         if let loaded = try? ThemeJSONLoader().loadTheme(from: item.fileURL) {
             return loaded
         }
 
-        // 2) Essai schéma "souple" (DTO avec optionnels)
+        // 2) Schéma "souple"
         if let data = try? Data(contentsOf: item.fileURL),
            let dto = try? JSONDecoder().decode(ThemeEntryDTO.self, from: data) {
             return map(dto: dto, fileFallbackID: item.id)

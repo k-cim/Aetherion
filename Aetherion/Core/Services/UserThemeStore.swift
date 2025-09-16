@@ -1,56 +1,56 @@
 // === File: Core/Services/UserThemeStore.swift
-// Liste et charge les thèmes JSON enregistrés par l’utilisateur dans
-// ~/Library/Application Support/Aetherion/UserThemes/*.json
+// Version: 2.0
+// Date: 2025-09-14
+// Rôle : façade simple pour consommer les thèmes découverts (bundle + Documents)
+//        + l’override disque. Utilise ThemeCatalog + ThemeOverrideDiskStore uniquement.
 
+import Foundation
 import SwiftUI
 
 enum UserThemeStore {
-    /// Dossier des thèmes utilisateur
-    static var directoryURL: URL = {
-        let fm = FileManager.default
-        let base = try! fm.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        let dir  = base.appendingPathComponent("Aetherion/UserThemes", isDirectory: true)
-        if !fm.fileExists(atPath: dir.path) {
-            try? fm.createDirectory(at: dir, withIntermediateDirectories: true)
-        }
-        return dir
-    }()
 
-    struct Entry: Identifiable {
-        var id: String        // schema.id ou nom de fichier
-        var name: String      // schema.name ou nom de fichier
-        var url: URL
+    // MARK: - Listing
+
+    /// Liste les thèmes disponibles (bundle/Themes, bundle root, Documents/Themes),
+    /// via ThemeCatalog (items = nom affiché + fileURL).
+    static func availableThemes() -> [ThemeListItem] {
+        ThemeCatalog.shared.listThemes()
     }
 
-    /// Retourne la liste des fichiers .json valides (id + name)
-    static func list() -> [Entry] {
-        let fm = FileManager.default
-        guard let files = try? fm.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil)
-        else { return [] }
+    // MARK: - Display name
 
-        return files.compactMap { url in
-            guard url.pathExtension.lowercased() == "json",
-                  let data = try? Data(contentsOf: url),
-                  let schema = try? JSONDecoder().decode(ThemeBundleSchema.self, from: data)
-            else {
-                // JSON illisible → ignorer
-                return nil
-            }
-            let id    = schema.id
-            let name  = schema.name ?? url.deletingPathExtension().lastPathComponent
-            return Entry(id: id, name: name, url: url)
+    /// Nom convivial pour un ThemeID, priorisant le nom issu des JSON présents.
+    static func displayName(for id: ThemeID) -> String {
+        if let item = availableThemes().first(where: { $0.id == id.rawValue }) {
+            return item.displayName
         }
+        // Fallback : formate le rawValue (ex: aetherionDark -> Aetherion Dark)
+        return prettify(raw: id.rawValue)
     }
 
-    /// Charge un Theme à partir d’un fichier JSON
-    static func loadTheme(url: URL) -> Theme? {
-        guard let data = try? Data(contentsOf: url),
-              let schema = try? JSONDecoder().decode(ThemeBundleSchema.self, from: data),
-              let id = ThemeID(rawValue: schema.id) ?? ThemeID(rawValue: schema.id) // accepte aussi des IDs inconnus (on tombera sur un preset proche)
-        else { return nil }
+    // MARK: - Loading
 
-        // Décode via la même logique que pour le bundle
-        // On réutilise le décodeur de ThemeBundleStore pour éviter la duplication.
-        return ThemeBundleStore.loadThemeFromSchema(schema, fallbackID: id)
+    /// Charge un Theme pour un ID en suivant l’ordre :
+    /// 1) override disque (si même ID)
+    /// 2) fichier JSON correspondant dans le catalogue
+    /// 3) preset code
+    static func loadTheme(for id: ThemeID) -> Theme {
+        if let override = ThemeOverrideDiskStore.load(), override.id == id {
+            return override
+        }
+        if let item = availableThemes().first(where: { $0.id == id.rawValue }) {
+            return ThemeCatalog.shared.loadTheme(from: item)
+        }
+        return Theme.preset(id)
+    }
+
+    // MARK: - Utils
+
+    private static func prettify(raw: String) -> String {
+        // Remplace "_" par espaces, insère un espace après "Aetherion" si besoin, capitalise.
+        raw.replacingOccurrences(of: "_", with: " ")
+           .replacingOccurrences(of: "aetherion", with: "Aetherion ")
+           .trimmingCharacters(in: .whitespaces)
+           .capitalized
     }
 }

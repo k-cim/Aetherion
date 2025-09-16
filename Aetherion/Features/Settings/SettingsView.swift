@@ -1,7 +1,7 @@
 // === File: Features/Settings/SettingsView.swift
 // Description: Paramètres — section Apparence (Thème / Couleurs).
 // Dépendances: ThemeManager (env), ThemedScreen, ThemedCard, ThemedHeaderTitle,
-//              ThemeDefautlView, ThemeConfigView.
+//              ThemeDefaultView, ThemeConfigView.
 
 import SwiftUI
 
@@ -25,7 +25,7 @@ struct SettingsView: View {
 
                         // Carte: Thème (présélections via la roue)
                         NavigationLink {
-                            ThemeDefautlView()
+                            ThemeDefaultView() // ✅ corrige la typo
                         } label: {
                             ThemedCard {
                                 HStack(spacing: 12) {
@@ -43,6 +43,17 @@ struct SettingsView: View {
                                     }
 
                                     Spacer()
+
+                                    // Badge "non enregistré" si des modifs locales existent
+                                    if themeManager.colorModified {
+                                        Text("non enregistré")
+                                            .font(.caption2.weight(.bold))
+                                            .padding(.horizontal, 8)
+                                            .padding(.vertical, 4)
+                                            .background(themeManager.theme.accent.opacity(0.18))
+                                            .foregroundStyle(themeManager.theme.accent)
+                                            .clipShape(Capsule())
+                                    }
 
                                     Image(systemName: "chevron.right")
                                         .font(.subheadline.weight(.semibold))
@@ -98,4 +109,3 @@ struct SettingsView: View {
             .environmentObject(ThemeManager(default: .aetherionDark))
     }
 }
-

@@ -1,5 +1,5 @@
 // === File : Aetherion/App/AppContainerView.swift
-// Date: 2025-09-04
+// Date: 2025-09-14
 
 import SwiftUI
 
@@ -38,7 +38,7 @@ struct AppContainerView: View {
         case .contacts:
             ContactsView()
         case .settings:
-            SettingsView()
+            SettingsMenuView()   // ✅ remplace SettingsView()
         }
     }
 }

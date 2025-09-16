@@ -1,5 +1,7 @@
 // === File: Core/Services/FileStorageService.swift
 // Rôle: accès simple aux fichiers/ressources utilisateur (Documents)
+// Notes (patch):
+// - Plus de `first!` : fallback sur /tmp si nécessaire.
 
 import Foundation
 
@@ -7,7 +9,12 @@ enum FileStorageService {
 
     /// URL du dossier Documents de l’app (sandbox utilisateur)
     static var documentsURL: URL {
-        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fm = FileManager.default
+        if let u = fm.urls(for: .documentDirectory, in: .userDomainMask).first {
+            return u
+        }
+        // Fallback robuste (préviews/tests)
+        return URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
     }
 
     /// Liste le contenu de Documents (fichiers et dossiers de 1er niveau)

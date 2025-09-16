@@ -70,3 +70,11 @@ Aetherion.xcodeproj/project.pbxproj.bak*
 # - Aetherion.xcodeproj/project.xcworkspace/contents.xcworkspacedata
 # - Aetherion.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 # - Sources Swift, Resources (Assets.xcassets, Localization, Themes/BuiltIn), Docs, scripts *.sh
+
+# ---- Backups / parasites
+*.bak
+*.bak.*
+*.disabled
+*.broken-*
+Aetherion/Archive/
+build.log

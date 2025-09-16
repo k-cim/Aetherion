@@ -8,98 +8,137 @@
 
 /* Begin PBXBuildFile section */
 		770F11EB2E62DF80004D78C8 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11EA2E62DF6F004D78C8 /* ThemeManager.swift */; };
-		770F11ED2E62DFBA004D78C8 /* ThemedModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11EC2E62DFB4004D78C8 /* ThemedModifiers.swift */; };
-		770F11EF2E62E092004D78C8 /* ThemedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11EE2E62E083004D78C8 /* ThemedCard.swift */; };
 		770F11F12E62E314004D78C8 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11F02E62E300004D78C8 /* SettingsRow.swift */; };
-		770F11F62E676213004D78C8 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11F52E6761FA004D78C8 /* Contact.swift */; };
 		770F11FF2E67648B004D78C8 /* ContactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F11FE2E67647D004D78C8 /* ContactsService.swift */; };
 		770F12012E677021004D78C8 /* BackgroundColorConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12002E676FF2004D78C8 /* BackgroundColorConfigView.swift */; };
 		770F12032E677113004D78C8 /* ThemePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12022E677104004D78C8 /* ThemePersistence.swift */; };
-		770F12182E677FDA004D78C8 /* SettingsOptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12172E677FD4004D78C8 /* SettingsOptionRow.swift */; };
 		770F121A2E678229004D78C8 /* ThemedHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12192E678220004D78C8 /* ThemedHeader.swift */; };
 		770F121C2E6782FD004D78C8 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F121B2E6782F7004D78C8 /* BannerView.swift */; };
-		770F121E2E6A2133004D78C8 /* ThemedHeaderTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F121D2E6A2126004D78C8 /* ThemedHeaderTitle.swift */; };
 		770F12262E6B5AD8004D78C8 /* ColoredSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12252E6B5ACA004D78C8 /* ColoredSlider.swift */; };
-		770F12282E6B61A2004D78C8 /* AppContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12272E6B619C004D78C8 /* AppContainerView.swift */; };
-		770F122A2E6B7FE9004D78C8 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F12292E6B7FD0004D78C8 /* NavigationCoordinator.swift */; };
 		771403762E7087660007B9DE /* ThemeDefautlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771403752E70875B0007B9DE /* ThemeDefautlView.swift */; };
 		7714038F2E71F13F0007B9DE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7714038E2E71F13F0007B9DE /* Theme.swift */; };
 		771403912E74BA020007B9DE /* ThemeOverrideDiskStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771403902E74B9F50007B9DE /* ThemeOverrideDiskStore.swift */; };
-		77350EC32E624C0E00491B6D /* ThemeStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC22E624BFE00491B6D /* ThemeStyles.swift */; };
 		77350EC52E624DF500491B6D /* ThemeConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350EC42E624DDF00491B6D /* ThemeConfigView.swift */; };
 		77350ECB2E62674300491B6D /* SettingsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350ECA2E62673400491B6D /* SettingsMenuView.swift */; };
 		77350ECF2E626B3400491B6D /* ThemedBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77350ECE2E626B2D00491B6D /* ThemedBottomBar.swift */; };
 		77855A272E620F7900B5B80F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A182E620F7900B5B80F /* SettingsView.swift */; };
-		77855A282E620F7900B5B80F /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A1C2E620F7900B5B80F /* ShareViewModel.swift */; };
-		77855A292E620F7900B5B80F /* VaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A1F2E620F7900B5B80F /* VaultViewModel.swift */; };
-		77855A2B2E620F7900B5B80F /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A0E2E620F7900B5B80F /* StorageService.swift */; };
-		77855A2C2E620F7900B5B80F /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A162E620F7900B5B80F /* OnboardingViewModel.swift */; };
 		77855A2D2E620F7900B5B80F /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A232E620F7900B5B80F /* PrimaryButton.swift */; };
 		77855A2E2E620F7900B5B80F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A132E620F7900B5B80F /* HomeViewModel.swift */; };
 		77855A2F2E620F7900B5B80F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A152E620F7900B5B80F /* OnboardingView.swift */; };
 		77855A302E620F7900B5B80F /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A0C2E620F7900B5B80F /* Asset.swift */; };
 		77855A312E620F7900B5B80F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A122E620F7900B5B80F /* HomeView.swift */; };
-		77855A322E620F7900B5B80F /* AetherionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A0A2E620F7900B5B80F /* AetherionApp.swift */; };
 		77855A332E620F7900B5B80F /* VaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A1E2E620F7900B5B80F /* VaultView.swift */; };
 		77855A342E620F7900B5B80F /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A1B2E620F7900B5B80F /* ShareView.swift */; };
 		77855A562E6228AF00B5B80F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77855A522E6228AF00B5B80F /* Localizable.strings */; };
 		77855A572E6228AF00B5B80F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77855A542E6228AF00B5B80F /* Assets.xcassets */; };
 		77855A592E622F0800B5B80F /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A582E622ED500B5B80F /* DashboardViewModel.swift */; };
 		77855A5B2E622F2F00B5B80F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77855A5A2E622F1F00B5B80F /* DashboardView.swift */; };
-		77A2FC622E6D6FB1005735FF /* FontCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A2FC612E6D6FAA005735FF /* FontCoding.swift */; };
 		77A2FC682E6D726C005735FF /* ThemeCatalog+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A2FC672E6D7269005735FF /* ThemeCatalog+List.swift */; };
 		77A36CCF2E60F04B005C2D20 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 77A36CCE2E60F04B005C2D20 /* ZIPFoundation */; };
 		77A36CD22E60F057005C2D20 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 77A36CD12E60F057005C2D20 /* Algorithms */; };
-		77F2F0C12E6290BC00B7D5FF /* AeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F2F0C02E6290A700B7D5FF /* AeTheme.swift */; };
+		77AE0C7B2E758DC200322EB3 /* ThemeBundleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AE0C7A2E758DBE00322EB3 /* ThemeBundleStore.swift */; };
+		77AE0C7D2E7590B700322EB3 /* UserThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AE0C7C2E7590B000322EB3 /* UserThemeStore.swift */; };
+		77C423EC2E76966800303EAA /* AetherionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C423E82E76966800303EAA /* AetherionApp.swift */; };
+		77C423ED2E76966800303EAA /* AppContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C423E92E76966800303EAA /* AppContainerView.swift */; };
+		77C423EE2E76966800303EAA /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C423EA2E76966800303EAA /* NavigationCoordinator.swift */; };
+		77C423F92E76A7C100303EAA /* aetherionNeo.json in Resources */ = {isa = PBXBuildFile; fileRef = 77C423F52E76A7C100303EAA /* aetherionNeo.json */; };
+		77C423FA2E76A7C100303EAA /* aetherionSepia.json in Resources */ = {isa = PBXBuildFile; fileRef = 77C423F62E76A7C100303EAA /* aetherionSepia.json */; };
+		77C423FB2E76A7C100303EAA /* aetherionBlue.json in Resources */ = {isa = PBXBuildFile; fileRef = 77C423F12E76A7C100303EAA /* aetherionBlue.json */; };
+		77C423FC2E76A7C100303EAA /* aetherionEmerald.json in Resources */ = {isa = PBXBuildFile; fileRef = 77C423F32E76A7C100303EAA /* aetherionEmerald.json */; };
+		77C423FD2E76A7C100303EAA /* aetherionDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 77C423F22E76A7C100303EAA /* aetherionDark.json */; };
+		77C423FE2E76A7C100303EAA /* aetherionLight.json in Resources */ = {isa = PBXBuildFile; fileRef = 77C423F42E76A7C100303EAA /* aetherionLight.json */; };
+		77C424002E771B1800303EAA /* ThemeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C423FF2E771B0B00303EAA /* ThemeKit.swift */; };
+		77C424042E77379B00303EAA /* FileStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771403922E7541BB0007B9DE /* FileStorageService.swift */; };
+		77C424072E77437400303EAA /* ThemedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C424062E77435600303EAA /* ThemedSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		770F11EA2E62DF6F004D78C8 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
-		770F11EC2E62DFB4004D78C8 /* ThemedModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedModifiers.swift; sourceTree = "<group>"; };
-		770F11EE2E62E083004D78C8 /* ThemedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedCard.swift; sourceTree = "<group>"; };
 		770F11F02E62E300004D78C8 /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
-		770F11F52E6761FA004D78C8 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		770F11FE2E67647D004D78C8 /* ContactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsService.swift; sourceTree = "<group>"; };
 		770F12002E676FF2004D78C8 /* BackgroundColorConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorConfigView.swift; sourceTree = "<group>"; };
 		770F12022E677104004D78C8 /* ThemePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePersistence.swift; sourceTree = "<group>"; };
-		770F12172E677FD4004D78C8 /* SettingsOptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOptionRow.swift; sourceTree = "<group>"; };
 		770F12192E678220004D78C8 /* ThemedHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedHeader.swift; sourceTree = "<group>"; };
 		770F121B2E6782F7004D78C8 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
-		770F121D2E6A2126004D78C8 /* ThemedHeaderTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedHeaderTitle.swift; sourceTree = "<group>"; };
 		770F12252E6B5ACA004D78C8 /* ColoredSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredSlider.swift; sourceTree = "<group>"; };
-		770F12272E6B619C004D78C8 /* AppContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainerView.swift; sourceTree = "<group>"; };
-		770F12292E6B7FD0004D78C8 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
 		771403752E70875B0007B9DE /* ThemeDefautlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDefautlView.swift; sourceTree = "<group>"; };
 		7714038E2E71F13F0007B9DE /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		771403902E74B9F50007B9DE /* ThemeOverrideDiskStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeOverrideDiskStore.swift; sourceTree = "<group>"; };
 		771403922E7541BB0007B9DE /* FileStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageService.swift; sourceTree = "<group>"; };
-		77350EC22E624BFE00491B6D /* ThemeStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStyles.swift; sourceTree = "<group>"; };
 		77350EC42E624DDF00491B6D /* ThemeConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeConfigView.swift; sourceTree = "<group>"; };
 		77350ECA2E62673400491B6D /* SettingsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuView.swift; sourceTree = "<group>"; };
 		77350ECE2E626B2D00491B6D /* ThemedBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedBottomBar.swift; sourceTree = "<group>"; };
 		77855A092E620F3000B5B80F /* Aetherion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aetherion.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		77855A0A2E620F7900B5B80F /* AetherionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherionApp.swift; sourceTree = "<group>"; };
 		77855A0C2E620F7900B5B80F /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
-		77855A0E2E620F7900B5B80F /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		77855A122E620F7900B5B80F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		77855A132E620F7900B5B80F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		77855A152E620F7900B5B80F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		77855A162E620F7900B5B80F /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		77855A182E620F7900B5B80F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		77855A1B2E620F7900B5B80F /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
-		77855A1C2E620F7900B5B80F /* ShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
 		77855A1E2E620F7900B5B80F /* VaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultView.swift; sourceTree = "<group>"; };
-		77855A1F2E620F7900B5B80F /* VaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultViewModel.swift; sourceTree = "<group>"; };
 		77855A232E620F7900B5B80F /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		77855A502E6228AF00B5B80F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77855A512E6228AF00B5B80F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77855A542E6228AF00B5B80F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77855A582E622ED500B5B80F /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		77855A5A2E622F1F00B5B80F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		77A2FC612E6D6FAA005735FF /* FontCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCoding.swift; sourceTree = "<group>"; };
 		77A2FC672E6D7269005735FF /* ThemeCatalog+List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeCatalog+List.swift"; sourceTree = "<group>"; };
-		77F2F0C02E6290A700B7D5FF /* AeTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeTheme.swift; sourceTree = "<group>"; };
+		77AE0C7A2E758DBE00322EB3 /* ThemeBundleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeBundleStore.swift; sourceTree = "<group>"; };
+		77AE0C7C2E7590B000322EB3 /* UserThemeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserThemeStore.swift; sourceTree = "<group>"; };
+		77C423E82E76966800303EAA /* AetherionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AetherionApp.swift; sourceTree = "<group>"; };
+		77C423E92E76966800303EAA /* AppContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainerView.swift; sourceTree = "<group>"; };
+		77C423EA2E76966800303EAA /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
+		77C423F12E76A7C100303EAA /* aetherionBlue.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = aetherionBlue.json; sourceTree = "<group>"; };
+		77C423F22E76A7C100303EAA /* aetherionDark.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = aetherionDark.json; sourceTree = "<group>"; };
+		77C423F32E76A7C100303EAA /* aetherionEmerald.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = aetherionEmerald.json; sourceTree = "<group>"; };
+		77C423F42E76A7C100303EAA /* aetherionLight.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = aetherionLight.json; sourceTree = "<group>"; };
+		77C423F52E76A7C100303EAA /* aetherionNeo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = aetherionNeo.json; sourceTree = "<group>"; };
+		77C423F62E76A7C100303EAA /* aetherionSepia.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = aetherionSepia.json; sourceTree = "<group>"; };
+		77C423FF2E771B0B00303EAA /* ThemeKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeKit.swift; sourceTree = "<group>"; };
+		77C424062E77435600303EAA /* ThemedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		77AE0C852E75DE1E00322EB3 /* Exceptions for "Docs" folder in "Aetherion" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"App/AetherionApp-short.md",
+				App/AetherionApp.md,
+				App/AppContainerView.md,
+				"App/NavigationCoordinator-short.md",
+				"core/ThemeManager-short.md",
+				"Features/Settings/hemeDefautlView-short.md",
+				"Features/Settings/ThemeConfigView-short.md",
+				"Resources/Localizable-short.md",
+				Resources/Localizable.md,
+				"UI/Components/BannerView-short.md",
+				UI/Components/BannerView.md,
+				"UI/Components/ColoredSlider-short.md",
+			);
+			target = 7741F0532E60E2F2001B7800 /* Aetherion */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		77AE0C862E75DE1E00322EB3 /* Exceptions for "Docs" folder in "Compile Sources" phase from "Aetherion" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 7741F0502E60E2F2001B7800 /* Sources */;
+			membershipExceptions = (
+				"App/AetherionApp-short.md",
+				App/AetherionApp.md,
+				App/AppContainerView.md,
+				"App/NavigationCoordinator-short.md",
+				"core/ThemeManager-short.md",
+				"Features/Settings/hemeDefautlView-short.md",
+				"Features/Settings/ThemeConfigView-short.md",
+				"Resources/Localizable-short.md",
+				Resources/Localizable.md,
+				"UI/Components/BannerView-short.md",
+				UI/Components/BannerView.md,
+				"UI/Components/ColoredSlider-short.md",
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		770F11F72E67625F004D78C8 /* Contacts */ = {
@@ -117,9 +156,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		77A2FC502E6D6B2C005735FF /* Themes */ = {
+		77AE0C7E2E75DBDA00322EB3 /* Docs */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Themes;
+			exceptions = (
+				77AE0C852E75DE1E00322EB3 /* Exceptions for "Docs" folder in "Aetherion" target */,
+				77AE0C862E75DE1E00322EB3 /* Exceptions for "Docs" folder in "Compile Sources" phase from "Aetherion" target */,
+			);
+			path = Docs;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -141,24 +184,14 @@
 			isa = PBXGroup;
 			children = (
 				77855A092E620F3000B5B80F /* Aetherion.app */,
+				77AE0C7E2E75DBDA00322EB3 /* Docs */,
 				77855A262E620F7900B5B80F /* Aetherion */,
 			);
-			sourceTree = "<group>";
-		};
-		77855A0B2E620F7900B5B80F /* App */ = {
-			isa = PBXGroup;
-			children = (
-				770F12292E6B7FD0004D78C8 /* NavigationCoordinator.swift */,
-				770F12272E6B619C004D78C8 /* AppContainerView.swift */,
-				77855A0A2E620F7900B5B80F /* AetherionApp.swift */,
-			);
-			path = App;
 			sourceTree = "<group>";
 		};
 		77855A0D2E620F7900B5B80F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				770F11F52E6761FA004D78C8 /* Contact.swift */,
 				77855A0C2E620F7900B5B80F /* Asset.swift */,
 			);
 			path = Models;
@@ -167,12 +200,12 @@
 		77855A0F2E620F7900B5B80F /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				770F11FE2E67647D004D78C8 /* ContactsService.swift */,
 				771403922E7541BB0007B9DE /* FileStorageService.swift */,
+				77AE0C7A2E758DBE00322EB3 /* ThemeBundleStore.swift */,
 				771403902E74B9F50007B9DE /* ThemeOverrideDiskStore.swift */,
 				770F12022E677104004D78C8 /* ThemePersistence.swift */,
-				770F11FE2E67647D004D78C8 /* ContactsService.swift */,
-				77F2F0C02E6290A700B7D5FF /* AeTheme.swift */,
-				77855A0E2E620F7900B5B80F /* StorageService.swift */,
+				77AE0C7C2E7590B000322EB3 /* UserThemeStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -190,9 +223,9 @@
 		77855A142E620F7900B5B80F /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				77855A122E620F7900B5B80F /* HomeView.swift */,
 				77855A5A2E622F1F00B5B80F /* DashboardView.swift */,
 				77855A582E622ED500B5B80F /* DashboardViewModel.swift */,
-				77855A122E620F7900B5B80F /* HomeView.swift */,
 				77855A132E620F7900B5B80F /* HomeViewModel.swift */,
 			);
 			path = Home;
@@ -202,7 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				77855A152E620F7900B5B80F /* OnboardingView.swift */,
-				77855A162E620F7900B5B80F /* OnboardingViewModel.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -210,11 +242,11 @@
 		77855A1A2E620F7900B5B80F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				771403752E70875B0007B9DE /* ThemeDefautlView.swift */,
 				770F12002E676FF2004D78C8 /* BackgroundColorConfigView.swift */,
 				77350ECA2E62673400491B6D /* SettingsMenuView.swift */,
-				77350EC42E624DDF00491B6D /* ThemeConfigView.swift */,
 				77855A182E620F7900B5B80F /* SettingsView.swift */,
+				77350EC42E624DDF00491B6D /* ThemeConfigView.swift */,
+				771403752E70875B0007B9DE /* ThemeDefautlView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -223,7 +255,6 @@
 			isa = PBXGroup;
 			children = (
 				77855A1B2E620F7900B5B80F /* ShareView.swift */,
-				77855A1C2E620F7900B5B80F /* ShareViewModel.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -232,7 +263,6 @@
 			isa = PBXGroup;
 			children = (
 				77855A1E2E620F7900B5B80F /* VaultView.swift */,
-				77855A1F2E620F7900B5B80F /* VaultViewModel.swift */,
 			);
 			path = Vault;
 			sourceTree = "<group>";
@@ -253,15 +283,13 @@
 		77855A242E620F7900B5B80F /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				770F12252E6B5ACA004D78C8 /* ColoredSlider.swift */,
-				770F121D2E6A2126004D78C8 /* ThemedHeaderTitle.swift */,
+				77C424062E77435600303EAA /* ThemedSlider.swift */,
+				770F11F02E62E300004D78C8 /* SettingsRow.swift */,
+				77855A232E620F7900B5B80F /* PrimaryButton.swift */,
 				770F121B2E6782F7004D78C8 /* BannerView.swift */,
 				770F12192E678220004D78C8 /* ThemedHeader.swift */,
-				770F12172E677FD4004D78C8 /* SettingsOptionRow.swift */,
-				770F11F02E62E300004D78C8 /* SettingsRow.swift */,
-				770F11EE2E62E083004D78C8 /* ThemedCard.swift */,
+				770F12252E6B5ACA004D78C8 /* ColoredSlider.swift */,
 				77350ECE2E626B2D00491B6D /* ThemedBottomBar.swift */,
-				77855A232E620F7900B5B80F /* PrimaryButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -279,7 +307,7 @@
 		77855A262E620F7900B5B80F /* Aetherion */ = {
 			isa = PBXGroup;
 			children = (
-				77855A0B2E620F7900B5B80F /* App */,
+				77C423EB2E76966800303EAA /* App */,
 				77855A112E620F7900B5B80F /* Core */,
 				77855A212E620F7900B5B80F /* Features */,
 				77855A552E6228AF00B5B80F /* Resources */,
@@ -291,12 +319,10 @@
 		77855A442E6222C800B5B80F /* Theme */ = {
 			isa = PBXGroup;
 			children = (
+				77C423FF2E771B0B00303EAA /* ThemeKit.swift */,
+				770F11EA2E62DF6F004D78C8 /* ThemeManager.swift */,
 				7714038E2E71F13F0007B9DE /* Theme.swift */,
 				77A2FC672E6D7269005735FF /* ThemeCatalog+List.swift */,
-				77A2FC612E6D6FAA005735FF /* FontCoding.swift */,
-				770F11EC2E62DFB4004D78C8 /* ThemedModifiers.swift */,
-				770F11EA2E62DF6F004D78C8 /* ThemeManager.swift */,
-				77350EC22E624BFE00491B6D /* ThemeStyles.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -312,11 +338,42 @@
 		77855A552E6228AF00B5B80F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				77A2FC502E6D6B2C005735FF /* Themes */,
+				77C423F82E76A7C100303EAA /* Themes */,
 				77855A532E6228AF00B5B80F /* Localization */,
 				77855A542E6228AF00B5B80F /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		77C423EB2E76966800303EAA /* App */ = {
+			isa = PBXGroup;
+			children = (
+				77C423EA2E76966800303EAA /* NavigationCoordinator.swift */,
+				77C423E82E76966800303EAA /* AetherionApp.swift */,
+				77C423E92E76966800303EAA /* AppContainerView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		77C423F72E76A7C100303EAA /* BuiltIn */ = {
+			isa = PBXGroup;
+			children = (
+				77C423F12E76A7C100303EAA /* aetherionBlue.json */,
+				77C423F22E76A7C100303EAA /* aetherionDark.json */,
+				77C423F32E76A7C100303EAA /* aetherionEmerald.json */,
+				77C423F42E76A7C100303EAA /* aetherionLight.json */,
+				77C423F52E76A7C100303EAA /* aetherionNeo.json */,
+				77C423F62E76A7C100303EAA /* aetherionSepia.json */,
+			);
+			path = BuiltIn;
+			sourceTree = "<group>";
+		};
+		77C423F82E76A7C100303EAA /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				77C423F72E76A7C100303EAA /* BuiltIn */,
+			);
+			path = Themes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,7 +395,7 @@
 				770F11F72E67625F004D78C8 /* Contacts */,
 				770F121F2E6A24C6004D78C8 /* Navigation */,
 				771403932E75452B0007B9DE /* Extensions */,
-				77A2FC502E6D6B2C005735FF /* Themes */,
+				77AE0C7E2E75DBDA00322EB3 /* Docs */,
 			);
 			name = Aetherion;
 			packageProductDependencies = (
@@ -394,6 +451,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				77855A562E6228AF00B5B80F /* Localizable.strings in Resources */,
+				77C423F92E76A7C100303EAA /* aetherionNeo.json in Resources */,
+				77C423FA2E76A7C100303EAA /* aetherionSepia.json in Resources */,
+				77C423FB2E76A7C100303EAA /* aetherionBlue.json in Resources */,
+				77C423FC2E76A7C100303EAA /* aetherionEmerald.json in Resources */,
+				77C423FD2E76A7C100303EAA /* aetherionDark.json in Resources */,
+				77C423FE2E76A7C100303EAA /* aetherionLight.json in Resources */,
 				77855A572E6228AF00B5B80F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,22 +468,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				770F11F62E676213004D78C8 /* Contact.swift in Sources */,
-				770F12282E6B61A2004D78C8 /* AppContainerView.swift in Sources */,
-				770F11EF2E62E092004D78C8 /* ThemedCard.swift in Sources */,
 				77350ECB2E62674300491B6D /* SettingsMenuView.swift in Sources */,
 				770F12012E677021004D78C8 /* BackgroundColorConfigView.swift in Sources */,
-				770F11ED2E62DFBA004D78C8 /* ThemedModifiers.swift in Sources */,
 				77855A272E620F7900B5B80F /* SettingsView.swift in Sources */,
 				77855A5B2E622F2F00B5B80F /* DashboardView.swift in Sources */,
-				77855A282E620F7900B5B80F /* ShareViewModel.swift in Sources */,
+				77C423EC2E76966800303EAA /* AetherionApp.swift in Sources */,
+				77C423ED2E76966800303EAA /* AppContainerView.swift in Sources */,
+				77C423EE2E76966800303EAA /* NavigationCoordinator.swift in Sources */,
 				770F12032E677113004D78C8 /* ThemePersistence.swift in Sources */,
-				77855A292E620F7900B5B80F /* VaultViewModel.swift in Sources */,
 				77350ECF2E626B3400491B6D /* ThemedBottomBar.swift in Sources */,
 				77350EC52E624DF500491B6D /* ThemeConfigView.swift in Sources */,
-				77855A2B2E620F7900B5B80F /* StorageService.swift in Sources */,
-				77A2FC622E6D6FB1005735FF /* FontCoding.swift in Sources */,
-				77855A2C2E620F7900B5B80F /* OnboardingViewModel.swift in Sources */,
 				770F11EB2E62DF80004D78C8 /* ThemeManager.swift in Sources */,
 				770F121A2E678229004D78C8 /* ThemedHeader.swift in Sources */,
 				77855A592E622F0800B5B80F /* DashboardViewModel.swift in Sources */,
@@ -431,18 +488,17 @@
 				771403762E7087660007B9DE /* ThemeDefautlView.swift in Sources */,
 				77855A2E2E620F7900B5B80F /* HomeViewModel.swift in Sources */,
 				77855A2F2E620F7900B5B80F /* OnboardingView.swift in Sources */,
-				770F12182E677FDA004D78C8 /* SettingsOptionRow.swift in Sources */,
-				77F2F0C12E6290BC00B7D5FF /* AeTheme.swift in Sources */,
-				77350EC32E624C0E00491B6D /* ThemeStyles.swift in Sources */,
+				77C424072E77437400303EAA /* ThemedSlider.swift in Sources */,
+				77C424002E771B1800303EAA /* ThemeKit.swift in Sources */,
 				771403912E74BA020007B9DE /* ThemeOverrideDiskStore.swift in Sources */,
-				770F122A2E6B7FE9004D78C8 /* NavigationCoordinator.swift in Sources */,
+				77C424042E77379B00303EAA /* FileStorageService.swift in Sources */,
 				77855A302E620F7900B5B80F /* Asset.swift in Sources */,
-				770F121E2E6A2133004D78C8 /* ThemedHeaderTitle.swift in Sources */,
+				77AE0C7B2E758DC200322EB3 /* ThemeBundleStore.swift in Sources */,
 				7714038F2E71F13F0007B9DE /* Theme.swift in Sources */,
+				77AE0C7D2E7590B700322EB3 /* UserThemeStore.swift in Sources */,
 				77A2FC682E6D726C005735FF /* ThemeCatalog+List.swift in Sources */,
 				77855A312E620F7900B5B80F /* HomeView.swift in Sources */,
 				770F121C2E6782FD004D78C8 /* BannerView.swift in Sources */,
-				77855A322E620F7900B5B80F /* AetherionApp.swift in Sources */,
 				77855A332E620F7900B5B80F /* VaultView.swift in Sources */,
 				77855A342E620F7900B5B80F /* ShareView.swift in Sources */,
 			);
@@ -595,6 +651,7 @@
 				DEVELOPMENT_TEAM = RZ34BVV4QP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSContactsUsageDescription = "<key>NSContactsUsageDescription</key>\n<string>Nous utilisons vos contacts pour les afficher et vous permettre de partager plus facilement.</string>";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -624,6 +681,7 @@
 				DEVELOPMENT_TEAM = RZ34BVV4QP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSContactsUsageDescription = "<key>NSContactsUsageDescription</key>\n<string>Nous utilisons vos contacts pour les afficher et vous permettre de partager plus facilement.</string>";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -1,16 +1,43 @@
-// === File: ThemedHeader.swift
-// Version: 1.0
-// Date: 2025-08-30
-// Description: Reusable top banner (logo + title) with gradient background, consistent across screens.
+// === File: UI/Components/ThemedHeader.swift
+// Description: Contient 2 variantes de header.
+// - ThemedHeaderTitle : simple texte aligné à gauche (utilisé pour titres d’écran).
+// - ThemedHeader      : bannière complète (icône + titre + fond gradient/plain).
 // Author: K-Cim
 
 import SwiftUI
 
+// MARK: - Simple Title Header
+// Utilisation : pour un titre d’écran basique ("Paramètres", "Accueil", etc.)
+struct ThemedHeaderTitle: View {
+    @EnvironmentObject private var themeManager: ThemeManager
+    let text: String
+
+    var body: some View {
+        HStack {
+            Text(text)
+                .font(.system(size: 28, weight: .bold, design: .rounded))
+                .foregroundStyle(themeManager.theme.headerColor)
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
+    }
+}
+
+// MARK: - Full Banner Header
+// Utilisation : pour un header plus graphique (Onboarding, Share, etc.)
+// Style contrôlé par enum `Style` (gradient ou plain)
 struct ThemedHeader: View {
     @EnvironmentObject private var themeManager: ThemeManager
 
-    let systemIcon: String?
+    enum Style {
+        case gradient
+        case plain
+    }
+
     let title: String
+    var systemIcon: String? = nil
+    var style: Style = .gradient
 
     var body: some View {
         HStack(spacing: 12) {
@@ -27,19 +54,27 @@ struct ThemedHeader: View {
             Spacer()
         }
         .padding(.horizontal, 16)
-        .frame(height: 64) // hauteur cohérente avec Accueil
-        .background(
+        .frame(height: 64)
+        .background(backgroundView)
+        .cornerRadius(themeManager.theme.cornerRadius)
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
+    }
+
+    @ViewBuilder
+    private var backgroundView: some View {
+        switch style {
+        case .plain:
+            themeManager.theme.background
+        case .gradient:
             LinearGradient(
                 colors: [
-                    Color.white.opacity(themeManager.theme.cardStartOpacity),
-                    Color.white.opacity(themeManager.theme.cardEndOpacity)
+                    themeManager.theme.cardStartColor.opacity(themeManager.theme.cardStartOpacity),
+                    themeManager.theme.cardEndColor.opacity(themeManager.theme.cardEndOpacity)
                 ],
                 startPoint: .leading,
                 endPoint: .trailing
             )
-        )
-        .cornerRadius(themeManager.theme.cornerRadius)
-        .padding(.horizontal, 16)
-        .padding(.top, 8)
+        }
     }
 }
