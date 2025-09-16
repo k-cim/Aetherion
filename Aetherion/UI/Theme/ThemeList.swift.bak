@@ -1,8 +1,0 @@
-// === File: UI/Theme/ThemeList.swift
-import Foundation
-
-struct ThemeListItem: Identifiable, Equatable, Hashable {
-    let id: String
-    let displayName: String
-    let fileURL: URL
-}
