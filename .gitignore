@@ -78,3 +78,15 @@ Aetherion.xcodeproj/project.pbxproj.bak*
 *.broken-*
 Aetherion/Archive/
 build.log
+
+# ---- Xcode/macOS
+.DS_Store
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+**/*.xcworkspace/xcuserdata/
+**/*.xcodeproj/project.xcworkspace/xcuserdata/
+DerivedData/
+build/
+.build/
+.swiftpm/xcode/
